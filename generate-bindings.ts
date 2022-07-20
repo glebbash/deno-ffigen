@@ -1,4 +1,5 @@
 import { CEnum, CFunction, CSymbol, CType, CTypeDef } from "./types.ts";
+import "./safe-ffi.ts"; // include this file in deno cache
 
 export async function generateBindings(
   symbolsFile: string,
