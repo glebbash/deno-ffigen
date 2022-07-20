@@ -1,5 +1,8 @@
 import { CEnum, CFunction, CSymbol, CType, CTypeDef } from "./types.ts";
 import "./safe-ffi.ts"; // include this file in deno cache
+import * as path from 'https://deno.land/std@0.102.0/path/mod.ts';
+
+const MODULE_DIR = path.dirname(path.fromFileUrl(Deno.mainModule));
 
 export async function generateBindings(
   symbolsFile: string,
@@ -31,7 +34,7 @@ export async function generateBindings(
   const modGen = buildMod(libName);
 
   await Deno.mkdir(outputFolder, { recursive: true }).catch();
-  await Deno.copyFile(`safe-ffi.ts`, `${outputFolder}/safe-ffi.ts`);
+  await Deno.copyFile(path.resolve(MODULE_DIR, `safe-ffi.ts`), `${outputFolder}/safe-ffi.ts`);
 
   const allTypesSource = `// deno-lint-ignore-file\n` +
     `import { Opaque, Pointer, FnPointer, StructPointer } from "./safe-ffi.ts";\n\n` +
