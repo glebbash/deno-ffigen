@@ -1,7 +1,4 @@
 import { CEnum, CFunction, CSymbol, CType, CTypeDef } from "./types.ts";
-import "./safe-ffi.ts"; // include this file in deno cache
-
-const DIRNAME = new URL('.', import.meta.url).pathname;
 
 export async function generateBindings(
   symbolsFile: string,
@@ -33,7 +30,7 @@ export async function generateBindings(
   const modGen = buildMod(libName);
 
   await Deno.mkdir(outputFolder, { recursive: true }).catch();
-  await Deno.copyFile(`${DIRNAME}/safe-ffi.ts`, `${outputFolder}/safe-ffi.ts`);
+  await Deno.writeTextFile(`${outputFolder}/safe-ffi.ts`, buildSafeFFI());
 
   const allTypesSource = `// deno-lint-ignore-file\n` +
     `import { Opaque, Pointer, FnPointer, StructPointer } from "./safe-ffi.ts";\n\n` +
@@ -186,6 +183,24 @@ function buildFunctions(
   }).join("\n\n");
 
   return { functionsInfo, functionsSource };
+}
+
+function buildSafeFFI() {
+  return `// deno-lint-ignore
+export type Opaque<BaseType, BrandType = unknown> = BaseType & {
+  readonly [Symbols.base]: BaseType;
+  readonly [Symbols.brand]: BrandType;
+};
+
+export type Pointer<T> = Opaque<bigint, T>;
+export type FnPointer<T> = Pointer<T>;
+export type StructPointer<T> = Pointer<T>;
+
+namespace Symbols {
+  export declare const base: unique symbol;
+  export declare const brand: unique symbol;
+}
+`;
 }
 
 function uniqueByKey<T>(values: T[], key: keyof T): T[] {
