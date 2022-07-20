@@ -33,7 +33,7 @@ export async function generateBindings(
   const modGen = buildMod(libName);
 
   await Deno.mkdir(outputFolder, { recursive: true }).catch();
-  await Deno.copyFile(path.resolve(DIRNAME, `safe-ffi.ts`), `${outputFolder}/safe-ffi.ts`);
+  await Deno.copyFile(`${DIRNAME}/safe-ffi.ts`, `${outputFolder}/safe-ffi.ts`);
 
   const allTypesSource = `// deno-lint-ignore-file\n` +
     `import { Opaque, Pointer, FnPointer, StructPointer } from "./safe-ffi.ts";\n\n` +
