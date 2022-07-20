@@ -186,7 +186,7 @@ function buildFunctions(
 }
 
 function buildSafeFFI() {
-  return `// deno-lint-ignore
+  return `// deno-lint-ignore-file
 export type Opaque<BaseType, BrandType = unknown> = BaseType & {
   readonly [Symbols.base]: BaseType;
   readonly [Symbols.brand]: BrandType;
