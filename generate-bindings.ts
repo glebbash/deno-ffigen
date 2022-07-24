@@ -18,13 +18,18 @@ export async function generateBindings(
 
   const libSymbols = routeTypeDefs(rawLibSymbols);
 
-  const { typesSource } = buildTypes(libSymbols, libPrefix, baseSourcePath);
+  const { typesSource, typesInfo } = buildTypes(
+    libSymbols,
+    libPrefix,
+    baseSourcePath,
+  );
   const { enumsSource } = buildEnums(libSymbols, libPrefix, baseSourcePath);
   const { functionsInfo, functionsSource } = buildFunctions(
     libSymbols,
     exposedFunctions,
     libPrefix,
     baseSourcePath,
+    typesInfo,
   );
   const symbolsSource = buildSymbols(functionsInfo, libName);
   const modGen = buildMod(libName);
@@ -94,7 +99,7 @@ function buildTypes(
     const name = t.name.slice(libPrefix.length);
     return [name, {
       location: linkLocationToSource(t.location, baseSourcePath),
-      type: getTypeInfo(t.type, name, libPrefix),
+      type: getTypeInfo(t.type, name, libPrefix, {} as never),
     }];
   }));
 
@@ -143,6 +148,7 @@ function buildFunctions(
   exposedFunctions: string[],
   libPrefix: string,
   baseSourcePath: string,
+  typesInfo: TypesInfo,
 ): { functionsInfo: FunctionsInfo; functionsSource: string } {
   const allFunctions = libSymbols.filter((s): s is CFunction =>
     s.tag === "function"
@@ -155,11 +161,16 @@ function buildFunctions(
   console.log("Total functions:", functions.length);
 
   const functionsInfo = new Map(functions.map((f) => {
-    const resultType = getTypeInfo(f["return-type"], null, libPrefix);
+    const resultType = getTypeInfo(
+      f["return-type"],
+      null,
+      libPrefix,
+      typesInfo,
+    );
     const parametersInfo = f.parameters.map((p, index) => {
       return {
         name: p.name || "_" + index,
-        type: getTypeInfo(p.type, null, libPrefix),
+        type: getTypeInfo(p.type, null, libPrefix, typesInfo),
       };
     });
 
@@ -273,10 +284,35 @@ function getTypeInfo(
   type: CType,
   name: string | null,
   libPrefix: string,
+  typesInfo: TypesInfo,
 ): { tsType: string; nativeType: string } {
+  if (type.tag.startsWith(libPrefix)) {
+    const actualType = typesInfo.get(type.tag.substring(libPrefix.length));
+
+    // TODO: check if the type here can only be enum
+    if (actualType === undefined) {
+      return {
+        tsType: `${libPrefix}.${type.tag.substring(libPrefix.length)}`,
+        nativeType: "i32",
+      };
+    }
+
+    return {
+      tsType: `${libPrefix}.${type.tag.substring(libPrefix.length)}`,
+      nativeType: actualType.type.nativeType,
+    };
+  }
+
+  if (type.tag === ":enum") {
+    return {
+      tsType: `${libPrefix}.${type.name.substring(libPrefix.length)}`,
+      nativeType: "i32",
+    };
+  }
+
   if (type.tag === ":pointer") {
     if (name === null) {
-      const rec = getTypeInfo(type.type, null, libPrefix);
+      const rec = getTypeInfo(type.type, null, libPrefix, typesInfo);
 
       return { tsType: `Pointer<${rec.tsType}>`, nativeType: "pointer" };
     }
@@ -354,21 +390,6 @@ function getTypeInfo(
     (type.tag === ":unsigned-long-long" && type["bit-size"] === 64)
   ) {
     return { tsType: `bigint`, nativeType: "u64" };
-  }
-
-  if (type.tag === ":enum") {
-    return {
-      tsType: `${libPrefix}.${type.name.substring(libPrefix.length)}`,
-      nativeType: "i32",
-    };
-  }
-
-  if (type.tag.startsWith(libPrefix)) {
-    // FIXME: update native type
-    return {
-      tsType: `${libPrefix}.${type.tag.substring(libPrefix.length)}`,
-      nativeType: "pointer",
-    };
   }
 
   throw new Error(`Unknown type ${JSON.stringify({ type, name })}`);
