@@ -275,8 +275,14 @@ function getTypeInfo(
   libPrefix: string,
 ): { tsType: string; nativeType: string } {
   if (type.tag === ":pointer") {
+    if (name === null) {
+      const rec = getTypeInfo(type.type, null, libPrefix);
+
+      return { tsType: `Pointer<${rec.tsType}>`, nativeType: "pointer" };
+    }
+
     return {
-      tsType: name !== null ? `Pointer<"${name}">` : "Pointer",
+      tsType: `Pointer<"${name}">`,
       nativeType: "pointer",
     };
   }
@@ -288,10 +294,28 @@ function getTypeInfo(
     };
   }
 
-  if (type.tag === "struct") {
-    // TODO: handle structs
+  // TODO: handle structs
+  if (type.tag === ":struct") {
+    if (name !== null) {
+      throw new Error(
+        "Struct has multiple names: " + JSON.stringify({ type, name }),
+      );
+    }
+
     return {
-      tsType: name !== null ? `StructPointer<"${name}">` : "StructPointer",
+      tsType: `StructPointer<"${type.name}">`,
+      nativeType: "pointer",
+    };
+  }
+
+  // TODO: handle structs
+  if (type.tag === "struct") {
+    if (name === null) {
+      throw new Error("Struct does not have a name: " + JSON.stringify(type));
+    }
+
+    return {
+      tsType: `StructPointer<"${name}">`,
       nativeType: "pointer",
     };
   }

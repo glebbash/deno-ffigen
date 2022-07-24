@@ -52,8 +52,9 @@ export type CType =
   | { tag: ":char"; "bit-size": number; "bit-alignment": number }
   | { tag: ":enum"; id: number; name: string }
   | { tag: ":function-pointer" }
-  | { tag: ":pointer" }
+  | { tag: ":pointer"; type: CType }
   | { tag: "struct" }
+  | { tag: ":struct"; name: string }
   | { tag: "size_t" }
   | { tag: "int64_t" }
   | { tag: "uint64_t" }
