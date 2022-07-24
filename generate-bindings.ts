@@ -4,6 +4,7 @@ type GenerationContext = {
   libPrefix: string;
   baseSourcePath: string;
   typesInfo: TypesInfo;
+  enumNames: Set<string>;
 };
 
 type TypesInfo = Map<string, {
@@ -30,6 +31,7 @@ export async function generateBindings(
   const ctx: GenerationContext = {
     libPrefix,
     baseSourcePath,
+    enumNames: new Set(),
     typesInfo: new Map(),
   };
 
@@ -49,7 +51,9 @@ export async function generateBindings(
   );
   ctx.typesInfo = typesInfo;
 
-  const { enumsSource } = buildEnums(libSymbols, ctx);
+  const { enumsSource, enumsInfo } = buildEnums(libSymbols, ctx);
+  ctx.enumNames = enumsInfo;
+
   const { functionsInfo, functionsSource } = buildFunctions(
     libSymbols,
     exposedFunctions,
@@ -294,20 +298,26 @@ function getTypeInfo(
   ctx: GenerationContext,
 ): { tsType: string; nativeType: string } {
   if (type.tag.startsWith(ctx.libPrefix)) {
+    const typeName = type.tag.substring(ctx.libPrefix.length);
     const actualType = ctx.typesInfo.get(
-      type.tag.substring(ctx.libPrefix.length),
+      typeName,
     );
 
-    // TODO: check if the type here can only be enum
     if (actualType === undefined) {
+      if (!ctx.enumNames.has(typeName)) {
+        throw new Error(
+          "Unexpected typedef: " + JSON.stringify({ type, name }),
+        );
+      }
+
       return {
-        tsType: `${ctx.libPrefix}.${type.tag.substring(ctx.libPrefix.length)}`,
+        tsType: `${ctx.libPrefix}.${typeName}`,
         nativeType: "i32",
       };
     }
 
     return {
-      tsType: `${ctx.libPrefix}.${type.tag.substring(ctx.libPrefix.length)}`,
+      tsType: `${ctx.libPrefix}.${typeName}`,
       nativeType: actualType.type.nativeType,
     };
   }
