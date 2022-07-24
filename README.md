@@ -1,11 +1,19 @@
 # deno-ffigen - FFI Bindings generator for Deno
 
-STATUS: **experimental**, tested on LLVM-C@15 only
-
 This tool will create typesafe bindings for a C library. You need to provide a C
 header file and shared library file.
 
-Prerequisites:
+## Status
+
+**EXPERIMENTAL**
+
+Bindings generation tested for:
+
+- LLVM-C, versions (14, 15)
+
+Try it out though, it might just work.
+
+## Prerequisites
 
 - [docker](https://www.docker.com/)
 - [deno](https://deno.land/)
