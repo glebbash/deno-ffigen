@@ -1,5 +1,16 @@
 import { CEnum, CFunction, CSymbol, CType, CTypeDef } from "./types.ts";
 
+type GenerationContext = {
+  libPrefix: string;
+  baseSourcePath: string;
+  typesInfo: TypesInfo;
+};
+
+type TypesInfo = Map<string, {
+  location: string;
+  type: { tsType: string; nativeType: string };
+}>;
+
 export async function generateBindings(
   symbolsFile: string,
   exposedFunctions: string[],
@@ -8,6 +19,12 @@ export async function generateBindings(
   baseSourcePath: string,
   libPrefix = libName,
 ) {
+  const ctx: GenerationContext = {
+    libPrefix,
+    baseSourcePath,
+    typesInfo: new Map(),
+  };
+
   const allSymbols: CSymbol[] = JSON.parse(
     Deno.readTextFileSync(symbolsFile),
   );
@@ -20,16 +37,15 @@ export async function generateBindings(
 
   const { typesSource, typesInfo } = buildTypes(
     libSymbols,
-    libPrefix,
-    baseSourcePath,
+    ctx,
   );
-  const { enumsSource } = buildEnums(libSymbols, libPrefix, baseSourcePath);
+  ctx.typesInfo = typesInfo;
+
+  const { enumsSource } = buildEnums(libSymbols, ctx);
   const { functionsInfo, functionsSource } = buildFunctions(
     libSymbols,
     exposedFunctions,
-    libPrefix,
-    baseSourcePath,
-    typesInfo,
+    ctx,
   );
   const symbolsSource = buildSymbols(functionsInfo, libName);
   const modGen = buildMod(libName);
@@ -82,24 +98,18 @@ export function load${libName}(path: string): typeof ${libName} {
 }\n`;
 }
 
-type TypesInfo = Map<string, {
-  location: string;
-  type: { tsType: string; nativeType: string };
-}>;
-
 function buildTypes(
   libSymbols: CSymbol[],
-  libPrefix: string,
-  baseSourcePath: string,
+  ctx: GenerationContext,
 ): { typesInfo: TypesInfo; typesSource: string } {
   const typeDefs = libSymbols.filter((s): s is CTypeDef => s.tag === "typedef");
   console.log("Total types:", typeDefs.length);
 
   const typesInfo = new Map(typeDefs.map((t) => {
-    const name = t.name.slice(libPrefix.length);
+    const name = t.name.slice(ctx.libPrefix.length);
     return [name, {
-      location: linkLocationToSource(t.location, baseSourcePath),
-      type: getTypeInfo(t.type, name, libPrefix, {} as never),
+      location: linkLocationToSource(t.location, ctx.baseSourcePath),
+      type: getTypeInfo(t.type, name, ctx),
     }];
   }));
 
@@ -113,21 +123,24 @@ function buildTypes(
 
 function buildEnums(
   libSymbols: CSymbol[],
-  libPrefix: string,
-  baseSourcePath: string,
+  ctx: GenerationContext,
 ): { enumsInfo: Set<string>; enumsSource: string } {
   const enums = libSymbols.filter((s): s is CEnum => s.tag === "enum");
   console.log("Total enums:", enums.length);
 
-  const enumsInfo = new Set(enums.map((e) => e.name.slice(libPrefix.length)));
+  const enumsInfo = new Set(
+    enums.map((e) => e.name.slice(ctx.libPrefix.length)),
+  );
 
   const enumsSource = enums.map((e) => {
     const fieldsGen = e.fields
       .map((f) => `    ${f.name} = ${f.value}`)
       .join(",\n");
 
-    return `  /** ${linkLocationToSource(e.location, baseSourcePath)} */\n` +
-      `  export enum ${e.name.slice(libPrefix.length)} {\n` +
+    return `  /** ${
+      linkLocationToSource(e.location, ctx.baseSourcePath)
+    } */\n` +
+      `  export enum ${e.name.slice(ctx.libPrefix.length)} {\n` +
       `${fieldsGen},\n` +
       `  }`;
   }).join("\n\n");
@@ -146,9 +159,7 @@ type FunctionsInfo = Map<string, {
 function buildFunctions(
   libSymbols: CSymbol[],
   exposedFunctions: string[],
-  libPrefix: string,
-  baseSourcePath: string,
-  typesInfo: TypesInfo,
+  ctx: GenerationContext,
 ): { functionsInfo: FunctionsInfo; functionsSource: string } {
   const allFunctions = libSymbols.filter((s): s is CFunction =>
     s.tag === "function"
@@ -161,25 +172,22 @@ function buildFunctions(
   console.log("Total functions:", functions.length);
 
   const functionsInfo = new Map(functions.map((f) => {
-    const resultType = getTypeInfo(
-      f["return-type"],
-      null,
-      libPrefix,
-      typesInfo,
-    );
+    const resultType = getTypeInfo(f["return-type"], null, ctx);
     const parametersInfo = f.parameters.map((p, index) => {
       return {
         name: p.name || "_" + index,
-        type: getTypeInfo(p.type, null, libPrefix, typesInfo),
+        type: getTypeInfo(p.type, null, ctx),
       };
     });
 
     return [
       f.name,
       {
-        name: f.name.slice(libPrefix.length),
-        location: linkLocationToSource(f.location, baseSourcePath),
-        tsType: `export declare function ${f.name.slice(libPrefix.length)}(${
+        name: f.name.slice(ctx.libPrefix.length),
+        location: linkLocationToSource(f.location, ctx.baseSourcePath),
+        tsType: `export declare function ${
+          f.name.slice(ctx.libPrefix.length)
+        }(${
           parametersInfo.map((p) => `${p.name}: ${p.type.tsType}`).join(", ")
         }): ${resultType.tsType};`,
         parameters: parametersInfo.map((p) => p.type.nativeType),
@@ -283,36 +291,37 @@ function routeTypeDefs(symbols: CSymbol[]): CSymbol[] {
 function getTypeInfo(
   type: CType,
   name: string | null,
-  libPrefix: string,
-  typesInfo: TypesInfo,
+  ctx: GenerationContext,
 ): { tsType: string; nativeType: string } {
-  if (type.tag.startsWith(libPrefix)) {
-    const actualType = typesInfo.get(type.tag.substring(libPrefix.length));
+  if (type.tag.startsWith(ctx.libPrefix)) {
+    const actualType = ctx.typesInfo.get(
+      type.tag.substring(ctx.libPrefix.length),
+    );
 
     // TODO: check if the type here can only be enum
     if (actualType === undefined) {
       return {
-        tsType: `${libPrefix}.${type.tag.substring(libPrefix.length)}`,
+        tsType: `${ctx.libPrefix}.${type.tag.substring(ctx.libPrefix.length)}`,
         nativeType: "i32",
       };
     }
 
     return {
-      tsType: `${libPrefix}.${type.tag.substring(libPrefix.length)}`,
+      tsType: `${ctx.libPrefix}.${type.tag.substring(ctx.libPrefix.length)}`,
       nativeType: actualType.type.nativeType,
     };
   }
 
   if (type.tag === ":enum") {
     return {
-      tsType: `${libPrefix}.${type.name.substring(libPrefix.length)}`,
+      tsType: `${ctx.libPrefix}.${type.name.substring(ctx.libPrefix.length)}`,
       nativeType: "i32",
     };
   }
 
   if (type.tag === ":pointer") {
     if (name === null) {
-      const rec = getTypeInfo(type.type, null, libPrefix, typesInfo);
+      const rec = getTypeInfo(type.type, null, ctx);
 
       return { tsType: `Pointer<${rec.tsType}>`, nativeType: "pointer" };
     }
