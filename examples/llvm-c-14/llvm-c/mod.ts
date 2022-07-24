@@ -1,9 +1,9 @@
 import { LLVM } from "./types.ts";
 import { LLVM_SYMBOLS } from "./symbols.ts";
 
-export type LLVM = typeof LLVM;
+export { LLVM } from "./types.ts";
 
-export function loadLLVM(path: string): LLVM {
+export function loadLLVM(path: string): typeof LLVM {
   const lib = Deno.dlopen(path, LLVM_SYMBOLS);
 
   return { ...lib.symbols, close: () => lib.close() } as never;

@@ -68,9 +68,9 @@ function buildMod(libName: string): string {
   return `import { ${libName} } from "./types.ts";
 import { ${libName}_SYMBOLS } from "./symbols.ts";
 
-export type ${libName} = typeof ${libName};
+export { ${libName} } from "./types.ts";
 
-export function load${libName}(path: string): ${libName} {
+export function load${libName}(path: string): typeof ${libName} {
   const lib = Deno.dlopen(path, ${libName}_SYMBOLS);
 
   return { ...lib.symbols, close: () => lib.close() } as never;
