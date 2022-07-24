@@ -11,6 +11,14 @@ type TypesInfo = Map<string, {
   type: { tsType: string; nativeType: string };
 }>;
 
+type FunctionsInfo = Map<string, {
+  name: string;
+  location: string;
+  tsType: string;
+  parameters: string[];
+  result: string;
+}>;
+
 export async function generateBindings(
   symbolsFile: string,
   exposedFunctions: string[],
@@ -147,14 +155,6 @@ function buildEnums(
 
   return { enumsInfo, enumsSource };
 }
-
-type FunctionsInfo = Map<string, {
-  name: string;
-  location: string;
-  tsType: string;
-  parameters: string[];
-  result: string;
-}>;
 
 function buildFunctions(
   libSymbols: CSymbol[],
