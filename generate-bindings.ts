@@ -155,11 +155,11 @@ function buildFunctions(
   console.log("Total functions:", functions.length);
 
   const functionsInfo = new Map(functions.map((f) => {
-    const resultType = getTypeInfo(f["return-type"], f.name, libPrefix);
+    const resultType = getTypeInfo(f["return-type"], null, libPrefix);
     const parametersInfo = f.parameters.map((p, index) => {
       return {
         name: p.name || "_" + index,
-        type: getTypeInfo(p.type, p.name, libPrefix),
+        type: getTypeInfo(p.type, null, libPrefix),
       };
     });
 
@@ -192,9 +192,9 @@ export type Opaque<BaseType, BrandType = unknown> = BaseType & {
   readonly [Symbols.brand]: BrandType;
 };
 
-export type Pointer<T> = Opaque<bigint, T>;
-export type FnPointer<T> = Pointer<T>;
-export type StructPointer<T> = Pointer<T>;
+export type Pointer<T = string> = Opaque<bigint, T>;
+export type FnPointer<T = string> = Pointer<T>;
+export type StructPointer<T = string> = Pointer<T>;
 
 namespace Symbols {
   export declare const base: unique symbol;
@@ -271,24 +271,33 @@ function routeTypeDefs(symbols: CSymbol[]): CSymbol[] {
 
 function getTypeInfo(
   type: CType,
-  name: string,
+  name: string | null,
   libPrefix: string,
 ): { tsType: string; nativeType: string } {
-  if (type.tag === ":void") {
-    return { tsType: "void", nativeType: "void" };
-  }
-
   if (type.tag === ":pointer") {
-    return { tsType: `Pointer<"${name}">`, nativeType: "pointer" };
+    return {
+      tsType: name !== null ? `Pointer<"${name}">` : "Pointer",
+      nativeType: "pointer",
+    };
   }
 
   if (type.tag === ":function-pointer") {
-    return { tsType: `FnPointer<"${name}">`, nativeType: "function" };
+    return {
+      tsType: name !== null ? `FnPointer<"${name}">` : "FnPointer",
+      nativeType: "function",
+    };
   }
 
   if (type.tag === "struct") {
     // TODO: handle structs
-    return { tsType: `StructPointer<"${name}">`, nativeType: "pointer" };
+    return {
+      tsType: name !== null ? `StructPointer<"${name}">` : "StructPointer",
+      nativeType: "pointer",
+    };
+  }
+
+  if (type.tag === ":void") {
+    return { tsType: "void", nativeType: "void" };
   }
 
   if (type.tag === "size_t") {

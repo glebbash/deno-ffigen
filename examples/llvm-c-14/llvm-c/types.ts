@@ -845,7 +845,7 @@ export namespace LLVM {
   }
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Analysis.h#L44 */
-  export declare function VerifyModule(M: LLVM.ModuleRef, Action: LLVM.VerifierFailureAction, OutMessage: Pointer<"OutMessage">): LLVM.Bool;
+  export declare function VerifyModule(M: LLVM.ModuleRef, Action: LLVM.VerifierFailureAction, OutMessage: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Analysis.h#L49 */
   export declare function VerifyFunction(Fn: LLVM.ValueRef, Action: LLVM.VerifierFailureAction): LLVM.Bool;
@@ -857,31 +857,31 @@ export namespace LLVM {
   export declare function ViewFunctionCFGOnly(Fn: LLVM.ValueRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/BitReader.h#L39 */
-  export declare function ParseBitcode(MemBuf: LLVM.MemoryBufferRef, OutModule: Pointer<"OutModule">, OutMessage: Pointer<"OutMessage">): LLVM.Bool;
+  export declare function ParseBitcode(MemBuf: LLVM.MemoryBufferRef, OutModule: Pointer, OutMessage: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/BitReader.h#L44 */
-  export declare function ParseBitcode2(MemBuf: LLVM.MemoryBufferRef, OutModule: Pointer<"OutModule">): LLVM.Bool;
+  export declare function ParseBitcode2(MemBuf: LLVM.MemoryBufferRef, OutModule: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/BitReader.h#L48 */
-  export declare function ParseBitcodeInContext(ContextRef: LLVM.ContextRef, MemBuf: LLVM.MemoryBufferRef, OutModule: Pointer<"OutModule">, OutMessage: Pointer<"OutMessage">): LLVM.Bool;
+  export declare function ParseBitcodeInContext(ContextRef: LLVM.ContextRef, MemBuf: LLVM.MemoryBufferRef, OutModule: Pointer, OutMessage: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/BitReader.h#L52 */
-  export declare function ParseBitcodeInContext2(ContextRef: LLVM.ContextRef, MemBuf: LLVM.MemoryBufferRef, OutModule: Pointer<"OutModule">): LLVM.Bool;
+  export declare function ParseBitcodeInContext2(ContextRef: LLVM.ContextRef, MemBuf: LLVM.MemoryBufferRef, OutModule: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/BitReader.h#L60 */
-  export declare function GetBitcodeModuleInContext(ContextRef: LLVM.ContextRef, MemBuf: LLVM.MemoryBufferRef, OutM: Pointer<"OutM">, OutMessage: Pointer<"OutMessage">): LLVM.Bool;
+  export declare function GetBitcodeModuleInContext(ContextRef: LLVM.ContextRef, MemBuf: LLVM.MemoryBufferRef, OutM: Pointer, OutMessage: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/BitReader.h#L66 */
-  export declare function GetBitcodeModuleInContext2(ContextRef: LLVM.ContextRef, MemBuf: LLVM.MemoryBufferRef, OutM: Pointer<"OutM">): LLVM.Bool;
+  export declare function GetBitcodeModuleInContext2(ContextRef: LLVM.ContextRef, MemBuf: LLVM.MemoryBufferRef, OutM: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/BitReader.h#L71 */
-  export declare function GetBitcodeModule(MemBuf: LLVM.MemoryBufferRef, OutM: Pointer<"OutM">, OutMessage: Pointer<"OutMessage">): LLVM.Bool;
+  export declare function GetBitcodeModule(MemBuf: LLVM.MemoryBufferRef, OutM: Pointer, OutMessage: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/BitReader.h#L74 */
-  export declare function GetBitcodeModule2(MemBuf: LLVM.MemoryBufferRef, OutM: Pointer<"OutM">): LLVM.Bool;
+  export declare function GetBitcodeModule2(MemBuf: LLVM.MemoryBufferRef, OutM: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/BitWriter.h#L37 */
-  export declare function WriteBitcodeToFile(M: LLVM.ModuleRef, Path: Pointer<"Path">): number;
+  export declare function WriteBitcodeToFile(M: LLVM.ModuleRef, Path: Pointer): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/BitWriter.h#L40 */
   export declare function WriteBitcodeToFD(M: LLVM.ModuleRef, FD: number, ShouldClose: number, Unbuffered: number): number;
@@ -893,7 +893,7 @@ export namespace LLVM {
   export declare function WriteBitcodeToMemoryBuffer(M: LLVM.ModuleRef): LLVM.MemoryBufferRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Comdat.h#L46 */
-  export declare function GetOrInsertComdat(M: LLVM.ModuleRef, Name: Pointer<"Name">): LLVM.ComdatRef;
+  export declare function GetOrInsertComdat(M: LLVM.ModuleRef, Name: Pointer): LLVM.ComdatRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Comdat.h#L53 */
   export declare function GetComdat(V: LLVM.ValueRef): LLVM.ComdatRef;
@@ -923,10 +923,10 @@ export namespace LLVM {
   export declare function Shutdown(): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L478 */
-  export declare function CreateMessage(Message: Pointer<"Message">): Pointer<"LLVMCreateMessage">;
+  export declare function CreateMessage(Message: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L479 */
-  export declare function DisposeMessage(Message: Pointer<"Message">): void;
+  export declare function DisposeMessage(Message: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L502 */
   export declare function ContextCreate(): LLVM.ContextRef;
@@ -935,16 +935,16 @@ export namespace LLVM {
   export declare function GetGlobalContext(): LLVM.ContextRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L512 */
-  export declare function ContextSetDiagnosticHandler(C: LLVM.ContextRef, Handler: LLVM.DiagnosticHandler, DiagnosticContext: Pointer<"DiagnosticContext">): void;
+  export declare function ContextSetDiagnosticHandler(C: LLVM.ContextRef, Handler: LLVM.DiagnosticHandler, DiagnosticContext: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L519 */
   export declare function ContextGetDiagnosticHandler(C: LLVM.ContextRef): LLVM.DiagnosticHandler;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L524 */
-  export declare function ContextGetDiagnosticContext(C: LLVM.ContextRef): Pointer<"LLVMContextGetDiagnosticContext">;
+  export declare function ContextGetDiagnosticContext(C: LLVM.ContextRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L531 */
-  export declare function ContextSetYieldCallback(C: LLVM.ContextRef, Callback: LLVM.YieldCallback, OpaqueHandle: Pointer<"OpaqueHandle">): void;
+  export declare function ContextSetYieldCallback(C: LLVM.ContextRef, Callback: LLVM.YieldCallback, OpaqueHandle: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L539 */
   export declare function ContextShouldDiscardValueNames(C: LLVM.ContextRef): LLVM.Bool;
@@ -956,19 +956,19 @@ export namespace LLVM {
   export declare function ContextDispose(C: LLVM.ContextRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L565 */
-  export declare function GetDiagInfoDescription(DI: LLVM.DiagnosticInfoRef): Pointer<"LLVMGetDiagInfoDescription">;
+  export declare function GetDiagInfoDescription(DI: LLVM.DiagnosticInfoRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L572 */
   export declare function GetDiagInfoSeverity(DI: LLVM.DiagnosticInfoRef): LLVM.DiagnosticSeverity;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L574 */
-  export declare function GetMDKindIDInContext(C: LLVM.ContextRef, Name: Pointer<"Name">, SLen: number): number;
+  export declare function GetMDKindIDInContext(C: LLVM.ContextRef, Name: Pointer, SLen: number): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L576 */
-  export declare function GetMDKindID(Name: Pointer<"Name">, SLen: number): number;
+  export declare function GetMDKindID(Name: Pointer, SLen: number): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L589 */
-  export declare function GetEnumAttributeKindForName(Name: Pointer<"Name">, SLen: number): number;
+  export declare function GetEnumAttributeKindForName(Name: Pointer, SLen: number): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L590 */
   export declare function GetLastEnumAttributeKind(): number;
@@ -989,13 +989,13 @@ export namespace LLVM {
   export declare function GetTypeAttributeValue(A: LLVM.AttributeRef): LLVM.TypeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L623 */
-  export declare function CreateStringAttribute(C: LLVM.ContextRef, K: Pointer<"K">, KLength: number, V: Pointer<"V">, VLength: number): LLVM.AttributeRef;
+  export declare function CreateStringAttribute(C: LLVM.ContextRef, K: Pointer, KLength: number, V: Pointer, VLength: number): LLVM.AttributeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L630 */
-  export declare function GetStringAttributeKind(A: LLVM.AttributeRef, Length: Pointer<"Length">): Pointer<"LLVMGetStringAttributeKind">;
+  export declare function GetStringAttributeKind(A: LLVM.AttributeRef, Length: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L635 */
-  export declare function GetStringAttributeValue(A: LLVM.AttributeRef, Length: Pointer<"Length">): Pointer<"LLVMGetStringAttributeValue">;
+  export declare function GetStringAttributeValue(A: LLVM.AttributeRef, Length: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L640 */
   export declare function IsEnumAttribute(A: LLVM.AttributeRef): LLVM.Bool;
@@ -1007,13 +1007,13 @@ export namespace LLVM {
   export declare function IsTypeAttribute(A: LLVM.AttributeRef): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L647 */
-  export declare function GetTypeByName2(C: LLVM.ContextRef, Name: Pointer<"Name">): LLVM.TypeRef;
+  export declare function GetTypeByName2(C: LLVM.ContextRef, Name: Pointer): LLVM.TypeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L672 */
-  export declare function ModuleCreateWithName(ModuleID: Pointer<"ModuleID">): LLVM.ModuleRef;
+  export declare function ModuleCreateWithName(ModuleID: Pointer): LLVM.ModuleRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L680 */
-  export declare function ModuleCreateWithNameInContext(ModuleID: Pointer<"ModuleID">, C: LLVM.ContextRef): LLVM.ModuleRef;
+  export declare function ModuleCreateWithNameInContext(ModuleID: Pointer, C: LLVM.ContextRef): LLVM.ModuleRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L685 */
   export declare function CloneModule(M: LLVM.ModuleRef): LLVM.ModuleRef;
@@ -1022,79 +1022,79 @@ export namespace LLVM {
   export declare function DisposeModule(M: LLVM.ModuleRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L703 */
-  export declare function GetModuleIdentifier(M: LLVM.ModuleRef, Len: Pointer<"Len">): Pointer<"LLVMGetModuleIdentifier">;
+  export declare function GetModuleIdentifier(M: LLVM.ModuleRef, Len: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L713 */
-  export declare function SetModuleIdentifier(M: LLVM.ModuleRef, Ident: Pointer<"Ident">, Len: number): void;
+  export declare function SetModuleIdentifier(M: LLVM.ModuleRef, Ident: Pointer, Len: number): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L723 */
-  export declare function GetSourceFileName(M: LLVM.ModuleRef, Len: Pointer<"Len">): Pointer<"LLVMGetSourceFileName">;
+  export declare function GetSourceFileName(M: LLVM.ModuleRef, Len: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L734 */
-  export declare function SetSourceFileName(M: LLVM.ModuleRef, Name: Pointer<"Name">, Len: number): void;
+  export declare function SetSourceFileName(M: LLVM.ModuleRef, Name: Pointer, Len: number): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L745 */
-  export declare function GetDataLayoutStr(M: LLVM.ModuleRef): Pointer<"LLVMGetDataLayoutStr">;
+  export declare function GetDataLayoutStr(M: LLVM.ModuleRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L746 */
-  export declare function GetDataLayout(M: LLVM.ModuleRef): Pointer<"LLVMGetDataLayout">;
+  export declare function GetDataLayout(M: LLVM.ModuleRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L753 */
-  export declare function SetDataLayout(M: LLVM.ModuleRef, DataLayoutStr: Pointer<"DataLayoutStr">): void;
+  export declare function SetDataLayout(M: LLVM.ModuleRef, DataLayoutStr: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L760 */
-  export declare function GetTarget(M: LLVM.ModuleRef): Pointer<"LLVMGetTarget">;
+  export declare function GetTarget(M: LLVM.ModuleRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L767 */
-  export declare function SetTarget(M: LLVM.ModuleRef, Triple: Pointer<"Triple">): void;
+  export declare function SetTarget(M: LLVM.ModuleRef, Triple: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L776 */
-  export declare function CopyModuleFlagsMetadata(M: LLVM.ModuleRef, Len: Pointer<"Len">): Pointer<"LLVMCopyModuleFlagsMetadata">;
+  export declare function CopyModuleFlagsMetadata(M: LLVM.ModuleRef, Len: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L781 */
-  export declare function DisposeModuleFlagsMetadata(Entries: Pointer<"Entries">): void;
+  export declare function DisposeModuleFlagsMetadata(Entries: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L789 */
-  export declare function ModuleFlagEntriesGetFlagBehavior(Entries: Pointer<"Entries">, Index: number): LLVM.ModuleFlagBehavior;
+  export declare function ModuleFlagEntriesGetFlagBehavior(Entries: Pointer, Index: number): LLVM.ModuleFlagBehavior;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L797 */
-  export declare function ModuleFlagEntriesGetKey(Entries: Pointer<"Entries">, Index: number, Len: Pointer<"Len">): Pointer<"LLVMModuleFlagEntriesGetKey">;
+  export declare function ModuleFlagEntriesGetKey(Entries: Pointer, Index: number, Len: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L805 */
-  export declare function ModuleFlagEntriesGetMetadata(Entries: Pointer<"Entries">, Index: number): LLVM.MetadataRef;
+  export declare function ModuleFlagEntriesGetMetadata(Entries: Pointer, Index: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L814 */
-  export declare function GetModuleFlag(M: LLVM.ModuleRef, Key: Pointer<"Key">, KeyLen: number): LLVM.MetadataRef;
+  export declare function GetModuleFlag(M: LLVM.ModuleRef, Key: Pointer, KeyLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L823 */
-  export declare function AddModuleFlag(M: LLVM.ModuleRef, Behavior: LLVM.ModuleFlagBehavior, Key: Pointer<"Key">, KeyLen: number, Val: LLVM.MetadataRef): void;
+  export declare function AddModuleFlag(M: LLVM.ModuleRef, Behavior: LLVM.ModuleFlagBehavior, Key: Pointer, KeyLen: number, Val: LLVM.MetadataRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L832 */
   export declare function DumpModule(M: LLVM.ModuleRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L840 */
-  export declare function PrintModuleToFile(M: LLVM.ModuleRef, Filename: Pointer<"Filename">, ErrorMessage: Pointer<"ErrorMessage">): LLVM.Bool;
+  export declare function PrintModuleToFile(M: LLVM.ModuleRef, Filename: Pointer, ErrorMessage: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L849 */
-  export declare function PrintModuleToString(M: LLVM.ModuleRef): Pointer<"LLVMPrintModuleToString">;
+  export declare function PrintModuleToString(M: LLVM.ModuleRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L856 */
-  export declare function GetModuleInlineAsm(M: LLVM.ModuleRef, Len: Pointer<"Len">): Pointer<"LLVMGetModuleInlineAsm">;
+  export declare function GetModuleInlineAsm(M: LLVM.ModuleRef, Len: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L863 */
-  export declare function SetModuleInlineAsm2(M: LLVM.ModuleRef, Asm: Pointer<"Asm">, Len: number): void;
+  export declare function SetModuleInlineAsm2(M: LLVM.ModuleRef, Asm: Pointer, Len: number): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L870 */
-  export declare function AppendModuleInlineAsm(M: LLVM.ModuleRef, Asm: Pointer<"Asm">, Len: number): void;
+  export declare function AppendModuleInlineAsm(M: LLVM.ModuleRef, Asm: Pointer, Len: number): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L877 */
-  export declare function GetInlineAsm(Ty: LLVM.TypeRef, AsmString: Pointer<"AsmString">, AsmStringSize: number, Constraints: Pointer<"Constraints">, ConstraintsSize: number, HasSideEffects: LLVM.Bool, IsAlignStack: LLVM.Bool, Dialect: LLVM.InlineAsmDialect, CanThrow: LLVM.Bool): LLVM.ValueRef;
+  export declare function GetInlineAsm(Ty: LLVM.TypeRef, AsmString: Pointer, AsmStringSize: number, Constraints: Pointer, ConstraintsSize: number, HasSideEffects: LLVM.Bool, IsAlignStack: LLVM.Bool, Dialect: LLVM.InlineAsmDialect, CanThrow: LLVM.Bool): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L888 */
   export declare function GetModuleContext(M: LLVM.ModuleRef): LLVM.ContextRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L891 */
-  export declare function GetTypeByName(M: LLVM.ModuleRef, Name: Pointer<"Name">): LLVM.TypeRef;
+  export declare function GetTypeByName(M: LLVM.ModuleRef, Name: Pointer): LLVM.TypeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L898 */
   export declare function GetFirstNamedMetadata(M: LLVM.ModuleRef): LLVM.NamedMDNodeRef;
@@ -1109,28 +1109,28 @@ export namespace LLVM {
   export declare function GetPreviousNamedMetadata(NamedMDNode: LLVM.NamedMDNodeRef): LLVM.NamedMDNodeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L929 */
-  export declare function GetNamedMetadata(M: LLVM.ModuleRef, Name: Pointer<"Name">, NameLen: number): LLVM.NamedMDNodeRef;
+  export declare function GetNamedMetadata(M: LLVM.ModuleRef, Name: Pointer, NameLen: number): LLVM.NamedMDNodeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L938 */
-  export declare function GetOrInsertNamedMetadata(M: LLVM.ModuleRef, Name: Pointer<"Name">, NameLen: number): LLVM.NamedMDNodeRef;
+  export declare function GetOrInsertNamedMetadata(M: LLVM.ModuleRef, Name: Pointer, NameLen: number): LLVM.NamedMDNodeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L947 */
-  export declare function GetNamedMetadataName(NamedMD: LLVM.NamedMDNodeRef, NameLen: Pointer<"NameLen">): Pointer<"LLVMGetNamedMetadataName">;
+  export declare function GetNamedMetadataName(NamedMD: LLVM.NamedMDNodeRef, NameLen: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L955 */
-  export declare function GetNamedMetadataNumOperands(M: LLVM.ModuleRef, Name: Pointer<"Name">): number;
+  export declare function GetNamedMetadataNumOperands(M: LLVM.ModuleRef, Name: Pointer): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L968 */
-  export declare function GetNamedMetadataOperands(M: LLVM.ModuleRef, Name: Pointer<"Name">, Dest: Pointer<"Dest">): void;
+  export declare function GetNamedMetadataOperands(M: LLVM.ModuleRef, Name: Pointer, Dest: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L977 */
-  export declare function AddNamedMetadataOperand(M: LLVM.ModuleRef, Name: Pointer<"Name">, Val: LLVM.ValueRef): void;
+  export declare function AddNamedMetadataOperand(M: LLVM.ModuleRef, Name: Pointer, Val: LLVM.ValueRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L988 */
-  export declare function GetDebugLocDirectory(Val: LLVM.ValueRef, Length: Pointer<"Length">): Pointer<"LLVMGetDebugLocDirectory">;
+  export declare function GetDebugLocDirectory(Val: LLVM.ValueRef, Length: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L998 */
-  export declare function GetDebugLocFilename(Val: LLVM.ValueRef, Length: Pointer<"Length">): Pointer<"LLVMGetDebugLocFilename">;
+  export declare function GetDebugLocFilename(Val: LLVM.ValueRef, Length: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1008 */
   export declare function GetDebugLocLine(Val: LLVM.ValueRef): number;
@@ -1139,10 +1139,10 @@ export namespace LLVM {
   export declare function GetDebugLocColumn(Val: LLVM.ValueRef): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1023 */
-  export declare function AddFunction(M: LLVM.ModuleRef, Name: Pointer<"Name">, FunctionTy: LLVM.TypeRef): LLVM.ValueRef;
+  export declare function AddFunction(M: LLVM.ModuleRef, Name: Pointer, FunctionTy: LLVM.TypeRef): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1033 */
-  export declare function GetNamedFunction(M: LLVM.ModuleRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function GetNamedFunction(M: LLVM.ModuleRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1040 */
   export declare function GetFirstFunction(M: LLVM.ModuleRef): LLVM.ValueRef;
@@ -1157,7 +1157,7 @@ export namespace LLVM {
   export declare function GetPreviousFunction(Fn: LLVM.ValueRef): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1066 */
-  export declare function SetModuleInlineAsm(M: LLVM.ModuleRef, Asm: Pointer<"Asm">): void;
+  export declare function SetModuleInlineAsm(M: LLVM.ModuleRef, Asm: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1106 */
   export declare function GetTypeKind(Ty: LLVM.TypeRef): LLVM.TypeKind;
@@ -1172,7 +1172,7 @@ export namespace LLVM {
   export declare function DumpType(Val: LLVM.TypeRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1137 */
-  export declare function PrintTypeToString(Val: LLVM.TypeRef): Pointer<"LLVMPrintTypeToString">;
+  export declare function PrintTypeToString(Val: LLVM.TypeRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1150 */
   export declare function Int1TypeInContext(C: LLVM.ContextRef): LLVM.TypeRef;
@@ -1262,7 +1262,7 @@ export namespace LLVM {
   export declare function PPCFP128Type(): LLVM.TypeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1246 */
-  export declare function FunctionType(ReturnType: LLVM.TypeRef, ParamTypes: Pointer<"ParamTypes">, ParamCount: number, IsVarArg: LLVM.Bool): LLVM.TypeRef;
+  export declare function FunctionType(ReturnType: LLVM.TypeRef, ParamTypes: Pointer, ParamCount: number, IsVarArg: LLVM.Bool): LLVM.TypeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1253 */
   export declare function IsFunctionVarArg(FunctionTy: LLVM.TypeRef): LLVM.Bool;
@@ -1274,28 +1274,28 @@ export namespace LLVM {
   export declare function CountParamTypes(FunctionTy: LLVM.TypeRef): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1276 */
-  export declare function GetParamTypes(FunctionTy: LLVM.TypeRef, Dest: Pointer<"Dest">): void;
+  export declare function GetParamTypes(FunctionTy: LLVM.TypeRef, Dest: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1300 */
-  export declare function StructTypeInContext(C: LLVM.ContextRef, ElementTypes: Pointer<"ElementTypes">, ElementCount: number, Packed: LLVM.Bool): LLVM.TypeRef;
+  export declare function StructTypeInContext(C: LLVM.ContextRef, ElementTypes: Pointer, ElementCount: number, Packed: LLVM.Bool): LLVM.TypeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1308 */
-  export declare function StructType(ElementTypes: Pointer<"ElementTypes">, ElementCount: number, Packed: LLVM.Bool): LLVM.TypeRef;
+  export declare function StructType(ElementTypes: Pointer, ElementCount: number, Packed: LLVM.Bool): LLVM.TypeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1316 */
-  export declare function StructCreateNamed(C: LLVM.ContextRef, Name: Pointer<"Name">): LLVM.TypeRef;
+  export declare function StructCreateNamed(C: LLVM.ContextRef, Name: Pointer): LLVM.TypeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1323 */
-  export declare function GetStructName(Ty: LLVM.TypeRef): Pointer<"LLVMGetStructName">;
+  export declare function GetStructName(Ty: LLVM.TypeRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1330 */
-  export declare function StructSetBody(StructTy: LLVM.TypeRef, ElementTypes: Pointer<"ElementTypes">, ElementCount: number, Packed: LLVM.Bool): void;
+  export declare function StructSetBody(StructTy: LLVM.TypeRef, ElementTypes: Pointer, ElementCount: number, Packed: LLVM.Bool): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1338 */
   export declare function CountStructElementTypes(StructTy: LLVM.TypeRef): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1350 */
-  export declare function GetStructElementTypes(StructTy: LLVM.TypeRef, Dest: Pointer<"Dest">): void;
+  export declare function GetStructElementTypes(StructTy: LLVM.TypeRef, Dest: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1357 */
   export declare function StructGetTypeAtIndex(StructTy: LLVM.TypeRef, i: number): LLVM.TypeRef;
@@ -1313,7 +1313,7 @@ export namespace LLVM {
   export declare function GetElementType(Ty: LLVM.TypeRef): LLVM.TypeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1407 */
-  export declare function GetSubtypes(Tp: LLVM.TypeRef, Arr: Pointer<"Arr">): void;
+  export declare function GetSubtypes(Tp: LLVM.TypeRef, Arr: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1414 */
   export declare function GetNumContainedTypes(Tp: LLVM.TypeRef): number;
@@ -1376,16 +1376,16 @@ export namespace LLVM {
   export declare function GetValueKind(Val: LLVM.ValueRef): LLVM.ValueKind;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1683 */
-  export declare function GetValueName2(Val: LLVM.ValueRef, Length: Pointer<"Length">): Pointer<"LLVMGetValueName2">;
+  export declare function GetValueName2(Val: LLVM.ValueRef, Length: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1690 */
-  export declare function SetValueName2(Val: LLVM.ValueRef, Name: Pointer<"Name">, NameLen: number): void;
+  export declare function SetValueName2(Val: LLVM.ValueRef, Name: Pointer, NameLen: number): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1697 */
   export declare function DumpValue(Val: LLVM.ValueRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1705 */
-  export declare function PrintValueToString(Val: LLVM.ValueRef): Pointer<"LLVMPrintValueToString">;
+  export declare function PrintValueToString(Val: LLVM.ValueRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1712 */
   export declare function ReplaceAllUsesWith(OldVal: LLVM.ValueRef, NewVal: LLVM.ValueRef): void;
@@ -1670,10 +1670,10 @@ export namespace LLVM {
   export declare function IsAMDString(Val: LLVM.ValueRef): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1748 */
-  export declare function GetValueName(Val: LLVM.ValueRef): Pointer<"LLVMGetValueName">;
+  export declare function GetValueName(Val: LLVM.ValueRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1750 */
-  export declare function SetValueName(Val: LLVM.ValueRef, Name: Pointer<"Name">): void;
+  export declare function SetValueName(Val: LLVM.ValueRef, Name: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1779 */
   export declare function GetFirstUse(Val: LLVM.ValueRef): LLVM.UseRef;
@@ -1721,22 +1721,22 @@ export namespace LLVM {
   export declare function ConstInt(IntTy: LLVM.TypeRef, N: bigint, SignExtend: LLVM.Bool): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1942 */
-  export declare function ConstIntOfArbitraryPrecision(IntTy: LLVM.TypeRef, NumWords: number, Words: Pointer<"Words">): LLVM.ValueRef;
+  export declare function ConstIntOfArbitraryPrecision(IntTy: LLVM.TypeRef, NumWords: number, Words: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1955 */
-  export declare function ConstIntOfString(IntTy: LLVM.TypeRef, Text: Pointer<"Text">, Radix: number): LLVM.ValueRef;
+  export declare function ConstIntOfString(IntTy: LLVM.TypeRef, Text: Pointer, Radix: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1964 */
-  export declare function ConstIntOfStringAndSize(IntTy: LLVM.TypeRef, Text: Pointer<"Text">, SLen: number, Radix: number): LLVM.ValueRef;
+  export declare function ConstIntOfStringAndSize(IntTy: LLVM.TypeRef, Text: Pointer, SLen: number, Radix: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1970 */
   export declare function ConstReal(RealTy: LLVM.TypeRef, N: bigint): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1978 */
-  export declare function ConstRealOfString(RealTy: LLVM.TypeRef, Text: Pointer<"Text">): LLVM.ValueRef;
+  export declare function ConstRealOfString(RealTy: LLVM.TypeRef, Text: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1983 */
-  export declare function ConstRealOfStringAndSize(RealTy: LLVM.TypeRef, Text: Pointer<"Text">, SLen: number): LLVM.ValueRef;
+  export declare function ConstRealOfStringAndSize(RealTy: LLVM.TypeRef, Text: Pointer, SLen: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1991 */
   export declare function ConstIntGetZExtValue(ConstantVal: LLVM.ValueRef): bigint;
@@ -1745,37 +1745,37 @@ export namespace LLVM {
   export declare function ConstIntGetSExtValue(ConstantVal: LLVM.ValueRef): bigint;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2006 */
-  export declare function ConstRealGetDouble(ConstantVal: LLVM.ValueRef, losesInfo: Pointer<"losesInfo">): bigint;
+  export declare function ConstRealGetDouble(ConstantVal: LLVM.ValueRef, losesInfo: Pointer): bigint;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2025 */
-  export declare function ConstStringInContext(C: LLVM.ContextRef, Str: Pointer<"Str">, Length: number, DontNullTerminate: LLVM.Bool): LLVM.ValueRef;
+  export declare function ConstStringInContext(C: LLVM.ContextRef, Str: Pointer, Length: number, DontNullTerminate: LLVM.Bool): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2037 */
-  export declare function ConstString(Str: Pointer<"Str">, Length: number, DontNullTerminate: LLVM.Bool): LLVM.ValueRef;
+  export declare function ConstString(Str: Pointer, Length: number, DontNullTerminate: LLVM.Bool): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2045 */
   export declare function IsConstantString(c: LLVM.ValueRef): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2052 */
-  export declare function GetAsString(c: LLVM.ValueRef, Length: Pointer<"Length">): Pointer<"LLVMGetAsString">;
+  export declare function GetAsString(c: LLVM.ValueRef, Length: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2059 */
-  export declare function ConstStructInContext(C: LLVM.ContextRef, ConstantVals: Pointer<"ConstantVals">, Count: number, Packed: LLVM.Bool): LLVM.ValueRef;
+  export declare function ConstStructInContext(C: LLVM.ContextRef, ConstantVals: Pointer, Count: number, Packed: LLVM.Bool): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2071 */
-  export declare function ConstStruct(ConstantVals: Pointer<"ConstantVals">, Count: number, Packed: LLVM.Bool): LLVM.ValueRef;
+  export declare function ConstStruct(ConstantVals: Pointer, Count: number, Packed: LLVM.Bool): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2079 */
-  export declare function ConstArray(ElementTy: LLVM.TypeRef, ConstantVals: Pointer<"ConstantVals">, Length: number): LLVM.ValueRef;
+  export declare function ConstArray(ElementTy: LLVM.TypeRef, ConstantVals: Pointer, Length: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2087 */
-  export declare function ConstNamedStruct(StructTy: LLVM.TypeRef, ConstantVals: Pointer<"ConstantVals">, Count: number): LLVM.ValueRef;
+  export declare function ConstNamedStruct(StructTy: LLVM.TypeRef, ConstantVals: Pointer, Count: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2096 */
   export declare function GetElementAsConstant(C: LLVM.ValueRef, idx: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2103 */
-  export declare function ConstVector(ScalarConstantVals: Pointer<"ScalarConstantVals">, Size: number): LLVM.ValueRef;
+  export declare function ConstVector(ScalarConstantVals: Pointer, Size: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2118 */
   export declare function GetConstOpcode(ConstantVal: LLVM.ValueRef): LLVM.Opcode;
@@ -1886,16 +1886,16 @@ export namespace LLVM {
   export declare function ConstAShr(LHSConstant: LLVM.ValueRef, RHSConstant: LLVM.ValueRef): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2156 */
-  export declare function ConstGEP(ConstantVal: LLVM.ValueRef, ConstantIndices: Pointer<"ConstantIndices">, NumIndices: number): LLVM.ValueRef;
+  export declare function ConstGEP(ConstantVal: LLVM.ValueRef, ConstantIndices: Pointer, NumIndices: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2161 */
-  export declare function ConstGEP2(Ty: LLVM.TypeRef, ConstantVal: LLVM.ValueRef, ConstantIndices: Pointer<"ConstantIndices">, NumIndices: number): LLVM.ValueRef;
+  export declare function ConstGEP2(Ty: LLVM.TypeRef, ConstantVal: LLVM.ValueRef, ConstantIndices: Pointer, NumIndices: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2163 */
-  export declare function ConstInBoundsGEP(ConstantVal: LLVM.ValueRef, ConstantIndices: Pointer<"ConstantIndices">, NumIndices: number): LLVM.ValueRef;
+  export declare function ConstInBoundsGEP(ConstantVal: LLVM.ValueRef, ConstantIndices: Pointer, NumIndices: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2168 */
-  export declare function ConstInBoundsGEP2(Ty: LLVM.TypeRef, ConstantVal: LLVM.ValueRef, ConstantIndices: Pointer<"ConstantIndices">, NumIndices: number): LLVM.ValueRef;
+  export declare function ConstInBoundsGEP2(Ty: LLVM.TypeRef, ConstantVal: LLVM.ValueRef, ConstantIndices: Pointer, NumIndices: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2171 */
   export declare function ConstTrunc(ConstantVal: LLVM.ValueRef, ToType: LLVM.TypeRef): LLVM.ValueRef;
@@ -1967,16 +1967,16 @@ export namespace LLVM {
   export declare function ConstShuffleVector(VectorAConstant: LLVM.ValueRef, VectorBConstant: LLVM.ValueRef, MaskConstant: LLVM.ValueRef): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2206 */
-  export declare function ConstExtractValue(AggConstant: LLVM.ValueRef, IdxList: Pointer<"IdxList">, NumIdx: number): LLVM.ValueRef;
+  export declare function ConstExtractValue(AggConstant: LLVM.ValueRef, IdxList: Pointer, NumIdx: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2208 */
-  export declare function ConstInsertValue(AggConstant: LLVM.ValueRef, ElementValueConstant: LLVM.ValueRef, IdxList: Pointer<"IdxList">, NumIdx: number): LLVM.ValueRef;
+  export declare function ConstInsertValue(AggConstant: LLVM.ValueRef, ElementValueConstant: LLVM.ValueRef, IdxList: Pointer, NumIdx: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2211 */
   export declare function BlockAddress(F: LLVM.ValueRef, BB: LLVM.BasicBlockRef): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2214 */
-  export declare function ConstInlineAsm(Ty: LLVM.TypeRef, AsmString: Pointer<"AsmString">, Constraints: Pointer<"Constraints">, HasSideEffects: LLVM.Bool, IsAlignStack: LLVM.Bool): LLVM.ValueRef;
+  export declare function ConstInlineAsm(Ty: LLVM.TypeRef, AsmString: Pointer, Constraints: Pointer, HasSideEffects: LLVM.Bool, IsAlignStack: LLVM.Bool): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2233 */
   export declare function GetGlobalParent(Global: LLVM.ValueRef): LLVM.ModuleRef;
@@ -1991,10 +1991,10 @@ export namespace LLVM {
   export declare function SetLinkage(Global: LLVM.ValueRef, Linkage: LLVM.Linkage): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2237 */
-  export declare function GetSection(Global: LLVM.ValueRef): Pointer<"LLVMGetSection">;
+  export declare function GetSection(Global: LLVM.ValueRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2238 */
-  export declare function SetSection(Global: LLVM.ValueRef, Section: Pointer<"Section">): void;
+  export declare function SetSection(Global: LLVM.ValueRef, Section: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2239 */
   export declare function GetVisibility(Global: LLVM.ValueRef): LLVM.Visibility;
@@ -2039,25 +2039,25 @@ export namespace LLVM {
   export declare function GlobalClearMetadata(Global: LLVM.ValueRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2318 */
-  export declare function GlobalCopyAllMetadata(Value: LLVM.ValueRef, NumEntries: Pointer<"NumEntries">): Pointer<"LLVMGlobalCopyAllMetadata">;
+  export declare function GlobalCopyAllMetadata(Value: LLVM.ValueRef, NumEntries: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2324 */
-  export declare function DisposeValueMetadataEntries(Entries: Pointer<"Entries">): void;
+  export declare function DisposeValueMetadataEntries(Entries: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2329 */
-  export declare function ValueMetadataEntriesGetKind(Entries: Pointer<"Entries">, Index: number): number;
+  export declare function ValueMetadataEntriesGetKind(Entries: Pointer, Index: number): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2337 */
-  export declare function ValueMetadataEntriesGetMetadata(Entries: Pointer<"Entries">, Index: number): LLVM.MetadataRef;
+  export declare function ValueMetadataEntriesGetMetadata(Entries: Pointer, Index: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2353 */
-  export declare function AddGlobal(M: LLVM.ModuleRef, Ty: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function AddGlobal(M: LLVM.ModuleRef, Ty: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2354 */
-  export declare function AddGlobalInAddressSpace(M: LLVM.ModuleRef, Ty: LLVM.TypeRef, Name: Pointer<"Name">, AddressSpace: number): LLVM.ValueRef;
+  export declare function AddGlobalInAddressSpace(M: LLVM.ModuleRef, Ty: LLVM.TypeRef, Name: Pointer, AddressSpace: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2357 */
-  export declare function GetNamedGlobal(M: LLVM.ModuleRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function GetNamedGlobal(M: LLVM.ModuleRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2358 */
   export declare function GetFirstGlobal(M: LLVM.ModuleRef): LLVM.ValueRef;
@@ -2105,13 +2105,13 @@ export namespace LLVM {
   export declare function SetExternallyInitialized(GlobalVar: LLVM.ValueRef, IsExtInit: LLVM.Bool): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2388 */
-  export declare function AddAlias(M: LLVM.ModuleRef, Ty: LLVM.TypeRef, Aliasee: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function AddAlias(M: LLVM.ModuleRef, Ty: LLVM.TypeRef, Aliasee: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2398 */
-  export declare function AddAlias2(M: LLVM.ModuleRef, ValueTy: LLVM.TypeRef, AddrSpace: number, Aliasee: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function AddAlias2(M: LLVM.ModuleRef, ValueTy: LLVM.TypeRef, AddrSpace: number, Aliasee: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2409 */
-  export declare function GetNamedGlobalAlias(M: LLVM.ModuleRef, Name: Pointer<"Name">, NameLen: number): LLVM.ValueRef;
+  export declare function GetNamedGlobalAlias(M: LLVM.ModuleRef, Name: Pointer, NameLen: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2417 */
   export declare function GetFirstGlobalAlias(M: LLVM.ModuleRef): LLVM.ValueRef;
@@ -2144,25 +2144,25 @@ export namespace LLVM {
   export declare function SetPersonalityFn(Fn: LLVM.ValueRef, PersonalityFn: LLVM.ValueRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2500 */
-  export declare function LookupIntrinsicID(Name: Pointer<"Name">, NameLen: number): number;
+  export declare function LookupIntrinsicID(Name: Pointer, NameLen: number): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2507 */
   export declare function GetIntrinsicID(Fn: LLVM.ValueRef): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2515 */
-  export declare function GetIntrinsicDeclaration(Mod: LLVM.ModuleRef, ID: number, ParamTypes: Pointer<"ParamTypes">, ParamCount: number): LLVM.ValueRef;
+  export declare function GetIntrinsicDeclaration(Mod: LLVM.ModuleRef, ID: number, ParamTypes: Pointer, ParamCount: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2526 */
-  export declare function IntrinsicGetType(Ctx: LLVM.ContextRef, ID: number, ParamTypes: Pointer<"ParamTypes">, ParamCount: number): LLVM.TypeRef;
+  export declare function IntrinsicGetType(Ctx: LLVM.ContextRef, ID: number, ParamTypes: Pointer, ParamCount: number): LLVM.TypeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2534 */
-  export declare function IntrinsicGetName(ID: number, NameLength: Pointer<"NameLength">): Pointer<"LLVMIntrinsicGetName">;
+  export declare function IntrinsicGetName(ID: number, NameLength: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2537 */
-  export declare function IntrinsicCopyOverloadedName(ID: number, ParamTypes: Pointer<"ParamTypes">, ParamCount: number, NameLength: Pointer<"NameLength">): Pointer<"LLVMIntrinsicCopyOverloadedName">;
+  export declare function IntrinsicCopyOverloadedName(ID: number, ParamTypes: Pointer, ParamCount: number, NameLength: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2553 */
-  export declare function IntrinsicCopyOverloadedName2(Mod: LLVM.ModuleRef, ID: number, ParamTypes: Pointer<"ParamTypes">, ParamCount: number, NameLength: Pointer<"NameLength">): Pointer<"LLVMIntrinsicCopyOverloadedName2">;
+  export declare function IntrinsicCopyOverloadedName2(Mod: LLVM.ModuleRef, ID: number, ParamTypes: Pointer, ParamCount: number, NameLength: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2563 */
   export declare function IntrinsicIsOverloaded(ID: number): LLVM.Bool;
@@ -2174,10 +2174,10 @@ export namespace LLVM {
   export declare function SetFunctionCallConv(Fn: LLVM.ValueRef, CC: number): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2590 */
-  export declare function GetGC(Fn: LLVM.ValueRef): Pointer<"LLVMGetGC">;
+  export declare function GetGC(Fn: LLVM.ValueRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2597 */
-  export declare function SetGC(Fn: LLVM.ValueRef, Name: Pointer<"Name">): void;
+  export declare function SetGC(Fn: LLVM.ValueRef, Name: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2604 */
   export declare function AddAttributeAtIndex(F: LLVM.ValueRef, Idx: LLVM.AttributeIndex, A: LLVM.AttributeRef): void;
@@ -2186,28 +2186,28 @@ export namespace LLVM {
   export declare function GetAttributeCountAtIndex(F: LLVM.ValueRef, Idx: LLVM.AttributeIndex): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2607 */
-  export declare function GetAttributesAtIndex(F: LLVM.ValueRef, Idx: LLVM.AttributeIndex, Attrs: Pointer<"Attrs">): void;
+  export declare function GetAttributesAtIndex(F: LLVM.ValueRef, Idx: LLVM.AttributeIndex, Attrs: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2609 */
   export declare function GetEnumAttributeAtIndex(F: LLVM.ValueRef, Idx: LLVM.AttributeIndex, KindID: number): LLVM.AttributeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2612 */
-  export declare function GetStringAttributeAtIndex(F: LLVM.ValueRef, Idx: LLVM.AttributeIndex, K: Pointer<"K">, KLen: number): LLVM.AttributeRef;
+  export declare function GetStringAttributeAtIndex(F: LLVM.ValueRef, Idx: LLVM.AttributeIndex, K: Pointer, KLen: number): LLVM.AttributeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2615 */
   export declare function RemoveEnumAttributeAtIndex(F: LLVM.ValueRef, Idx: LLVM.AttributeIndex, KindID: number): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2617 */
-  export declare function RemoveStringAttributeAtIndex(F: LLVM.ValueRef, Idx: LLVM.AttributeIndex, K: Pointer<"K">, KLen: number): void;
+  export declare function RemoveStringAttributeAtIndex(F: LLVM.ValueRef, Idx: LLVM.AttributeIndex, K: Pointer, KLen: number): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2624 */
-  export declare function AddTargetDependentFunctionAttr(Fn: LLVM.ValueRef, A: Pointer<"A">, V: Pointer<"V">): void;
+  export declare function AddTargetDependentFunctionAttr(Fn: LLVM.ValueRef, A: Pointer, V: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2643 */
   export declare function CountParams(Fn: LLVM.ValueRef): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2656 */
-  export declare function GetParams(Fn: LLVM.ValueRef, Params: Pointer<"Params">): void;
+  export declare function GetParams(Fn: LLVM.ValueRef, Params: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2665 */
   export declare function GetParam(Fn: LLVM.ValueRef, Index: number): LLVM.ValueRef;
@@ -2231,10 +2231,10 @@ export namespace LLVM {
   export declare function SetParamAlignment(Arg: LLVM.ValueRef, Align: number): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2736 */
-  export declare function AddGlobalIFunc(M: LLVM.ModuleRef, Name: Pointer<"Name">, NameLen: number, Ty: LLVM.TypeRef, AddrSpace: number, Resolver: LLVM.ValueRef): LLVM.ValueRef;
+  export declare function AddGlobalIFunc(M: LLVM.ModuleRef, Name: Pointer, NameLen: number, Ty: LLVM.TypeRef, AddrSpace: number, Resolver: LLVM.ValueRef): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2748 */
-  export declare function GetNamedGlobalIFunc(M: LLVM.ModuleRef, Name: Pointer<"Name">, NameLen: number): LLVM.ValueRef;
+  export declare function GetNamedGlobalIFunc(M: LLVM.ModuleRef, Name: Pointer, NameLen: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2756 */
   export declare function GetFirstGlobalIFunc(M: LLVM.ModuleRef): LLVM.ValueRef;
@@ -2261,10 +2261,10 @@ export namespace LLVM {
   export declare function RemoveGlobalIFunc(IFunc: LLVM.ValueRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2843 */
-  export declare function MDStringInContext2(C: LLVM.ContextRef, Str: Pointer<"Str">, SLen: number): LLVM.MetadataRef;
+  export declare function MDStringInContext2(C: LLVM.ContextRef, Str: Pointer, SLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2851 */
-  export declare function MDNodeInContext2(C: LLVM.ContextRef, MDs: Pointer<"MDs">, Count: number): LLVM.MetadataRef;
+  export declare function MDNodeInContext2(C: LLVM.ContextRef, MDs: Pointer, Count: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2857 */
   export declare function MetadataAsValue(C: LLVM.ContextRef, MD: LLVM.MetadataRef): LLVM.ValueRef;
@@ -2273,25 +2273,25 @@ export namespace LLVM {
   export declare function ValueAsMetadata(Val: LLVM.ValueRef): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2871 */
-  export declare function GetMDString(V: LLVM.ValueRef, Length: Pointer<"Length">): Pointer<"LLVMGetMDString">;
+  export declare function GetMDString(V: LLVM.ValueRef, Length: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2879 */
   export declare function GetMDNodeNumOperands(V: LLVM.ValueRef): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2892 */
-  export declare function GetMDNodeOperands(V: LLVM.ValueRef, Dest: Pointer<"Dest">): void;
+  export declare function GetMDNodeOperands(V: LLVM.ValueRef, Dest: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2895 */
-  export declare function MDStringInContext(C: LLVM.ContextRef, Str: Pointer<"Str">, SLen: number): LLVM.ValueRef;
+  export declare function MDStringInContext(C: LLVM.ContextRef, Str: Pointer, SLen: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2898 */
-  export declare function MDString(Str: Pointer<"Str">, SLen: number): LLVM.ValueRef;
+  export declare function MDString(Str: Pointer, SLen: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2900 */
-  export declare function MDNodeInContext(C: LLVM.ContextRef, Vals: Pointer<"Vals">, Count: number): LLVM.ValueRef;
+  export declare function MDNodeInContext(C: LLVM.ContextRef, Vals: Pointer, Count: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2903 */
-  export declare function MDNode(Vals: Pointer<"Vals">, Count: number): LLVM.ValueRef;
+  export declare function MDNode(Vals: Pointer, Count: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2929 */
   export declare function BasicBlockAsValue(BB: LLVM.BasicBlockRef): LLVM.ValueRef;
@@ -2303,7 +2303,7 @@ export namespace LLVM {
   export declare function ValueAsBasicBlock(Val: LLVM.ValueRef): LLVM.BasicBlockRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2944 */
-  export declare function GetBasicBlockName(BB: LLVM.BasicBlockRef): Pointer<"LLVMGetBasicBlockName">;
+  export declare function GetBasicBlockName(BB: LLVM.BasicBlockRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2951 */
   export declare function GetBasicBlockParent(BB: LLVM.BasicBlockRef): LLVM.ValueRef;
@@ -2315,7 +2315,7 @@ export namespace LLVM {
   export declare function CountBasicBlocks(Fn: LLVM.ValueRef): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2980 */
-  export declare function GetBasicBlocks(Fn: LLVM.ValueRef, BasicBlocks: Pointer<"BasicBlocks">): void;
+  export declare function GetBasicBlocks(Fn: LLVM.ValueRef, BasicBlocks: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L2990 */
   export declare function GetFirstBasicBlock(Fn: LLVM.ValueRef): LLVM.BasicBlockRef;
@@ -2339,19 +2339,19 @@ export namespace LLVM {
   export declare function AppendExistingBasicBlock(Fn: LLVM.ValueRef, BB: LLVM.BasicBlockRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3040 */
-  export declare function CreateBasicBlockInContext(C: LLVM.ContextRef, Name: Pointer<"Name">): LLVM.BasicBlockRef;
+  export declare function CreateBasicBlockInContext(C: LLVM.ContextRef, Name: Pointer): LLVM.BasicBlockRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3048 */
-  export declare function AppendBasicBlockInContext(C: LLVM.ContextRef, Fn: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.BasicBlockRef;
+  export declare function AppendBasicBlockInContext(C: LLVM.ContextRef, Fn: LLVM.ValueRef, Name: Pointer): LLVM.BasicBlockRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3058 */
-  export declare function AppendBasicBlock(Fn: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.BasicBlockRef;
+  export declare function AppendBasicBlock(Fn: LLVM.ValueRef, Name: Pointer): LLVM.BasicBlockRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3068 */
-  export declare function InsertBasicBlockInContext(C: LLVM.ContextRef, BB: LLVM.BasicBlockRef, Name: Pointer<"Name">): LLVM.BasicBlockRef;
+  export declare function InsertBasicBlockInContext(C: LLVM.ContextRef, BB: LLVM.BasicBlockRef, Name: Pointer): LLVM.BasicBlockRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3077 */
-  export declare function InsertBasicBlock(InsertBeforeBB: LLVM.BasicBlockRef, Name: Pointer<"Name">): LLVM.BasicBlockRef;
+  export declare function InsertBasicBlock(InsertBeforeBB: LLVM.BasicBlockRef, Name: Pointer): LLVM.BasicBlockRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3088 */
   export declare function DeleteBasicBlock(BB: LLVM.BasicBlockRef): void;
@@ -2381,7 +2381,7 @@ export namespace LLVM {
   export declare function SetMetadata(Val: LLVM.ValueRef, KindID: number, Node: LLVM.ValueRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3172 */
-  export declare function InstructionGetAllMetadataOtherThanDebugLoc(Instr: LLVM.ValueRef, NumEntries: Pointer<"NumEntries">): Pointer<"LLVMInstructionGetAllMetadataOtherThanDebugLoc">;
+  export declare function InstructionGetAllMetadataOtherThanDebugLoc(Instr: LLVM.ValueRef, NumEntries: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3180 */
   export declare function GetInstructionParent(Inst: LLVM.ValueRef): LLVM.BasicBlockRef;
@@ -2432,19 +2432,19 @@ export namespace LLVM {
   export declare function GetCallSiteAttributeCount(C: LLVM.ValueRef, Idx: LLVM.AttributeIndex): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3315 */
-  export declare function GetCallSiteAttributes(C: LLVM.ValueRef, Idx: LLVM.AttributeIndex, Attrs: Pointer<"Attrs">): void;
+  export declare function GetCallSiteAttributes(C: LLVM.ValueRef, Idx: LLVM.AttributeIndex, Attrs: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3317 */
   export declare function GetCallSiteEnumAttribute(C: LLVM.ValueRef, Idx: LLVM.AttributeIndex, KindID: number): LLVM.AttributeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3320 */
-  export declare function GetCallSiteStringAttribute(C: LLVM.ValueRef, Idx: LLVM.AttributeIndex, K: Pointer<"K">, KLen: number): LLVM.AttributeRef;
+  export declare function GetCallSiteStringAttribute(C: LLVM.ValueRef, Idx: LLVM.AttributeIndex, K: Pointer, KLen: number): LLVM.AttributeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3323 */
   export declare function RemoveCallSiteEnumAttribute(C: LLVM.ValueRef, Idx: LLVM.AttributeIndex, KindID: number): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3325 */
-  export declare function RemoveCallSiteStringAttribute(C: LLVM.ValueRef, Idx: LLVM.AttributeIndex, K: Pointer<"K">, KLen: number): void;
+  export declare function RemoveCallSiteStringAttribute(C: LLVM.ValueRef, Idx: LLVM.AttributeIndex, K: Pointer, KLen: number): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3333 */
   export declare function GetCalledFunctionType(C: LLVM.ValueRef): LLVM.TypeRef;
@@ -2504,7 +2504,7 @@ export namespace LLVM {
   export declare function GetGEPSourceElementType(GEP: LLVM.ValueRef): LLVM.TypeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3538 */
-  export declare function AddIncoming(PhiNode: LLVM.ValueRef, IncomingValues: Pointer<"IncomingValues">, IncomingBlocks: Pointer<"IncomingBlocks">, Count: number): void;
+  export declare function AddIncoming(PhiNode: LLVM.ValueRef, IncomingValues: Pointer, IncomingBlocks: Pointer, Count: number): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3544 */
   export declare function CountIncoming(PhiNode: LLVM.ValueRef): number;
@@ -2519,7 +2519,7 @@ export namespace LLVM {
   export declare function GetNumIndices(Inst: LLVM.ValueRef): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3579 */
-  export declare function GetIndices(Inst: LLVM.ValueRef): Pointer<"LLVMGetIndices">;
+  export declare function GetIndices(Inst: LLVM.ValueRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3602 */
   export declare function CreateBuilderInContext(C: LLVM.ContextRef): LLVM.BuilderRef;
@@ -2546,7 +2546,7 @@ export namespace LLVM {
   export declare function InsertIntoBuilder(Builder: LLVM.BuilderRef, Instr: LLVM.ValueRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3611 */
-  export declare function InsertIntoBuilderWithName(Builder: LLVM.BuilderRef, Instr: LLVM.ValueRef, Name: Pointer<"Name">): void;
+  export declare function InsertIntoBuilderWithName(Builder: LLVM.BuilderRef, Instr: LLVM.ValueRef, Name: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3613 */
   export declare function DisposeBuilder(Builder: LLVM.BuilderRef): void;
@@ -2582,7 +2582,7 @@ export namespace LLVM {
   export declare function BuildRet(_0: LLVM.BuilderRef, V: LLVM.ValueRef): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3683 */
-  export declare function BuildAggregateRet(_0: LLVM.BuilderRef, RetVals: Pointer<"RetVals">, N: number): LLVM.ValueRef;
+  export declare function BuildAggregateRet(_0: LLVM.BuilderRef, RetVals: Pointer, N: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3685 */
   export declare function BuildBr(_0: LLVM.BuilderRef, Dest: LLVM.BasicBlockRef): LLVM.ValueRef;
@@ -2597,10 +2597,10 @@ export namespace LLVM {
   export declare function BuildIndirectBr(B: LLVM.BuilderRef, Addr: LLVM.ValueRef, NumDests: number): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3692 */
-  export declare function BuildInvoke(_0: LLVM.BuilderRef, Fn: LLVM.ValueRef, Args: Pointer<"Args">, NumArgs: number, Then: LLVM.BasicBlockRef, Catch: LLVM.BasicBlockRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildInvoke(_0: LLVM.BuilderRef, Fn: LLVM.ValueRef, Args: Pointer, NumArgs: number, Then: LLVM.BasicBlockRef, Catch: LLVM.BasicBlockRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3698 */
-  export declare function BuildInvoke2(_0: LLVM.BuilderRef, Ty: LLVM.TypeRef, Fn: LLVM.ValueRef, Args: Pointer<"Args">, NumArgs: number, Then: LLVM.BasicBlockRef, Catch: LLVM.BasicBlockRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildInvoke2(_0: LLVM.BuilderRef, Ty: LLVM.TypeRef, Fn: LLVM.ValueRef, Args: Pointer, NumArgs: number, Then: LLVM.BasicBlockRef, Catch: LLVM.BasicBlockRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3702 */
   export declare function BuildUnreachable(_0: LLVM.BuilderRef): LLVM.ValueRef;
@@ -2609,7 +2609,7 @@ export namespace LLVM {
   export declare function BuildResume(B: LLVM.BuilderRef, Exn: LLVM.ValueRef): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3706 */
-  export declare function BuildLandingPad(B: LLVM.BuilderRef, Ty: LLVM.TypeRef, PersFn: LLVM.ValueRef, NumClauses: number, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildLandingPad(B: LLVM.BuilderRef, Ty: LLVM.TypeRef, PersFn: LLVM.ValueRef, NumClauses: number, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3709 */
   export declare function BuildCleanupRet(B: LLVM.BuilderRef, CatchPad: LLVM.ValueRef, BB: LLVM.BasicBlockRef): LLVM.ValueRef;
@@ -2618,13 +2618,13 @@ export namespace LLVM {
   export declare function BuildCatchRet(B: LLVM.BuilderRef, CatchPad: LLVM.ValueRef, BB: LLVM.BasicBlockRef): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3713 */
-  export declare function BuildCatchPad(B: LLVM.BuilderRef, ParentPad: LLVM.ValueRef, Args: Pointer<"Args">, NumArgs: number, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildCatchPad(B: LLVM.BuilderRef, ParentPad: LLVM.ValueRef, Args: Pointer, NumArgs: number, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3716 */
-  export declare function BuildCleanupPad(B: LLVM.BuilderRef, ParentPad: LLVM.ValueRef, Args: Pointer<"Args">, NumArgs: number, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildCleanupPad(B: LLVM.BuilderRef, ParentPad: LLVM.ValueRef, Args: Pointer, NumArgs: number, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3719 */
-  export declare function BuildCatchSwitch(B: LLVM.BuilderRef, ParentPad: LLVM.ValueRef, UnwindBB: LLVM.BasicBlockRef, NumHandlers: number, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildCatchSwitch(B: LLVM.BuilderRef, ParentPad: LLVM.ValueRef, UnwindBB: LLVM.BasicBlockRef, NumHandlers: number, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3724 */
   export declare function AddCase(Switch: LLVM.ValueRef, OnVal: LLVM.ValueRef, Dest: LLVM.BasicBlockRef): void;
@@ -2654,7 +2654,7 @@ export namespace LLVM {
   export declare function GetNumHandlers(CatchSwitch: LLVM.ValueRef): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3762 */
-  export declare function GetHandlers(CatchSwitch: LLVM.ValueRef, Handlers: Pointer<"Handlers">): void;
+  export declare function GetHandlers(CatchSwitch: LLVM.ValueRef, Handlers: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3767 */
   export declare function GetArgOperand(Funclet: LLVM.ValueRef, i: number): LLVM.ValueRef;
@@ -2669,106 +2669,106 @@ export namespace LLVM {
   export declare function SetParentCatchSwitch(CatchPad: LLVM.ValueRef, CatchSwitch: LLVM.ValueRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3791 */
-  export declare function BuildAdd(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildAdd(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3793 */
-  export declare function BuildNSWAdd(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildNSWAdd(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3795 */
-  export declare function BuildNUWAdd(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildNUWAdd(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3797 */
-  export declare function BuildFAdd(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildFAdd(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3799 */
-  export declare function BuildSub(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildSub(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3801 */
-  export declare function BuildNSWSub(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildNSWSub(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3803 */
-  export declare function BuildNUWSub(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildNUWSub(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3805 */
-  export declare function BuildFSub(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildFSub(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3807 */
-  export declare function BuildMul(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildMul(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3809 */
-  export declare function BuildNSWMul(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildNSWMul(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3811 */
-  export declare function BuildNUWMul(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildNUWMul(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3813 */
-  export declare function BuildFMul(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildFMul(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3815 */
-  export declare function BuildUDiv(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildUDiv(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3817 */
-  export declare function BuildExactUDiv(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildExactUDiv(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3819 */
-  export declare function BuildSDiv(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildSDiv(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3821 */
-  export declare function BuildExactSDiv(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildExactSDiv(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3823 */
-  export declare function BuildFDiv(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildFDiv(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3825 */
-  export declare function BuildURem(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildURem(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3827 */
-  export declare function BuildSRem(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildSRem(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3829 */
-  export declare function BuildFRem(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildFRem(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3831 */
-  export declare function BuildShl(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildShl(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3833 */
-  export declare function BuildLShr(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildLShr(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3835 */
-  export declare function BuildAShr(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildAShr(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3837 */
-  export declare function BuildAnd(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildAnd(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3839 */
-  export declare function BuildOr(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildOr(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3841 */
-  export declare function BuildXor(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildXor(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3843 */
-  export declare function BuildBinOp(B: LLVM.BuilderRef, Op: LLVM.Opcode, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildBinOp(B: LLVM.BuilderRef, Op: LLVM.Opcode, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3846 */
-  export declare function BuildNeg(_0: LLVM.BuilderRef, V: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildNeg(_0: LLVM.BuilderRef, V: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3847 */
-  export declare function BuildNSWNeg(B: LLVM.BuilderRef, V: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildNSWNeg(B: LLVM.BuilderRef, V: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3849 */
-  export declare function BuildNUWNeg(B: LLVM.BuilderRef, V: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildNUWNeg(B: LLVM.BuilderRef, V: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3851 */
-  export declare function BuildFNeg(_0: LLVM.BuilderRef, V: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildFNeg(_0: LLVM.BuilderRef, V: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3852 */
-  export declare function BuildNot(_0: LLVM.BuilderRef, V: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildNot(_0: LLVM.BuilderRef, V: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3855 */
-  export declare function BuildMalloc(_0: LLVM.BuilderRef, Ty: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildMalloc(_0: LLVM.BuilderRef, Ty: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3856 */
-  export declare function BuildArrayMalloc(_0: LLVM.BuilderRef, Ty: LLVM.TypeRef, Val: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildArrayMalloc(_0: LLVM.BuilderRef, Ty: LLVM.TypeRef, Val: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3865 */
   export declare function BuildMemSet(B: LLVM.BuilderRef, Ptr: LLVM.ValueRef, Val: LLVM.ValueRef, Len: LLVM.ValueRef, Align: number): LLVM.ValueRef;
@@ -2780,46 +2780,46 @@ export namespace LLVM {
   export declare function BuildMemMove(B: LLVM.BuilderRef, Dst: LLVM.ValueRef, DstAlign: number, Src: LLVM.ValueRef, SrcAlign: number, Size: LLVM.ValueRef): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3887 */
-  export declare function BuildAlloca(_0: LLVM.BuilderRef, Ty: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildAlloca(_0: LLVM.BuilderRef, Ty: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3888 */
-  export declare function BuildArrayAlloca(_0: LLVM.BuilderRef, Ty: LLVM.TypeRef, Val: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildArrayAlloca(_0: LLVM.BuilderRef, Ty: LLVM.TypeRef, Val: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3890 */
   export declare function BuildFree(_0: LLVM.BuilderRef, PointerVal: LLVM.ValueRef): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3891 */
-  export declare function BuildLoad(_0: LLVM.BuilderRef, PointerVal: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildLoad(_0: LLVM.BuilderRef, PointerVal: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3895 */
-  export declare function BuildLoad2(_0: LLVM.BuilderRef, Ty: LLVM.TypeRef, PointerVal: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildLoad2(_0: LLVM.BuilderRef, Ty: LLVM.TypeRef, PointerVal: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3897 */
   export declare function BuildStore(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, Ptr: LLVM.ValueRef): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3898 */
-  export declare function BuildGEP(B: LLVM.BuilderRef, Pointer: LLVM.ValueRef, Indices: Pointer<"Indices">, NumIndices: number, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildGEP(B: LLVM.BuilderRef, Pointer: LLVM.ValueRef, Indices: Pointer, NumIndices: number, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3903 */
-  export declare function BuildInBoundsGEP(B: LLVM.BuilderRef, Pointer: LLVM.ValueRef, Indices: Pointer<"Indices">, NumIndices: number, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildInBoundsGEP(B: LLVM.BuilderRef, Pointer: LLVM.ValueRef, Indices: Pointer, NumIndices: number, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3908 */
-  export declare function BuildStructGEP(B: LLVM.BuilderRef, Pointer: LLVM.ValueRef, Idx: number, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildStructGEP(B: LLVM.BuilderRef, Pointer: LLVM.ValueRef, Idx: number, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3912 */
-  export declare function BuildGEP2(B: LLVM.BuilderRef, Ty: LLVM.TypeRef, Pointer: LLVM.ValueRef, Indices: Pointer<"Indices">, NumIndices: number, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildGEP2(B: LLVM.BuilderRef, Ty: LLVM.TypeRef, Pointer: LLVM.ValueRef, Indices: Pointer, NumIndices: number, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3915 */
-  export declare function BuildInBoundsGEP2(B: LLVM.BuilderRef, Ty: LLVM.TypeRef, Pointer: LLVM.ValueRef, Indices: Pointer<"Indices">, NumIndices: number, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildInBoundsGEP2(B: LLVM.BuilderRef, Ty: LLVM.TypeRef, Pointer: LLVM.ValueRef, Indices: Pointer, NumIndices: number, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3918 */
-  export declare function BuildStructGEP2(B: LLVM.BuilderRef, Ty: LLVM.TypeRef, Pointer: LLVM.ValueRef, Idx: number, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildStructGEP2(B: LLVM.BuilderRef, Ty: LLVM.TypeRef, Pointer: LLVM.ValueRef, Idx: number, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3921 */
-  export declare function BuildGlobalString(B: LLVM.BuilderRef, Str: Pointer<"Str">, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildGlobalString(B: LLVM.BuilderRef, Str: Pointer, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3923 */
-  export declare function BuildGlobalStringPtr(B: LLVM.BuilderRef, Str: Pointer<"Str">, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildGlobalStringPtr(B: LLVM.BuilderRef, Str: Pointer, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3925 */
   export declare function GetVolatile(MemoryAccessInst: LLVM.ValueRef): LLVM.Bool;
@@ -2846,121 +2846,121 @@ export namespace LLVM {
   export declare function SetAtomicRMWBinOp(AtomicRMWInst: LLVM.ValueRef, BinOp: LLVM.AtomicRMWBinOp): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3935 */
-  export declare function BuildTrunc(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildTrunc(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3937 */
-  export declare function BuildZExt(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildZExt(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3939 */
-  export declare function BuildSExt(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildSExt(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3941 */
-  export declare function BuildFPToUI(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildFPToUI(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3943 */
-  export declare function BuildFPToSI(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildFPToSI(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3945 */
-  export declare function BuildUIToFP(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildUIToFP(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3947 */
-  export declare function BuildSIToFP(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildSIToFP(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3949 */
-  export declare function BuildFPTrunc(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildFPTrunc(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3951 */
-  export declare function BuildFPExt(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildFPExt(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3953 */
-  export declare function BuildPtrToInt(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildPtrToInt(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3955 */
-  export declare function BuildIntToPtr(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildIntToPtr(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3957 */
-  export declare function BuildBitCast(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildBitCast(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3959 */
-  export declare function BuildAddrSpaceCast(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildAddrSpaceCast(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3961 */
-  export declare function BuildZExtOrBitCast(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildZExtOrBitCast(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3963 */
-  export declare function BuildSExtOrBitCast(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildSExtOrBitCast(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3965 */
-  export declare function BuildTruncOrBitCast(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildTruncOrBitCast(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3967 */
-  export declare function BuildCast(B: LLVM.BuilderRef, Op: LLVM.Opcode, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildCast(B: LLVM.BuilderRef, Op: LLVM.Opcode, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3969 */
-  export declare function BuildPointerCast(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildPointerCast(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3971 */
-  export declare function BuildIntCast2(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, IsSigned: LLVM.Bool, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildIntCast2(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, IsSigned: LLVM.Bool, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3974 */
-  export declare function BuildFPCast(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildFPCast(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3978 */
-  export declare function BuildIntCast(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildIntCast(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, DestTy: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3982 */
-  export declare function BuildICmp(_0: LLVM.BuilderRef, Op: LLVM.IntPredicate, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildICmp(_0: LLVM.BuilderRef, Op: LLVM.IntPredicate, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3985 */
-  export declare function BuildFCmp(_0: LLVM.BuilderRef, Op: LLVM.RealPredicate, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildFCmp(_0: LLVM.BuilderRef, Op: LLVM.RealPredicate, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3990 */
-  export declare function BuildPhi(_0: LLVM.BuilderRef, Ty: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildPhi(_0: LLVM.BuilderRef, Ty: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3991 */
-  export declare function BuildCall(_0: LLVM.BuilderRef, Fn: LLVM.ValueRef, Args: Pointer<"Args">, NumArgs: number, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildCall(_0: LLVM.BuilderRef, Fn: LLVM.ValueRef, Args: Pointer, NumArgs: number, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3996 */
-  export declare function BuildCall2(_0: LLVM.BuilderRef, _1: LLVM.TypeRef, Fn: LLVM.ValueRef, Args: Pointer<"Args">, NumArgs: number, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildCall2(_0: LLVM.BuilderRef, _1: LLVM.TypeRef, Fn: LLVM.ValueRef, Args: Pointer, NumArgs: number, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L3999 */
-  export declare function BuildSelect(_0: LLVM.BuilderRef, If: LLVM.ValueRef, Then: LLVM.ValueRef, Else: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildSelect(_0: LLVM.BuilderRef, If: LLVM.ValueRef, Then: LLVM.ValueRef, Else: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L4002 */
-  export declare function BuildVAArg(_0: LLVM.BuilderRef, List: LLVM.ValueRef, Ty: LLVM.TypeRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildVAArg(_0: LLVM.BuilderRef, List: LLVM.ValueRef, Ty: LLVM.TypeRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L4004 */
-  export declare function BuildExtractElement(_0: LLVM.BuilderRef, VecVal: LLVM.ValueRef, Index: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildExtractElement(_0: LLVM.BuilderRef, VecVal: LLVM.ValueRef, Index: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L4006 */
-  export declare function BuildInsertElement(_0: LLVM.BuilderRef, VecVal: LLVM.ValueRef, EltVal: LLVM.ValueRef, Index: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildInsertElement(_0: LLVM.BuilderRef, VecVal: LLVM.ValueRef, EltVal: LLVM.ValueRef, Index: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L4009 */
-  export declare function BuildShuffleVector(_0: LLVM.BuilderRef, V1: LLVM.ValueRef, V2: LLVM.ValueRef, Mask: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildShuffleVector(_0: LLVM.BuilderRef, V1: LLVM.ValueRef, V2: LLVM.ValueRef, Mask: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L4012 */
-  export declare function BuildExtractValue(_0: LLVM.BuilderRef, AggVal: LLVM.ValueRef, Index: number, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildExtractValue(_0: LLVM.BuilderRef, AggVal: LLVM.ValueRef, Index: number, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L4014 */
-  export declare function BuildInsertValue(_0: LLVM.BuilderRef, AggVal: LLVM.ValueRef, EltVal: LLVM.ValueRef, Index: number, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildInsertValue(_0: LLVM.BuilderRef, AggVal: LLVM.ValueRef, EltVal: LLVM.ValueRef, Index: number, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L4017 */
-  export declare function BuildFreeze(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildFreeze(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L4020 */
-  export declare function BuildIsNull(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildIsNull(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L4022 */
-  export declare function BuildIsNotNull(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildIsNotNull(_0: LLVM.BuilderRef, Val: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L4024 */
-  export declare function BuildPtrDiff(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildPtrDiff(_0: LLVM.BuilderRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L4028 */
-  export declare function BuildPtrDiff2(_0: LLVM.BuilderRef, ElemTy: LLVM.TypeRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildPtrDiff2(_0: LLVM.BuilderRef, ElemTy: LLVM.TypeRef, LHS: LLVM.ValueRef, RHS: LLVM.ValueRef, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L4031 */
-  export declare function BuildFence(B: LLVM.BuilderRef, ordering: LLVM.AtomicOrdering, singleThread: LLVM.Bool, Name: Pointer<"Name">): LLVM.ValueRef;
+  export declare function BuildFence(B: LLVM.BuilderRef, ordering: LLVM.AtomicOrdering, singleThread: LLVM.Bool, Name: Pointer): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L4033 */
   export declare function BuildAtomicRMW(B: LLVM.BuilderRef, op: LLVM.AtomicRMWBinOp, PTR: LLVM.ValueRef, Val: LLVM.ValueRef, ordering: LLVM.AtomicOrdering, singleThread: LLVM.Bool): LLVM.ValueRef;
@@ -3002,19 +3002,19 @@ export namespace LLVM {
   export declare function DisposeModuleProvider(M: LLVM.ModuleProviderRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L4105 */
-  export declare function CreateMemoryBufferWithContentsOfFile(Path: Pointer<"Path">, OutMemBuf: Pointer<"OutMemBuf">, OutMessage: Pointer<"OutMessage">): LLVM.Bool;
+  export declare function CreateMemoryBufferWithContentsOfFile(Path: Pointer, OutMemBuf: Pointer, OutMessage: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L4108 */
-  export declare function CreateMemoryBufferWithSTDIN(OutMemBuf: Pointer<"OutMemBuf">, OutMessage: Pointer<"OutMessage">): LLVM.Bool;
+  export declare function CreateMemoryBufferWithSTDIN(OutMemBuf: Pointer, OutMessage: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L4110 */
-  export declare function CreateMemoryBufferWithMemoryRange(InputData: Pointer<"InputData">, InputDataLength: number, BufferName: Pointer<"BufferName">, RequiresNullTerminator: LLVM.Bool): LLVM.MemoryBufferRef;
+  export declare function CreateMemoryBufferWithMemoryRange(InputData: Pointer, InputDataLength: number, BufferName: Pointer, RequiresNullTerminator: LLVM.Bool): LLVM.MemoryBufferRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L4114 */
-  export declare function CreateMemoryBufferWithMemoryRangeCopy(InputData: Pointer<"InputData">, InputDataLength: number, BufferName: Pointer<"BufferName">): LLVM.MemoryBufferRef;
+  export declare function CreateMemoryBufferWithMemoryRangeCopy(InputData: Pointer, InputDataLength: number, BufferName: Pointer): LLVM.MemoryBufferRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L4117 */
-  export declare function GetBufferStart(MemBuf: LLVM.MemoryBufferRef): Pointer<"LLVMGetBufferStart">;
+  export declare function GetBufferStart(MemBuf: LLVM.MemoryBufferRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L4118 */
   export declare function GetBufferSize(MemBuf: LLVM.MemoryBufferRef): number;
@@ -3083,19 +3083,19 @@ export namespace LLVM {
   export declare function DIBuilderFinalizeSubprogram(Builder: LLVM.DIBuilderRef, Subprogram: LLVM.MetadataRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L275 */
-  export declare function DIBuilderCreateCompileUnit(Builder: LLVM.DIBuilderRef, Lang: LLVM.DWARFSourceLanguage, FileRef: LLVM.MetadataRef, Producer: Pointer<"Producer">, ProducerLen: number, isOptimized: LLVM.Bool, Flags: Pointer<"Flags">, FlagsLen: number, RuntimeVer: number, SplitName: Pointer<"SplitName">, SplitNameLen: number, Kind: LLVM.DWARFEmissionKind, DWOId: number, SplitDebugInlining: LLVM.Bool, DebugInfoForProfiling: LLVM.Bool, SysRoot: Pointer<"SysRoot">, SysRootLen: number, SDK: Pointer<"SDK">, SDKLen: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateCompileUnit(Builder: LLVM.DIBuilderRef, Lang: LLVM.DWARFSourceLanguage, FileRef: LLVM.MetadataRef, Producer: Pointer, ProducerLen: number, isOptimized: LLVM.Bool, Flags: Pointer, FlagsLen: number, RuntimeVer: number, SplitName: Pointer, SplitNameLen: number, Kind: LLVM.DWARFEmissionKind, DWOId: number, SplitDebugInlining: LLVM.Bool, DebugInfoForProfiling: LLVM.Bool, SysRoot: Pointer, SysRootLen: number, SDK: Pointer, SDKLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L293 */
-  export declare function DIBuilderCreateFile(Builder: LLVM.DIBuilderRef, Filename: Pointer<"Filename">, FilenameLen: number, Directory: Pointer<"Directory">, DirectoryLen: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateFile(Builder: LLVM.DIBuilderRef, Filename: Pointer, FilenameLen: number, Directory: Pointer, DirectoryLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L312 */
-  export declare function DIBuilderCreateModule(Builder: LLVM.DIBuilderRef, ParentScope: LLVM.MetadataRef, Name: Pointer<"Name">, NameLen: number, ConfigMacros: Pointer<"ConfigMacros">, ConfigMacrosLen: number, IncludePath: Pointer<"IncludePath">, IncludePathLen: number, APINotesFile: Pointer<"APINotesFile">, APINotesFileLen: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateModule(Builder: LLVM.DIBuilderRef, ParentScope: LLVM.MetadataRef, Name: Pointer, NameLen: number, ConfigMacros: Pointer, ConfigMacrosLen: number, IncludePath: Pointer, IncludePathLen: number, APINotesFile: Pointer, APINotesFileLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L328 */
-  export declare function DIBuilderCreateNameSpace(Builder: LLVM.DIBuilderRef, ParentScope: LLVM.MetadataRef, Name: Pointer<"Name">, NameLen: number, ExportSymbols: LLVM.Bool): LLVM.MetadataRef;
+  export declare function DIBuilderCreateNameSpace(Builder: LLVM.DIBuilderRef, ParentScope: LLVM.MetadataRef, Name: Pointer, NameLen: number, ExportSymbols: LLVM.Bool): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L351 */
-  export declare function DIBuilderCreateFunction(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<"Name">, NameLen: number, LinkageName: Pointer<"LinkageName">, LinkageNameLen: number, File: LLVM.MetadataRef, LineNo: number, Ty: LLVM.MetadataRef, IsLocalToUnit: LLVM.Bool, IsDefinition: LLVM.Bool, ScopeLine: number, Flags: LLVM.DIFlags, IsOptimized: LLVM.Bool): LLVM.MetadataRef;
+  export declare function DIBuilderCreateFunction(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer, NameLen: number, LinkageName: Pointer, LinkageNameLen: number, File: LLVM.MetadataRef, LineNo: number, Ty: LLVM.MetadataRef, IsLocalToUnit: LLVM.Bool, IsDefinition: LLVM.Bool, ScopeLine: number, Flags: LLVM.DIFlags, IsOptimized: LLVM.Bool): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L366 */
   export declare function DIBuilderCreateLexicalBlock(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, File: LLVM.MetadataRef, Line: number, Column: number): LLVM.MetadataRef;
@@ -3107,13 +3107,13 @@ export namespace LLVM {
   export declare function DIBuilderCreateImportedModuleFromNamespace(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, NS: LLVM.MetadataRef, File: LLVM.MetadataRef, Line: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L409 */
-  export declare function DIBuilderCreateImportedModuleFromAlias(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, ImportedEntity: LLVM.MetadataRef, File: LLVM.MetadataRef, Line: number, Elements: Pointer<"Elements">, NumElements: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateImportedModuleFromAlias(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, ImportedEntity: LLVM.MetadataRef, File: LLVM.MetadataRef, Line: number, Elements: Pointer, NumElements: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L424 */
-  export declare function DIBuilderCreateImportedModuleFromModule(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, M: LLVM.MetadataRef, File: LLVM.MetadataRef, Line: number, Elements: Pointer<"Elements">, NumElements: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateImportedModuleFromModule(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, M: LLVM.MetadataRef, File: LLVM.MetadataRef, Line: number, Elements: Pointer, NumElements: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L444 */
-  export declare function DIBuilderCreateImportedDeclaration(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Decl: LLVM.MetadataRef, File: LLVM.MetadataRef, Line: number, Name: Pointer<"Name">, NameLen: number, Elements: Pointer<"Elements">, NumElements: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateImportedDeclaration(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Decl: LLVM.MetadataRef, File: LLVM.MetadataRef, Line: number, Name: Pointer, NameLen: number, Elements: Pointer, NumElements: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L460 */
   export declare function DIBuilderCreateDebugLocation(Ctx: LLVM.ContextRef, Line: number, Column: number, Scope: LLVM.MetadataRef, InlinedAt: LLVM.MetadataRef): LLVM.MetadataRef;
@@ -3134,67 +3134,67 @@ export namespace LLVM {
   export declare function DIScopeGetFile(Scope: LLVM.MetadataRef): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L511 */
-  export declare function DIFileGetDirectory(File: LLVM.MetadataRef, Len: Pointer<"Len">): Pointer<"LLVMDIFileGetDirectory">;
+  export declare function DIFileGetDirectory(File: LLVM.MetadataRef, Len: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L520 */
-  export declare function DIFileGetFilename(File: LLVM.MetadataRef, Len: Pointer<"Len">): Pointer<"LLVMDIFileGetFilename">;
+  export declare function DIFileGetFilename(File: LLVM.MetadataRef, Len: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L529 */
-  export declare function DIFileGetSource(File: LLVM.MetadataRef, Len: Pointer<"Len">): Pointer<"LLVMDIFileGetSource">;
+  export declare function DIFileGetSource(File: LLVM.MetadataRef, Len: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L537 */
-  export declare function DIBuilderGetOrCreateTypeArray(Builder: LLVM.DIBuilderRef, Data: Pointer<"Data">, NumElements: number): LLVM.MetadataRef;
+  export declare function DIBuilderGetOrCreateTypeArray(Builder: LLVM.DIBuilderRef, Data: Pointer, NumElements: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L552 */
-  export declare function DIBuilderCreateSubroutineType(Builder: LLVM.DIBuilderRef, File: LLVM.MetadataRef, ParameterTypes: Pointer<"ParameterTypes">, NumParameterTypes: number, Flags: LLVM.DIFlags): LLVM.MetadataRef;
+  export declare function DIBuilderCreateSubroutineType(Builder: LLVM.DIBuilderRef, File: LLVM.MetadataRef, ParameterTypes: Pointer, NumParameterTypes: number, Flags: LLVM.DIFlags): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L569 */
-  export declare function DIBuilderCreateMacro(Builder: LLVM.DIBuilderRef, ParentMacroFile: LLVM.MetadataRef, Line: number, RecordType: LLVM.DWARFMacinfoRecordType, Name: Pointer<"Name">, NameLen: number, Value: Pointer<"Value">, ValueLen: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateMacro(Builder: LLVM.DIBuilderRef, ParentMacroFile: LLVM.MetadataRef, Line: number, RecordType: LLVM.DWARFMacinfoRecordType, Name: Pointer, NameLen: number, Value: Pointer, ValueLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L586 */
   export declare function DIBuilderCreateTempMacroFile(Builder: LLVM.DIBuilderRef, ParentMacroFile: LLVM.MetadataRef, Line: number, File: LLVM.MetadataRef): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L598 */
-  export declare function DIBuilderCreateEnumerator(Builder: LLVM.DIBuilderRef, Name: Pointer<"Name">, NameLen: number, Value: bigint, IsUnsigned: LLVM.Bool): LLVM.MetadataRef;
+  export declare function DIBuilderCreateEnumerator(Builder: LLVM.DIBuilderRef, Name: Pointer, NameLen: number, Value: bigint, IsUnsigned: LLVM.Bool): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L617 */
-  export declare function DIBuilderCreateEnumerationType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<"Name">, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: bigint, AlignInBits: number, Elements: Pointer<"Elements">, NumElements: number, ClassTy: LLVM.MetadataRef): LLVM.MetadataRef;
+  export declare function DIBuilderCreateEnumerationType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: bigint, AlignInBits: number, Elements: Pointer, NumElements: number, ClassTy: LLVM.MetadataRef): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L640 */
-  export declare function DIBuilderCreateUnionType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<"Name">, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: bigint, AlignInBits: number, Flags: LLVM.DIFlags, Elements: Pointer<"Elements">, NumElements: number, RunTimeLang: number, UniqueId: Pointer<"UniqueId">, UniqueIdLen: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateUnionType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: bigint, AlignInBits: number, Flags: LLVM.DIFlags, Elements: Pointer, NumElements: number, RunTimeLang: number, UniqueId: Pointer, UniqueIdLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L658 */
-  export declare function DIBuilderCreateArrayType(Builder: LLVM.DIBuilderRef, Size: bigint, AlignInBits: number, Ty: LLVM.MetadataRef, Subscripts: Pointer<"Subscripts">, NumSubscripts: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateArrayType(Builder: LLVM.DIBuilderRef, Size: bigint, AlignInBits: number, Ty: LLVM.MetadataRef, Subscripts: Pointer, NumSubscripts: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L673 */
-  export declare function DIBuilderCreateVectorType(Builder: LLVM.DIBuilderRef, Size: bigint, AlignInBits: number, Ty: LLVM.MetadataRef, Subscripts: Pointer<"Subscripts">, NumSubscripts: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateVectorType(Builder: LLVM.DIBuilderRef, Size: bigint, AlignInBits: number, Ty: LLVM.MetadataRef, Subscripts: Pointer, NumSubscripts: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L685 */
-  export declare function DIBuilderCreateUnspecifiedType(Builder: LLVM.DIBuilderRef, Name: Pointer<"Name">, NameLen: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateUnspecifiedType(Builder: LLVM.DIBuilderRef, Name: Pointer, NameLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L699 */
-  export declare function DIBuilderCreateBasicType(Builder: LLVM.DIBuilderRef, Name: Pointer<"Name">, NameLen: number, SizeInBits: bigint, Encoding: LLVM.DWARFTypeEncoding, Flags: LLVM.DIFlags): LLVM.MetadataRef;
+  export declare function DIBuilderCreateBasicType(Builder: LLVM.DIBuilderRef, Name: Pointer, NameLen: number, SizeInBits: bigint, Encoding: LLVM.DWARFTypeEncoding, Flags: LLVM.DIFlags): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L714 */
-  export declare function DIBuilderCreatePointerType(Builder: LLVM.DIBuilderRef, PointeeTy: LLVM.MetadataRef, SizeInBits: bigint, AlignInBits: number, AddressSpace: number, Name: Pointer<"Name">, NameLen: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreatePointerType(Builder: LLVM.DIBuilderRef, PointeeTy: LLVM.MetadataRef, SizeInBits: bigint, AlignInBits: number, AddressSpace: number, Name: Pointer, NameLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L737 */
-  export declare function DIBuilderCreateStructType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<"Name">, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: bigint, AlignInBits: number, Flags: LLVM.DIFlags, DerivedFrom: LLVM.MetadataRef, Elements: Pointer<"Elements">, NumElements: number, RunTimeLang: number, VTableHolder: LLVM.MetadataRef, UniqueId: Pointer<"UniqueId">, UniqueIdLen: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateStructType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: bigint, AlignInBits: number, Flags: LLVM.DIFlags, DerivedFrom: LLVM.MetadataRef, Elements: Pointer, NumElements: number, RunTimeLang: number, VTableHolder: LLVM.MetadataRef, UniqueId: Pointer, UniqueIdLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L759 */
-  export declare function DIBuilderCreateMemberType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<"Name">, NameLen: number, File: LLVM.MetadataRef, LineNo: number, SizeInBits: bigint, AlignInBits: number, OffsetInBits: bigint, Flags: LLVM.DIFlags, Ty: LLVM.MetadataRef): LLVM.MetadataRef;
+  export declare function DIBuilderCreateMemberType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer, NameLen: number, File: LLVM.MetadataRef, LineNo: number, SizeInBits: bigint, AlignInBits: number, OffsetInBits: bigint, Flags: LLVM.DIFlags, Ty: LLVM.MetadataRef): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L780 */
-  export declare function DIBuilderCreateStaticMemberType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<"Name">, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, Type: LLVM.MetadataRef, Flags: LLVM.DIFlags, ConstantVal: LLVM.ValueRef, AlignInBits: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateStaticMemberType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, Type: LLVM.MetadataRef, Flags: LLVM.DIFlags, ConstantVal: LLVM.ValueRef, AlignInBits: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L796 */
   export declare function DIBuilderCreateMemberPointerType(Builder: LLVM.DIBuilderRef, PointeeType: LLVM.MetadataRef, ClassType: LLVM.MetadataRef, SizeInBits: bigint, AlignInBits: number, Flags: LLVM.DIFlags): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L817 */
-  export declare function DIBuilderCreateObjCIVar(Builder: LLVM.DIBuilderRef, Name: Pointer<"Name">, NameLen: number, File: LLVM.MetadataRef, LineNo: number, SizeInBits: bigint, AlignInBits: number, OffsetInBits: bigint, Flags: LLVM.DIFlags, Ty: LLVM.MetadataRef, PropertyNode: LLVM.MetadataRef): LLVM.MetadataRef;
+  export declare function DIBuilderCreateObjCIVar(Builder: LLVM.DIBuilderRef, Name: Pointer, NameLen: number, File: LLVM.MetadataRef, LineNo: number, SizeInBits: bigint, AlignInBits: number, OffsetInBits: bigint, Flags: LLVM.DIFlags, Ty: LLVM.MetadataRef, PropertyNode: LLVM.MetadataRef): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L839 */
-  export declare function DIBuilderCreateObjCProperty(Builder: LLVM.DIBuilderRef, Name: Pointer<"Name">, NameLen: number, File: LLVM.MetadataRef, LineNo: number, GetterName: Pointer<"GetterName">, GetterNameLen: number, SetterName: Pointer<"SetterName">, SetterNameLen: number, PropertyAttributes: number, Ty: LLVM.MetadataRef): LLVM.MetadataRef;
+  export declare function DIBuilderCreateObjCProperty(Builder: LLVM.DIBuilderRef, Name: Pointer, NameLen: number, File: LLVM.MetadataRef, LineNo: number, GetterName: Pointer, GetterNameLen: number, SetterName: Pointer, SetterNameLen: number, PropertyAttributes: number, Ty: LLVM.MetadataRef): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L853 */
   export declare function DIBuilderCreateObjectPointerType(Builder: LLVM.DIBuilderRef, Type: LLVM.MetadataRef): LLVM.MetadataRef;
@@ -3209,28 +3209,28 @@ export namespace LLVM {
   export declare function DIBuilderCreateNullPtrType(Builder: LLVM.DIBuilderRef): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L896 */
-  export declare function DIBuilderCreateTypedef(Builder: LLVM.DIBuilderRef, Type: LLVM.MetadataRef, Name: Pointer<"Name">, NameLen: number, File: LLVM.MetadataRef, LineNo: number, Scope: LLVM.MetadataRef, AlignInBits: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateTypedef(Builder: LLVM.DIBuilderRef, Type: LLVM.MetadataRef, Name: Pointer, NameLen: number, File: LLVM.MetadataRef, LineNo: number, Scope: LLVM.MetadataRef, AlignInBits: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L912 */
   export declare function DIBuilderCreateInheritance(Builder: LLVM.DIBuilderRef, Ty: LLVM.MetadataRef, BaseTy: LLVM.MetadataRef, BaseOffset: bigint, VBPtrOffset: number, Flags: LLVM.DIFlags): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L933 */
-  export declare function DIBuilderCreateForwardDecl(Builder: LLVM.DIBuilderRef, Tag: number, Name: Pointer<"Name">, NameLen: number, Scope: LLVM.MetadataRef, File: LLVM.MetadataRef, Line: number, RuntimeLang: number, SizeInBits: bigint, AlignInBits: number, UniqueIdentifier: Pointer<"UniqueIdentifier">, UniqueIdentifierLen: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateForwardDecl(Builder: LLVM.DIBuilderRef, Tag: number, Name: Pointer, NameLen: number, Scope: LLVM.MetadataRef, File: LLVM.MetadataRef, Line: number, RuntimeLang: number, SizeInBits: bigint, AlignInBits: number, UniqueIdentifier: Pointer, UniqueIdentifierLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L957 */
-  export declare function DIBuilderCreateReplaceableCompositeType(Builder: LLVM.DIBuilderRef, Tag: number, Name: Pointer<"Name">, NameLen: number, Scope: LLVM.MetadataRef, File: LLVM.MetadataRef, Line: number, RuntimeLang: number, SizeInBits: bigint, AlignInBits: number, Flags: LLVM.DIFlags, UniqueIdentifier: Pointer<"UniqueIdentifier">, UniqueIdentifierLen: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateReplaceableCompositeType(Builder: LLVM.DIBuilderRef, Tag: number, Name: Pointer, NameLen: number, Scope: LLVM.MetadataRef, File: LLVM.MetadataRef, Line: number, RuntimeLang: number, SizeInBits: bigint, AlignInBits: number, Flags: LLVM.DIFlags, UniqueIdentifier: Pointer, UniqueIdentifierLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L979 */
-  export declare function DIBuilderCreateBitFieldMemberType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<"Name">, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: bigint, OffsetInBits: bigint, StorageOffsetInBits: bigint, Flags: LLVM.DIFlags, Type: LLVM.MetadataRef): LLVM.MetadataRef;
+  export declare function DIBuilderCreateBitFieldMemberType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: bigint, OffsetInBits: bigint, StorageOffsetInBits: bigint, Flags: LLVM.DIFlags, Type: LLVM.MetadataRef): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1010 */
-  export declare function DIBuilderCreateClassType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<"Name">, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: bigint, AlignInBits: number, OffsetInBits: bigint, Flags: LLVM.DIFlags, DerivedFrom: LLVM.MetadataRef, Elements: Pointer<"Elements">, NumElements: number, VTableHolder: LLVM.MetadataRef, TemplateParamsNode: LLVM.MetadataRef, UniqueIdentifier: Pointer<"UniqueIdentifier">, UniqueIdentifierLen: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateClassType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: bigint, AlignInBits: number, OffsetInBits: bigint, Flags: LLVM.DIFlags, DerivedFrom: LLVM.MetadataRef, Elements: Pointer, NumElements: number, VTableHolder: LLVM.MetadataRef, TemplateParamsNode: LLVM.MetadataRef, UniqueIdentifier: Pointer, UniqueIdentifierLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1025 */
   export declare function DIBuilderCreateArtificialType(Builder: LLVM.DIBuilderRef, Type: LLVM.MetadataRef): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1035 */
-  export declare function DITypeGetName(DType: LLVM.MetadataRef, Length: Pointer<"Length">): Pointer<"LLVMDITypeGetName">;
+  export declare function DITypeGetName(DType: LLVM.MetadataRef, Length: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1043 */
   export declare function DITypeGetSizeInBits(DType: LLVM.MetadataRef): bigint;
@@ -3251,16 +3251,16 @@ export namespace LLVM {
   export declare function DIBuilderGetOrCreateSubrange(Builder: LLVM.DIBuilderRef, LowerBound: bigint, Count: bigint): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1093 */
-  export declare function DIBuilderGetOrCreateArray(Builder: LLVM.DIBuilderRef, Data: Pointer<"Data">, NumElements: number): LLVM.MetadataRef;
+  export declare function DIBuilderGetOrCreateArray(Builder: LLVM.DIBuilderRef, Data: Pointer, NumElements: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1104 */
-  export declare function DIBuilderCreateExpression(Builder: LLVM.DIBuilderRef, Addr: Pointer<"Addr">, Length: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateExpression(Builder: LLVM.DIBuilderRef, Addr: Pointer, Length: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1114 */
   export declare function DIBuilderCreateConstantValueExpression(Builder: LLVM.DIBuilderRef, Value: bigint): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1136 */
-  export declare function DIBuilderCreateGlobalVariableExpression(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<"Name">, NameLen: number, Linkage: Pointer<"Linkage">, LinkLen: number, File: LLVM.MetadataRef, LineNo: number, Ty: LLVM.MetadataRef, LocalToUnit: LLVM.Bool, Expr: LLVM.MetadataRef, Decl: LLVM.MetadataRef, AlignInBits: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateGlobalVariableExpression(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer, NameLen: number, Linkage: Pointer, LinkLen: number, File: LLVM.MetadataRef, LineNo: number, Ty: LLVM.MetadataRef, LocalToUnit: LLVM.Bool, Expr: LLVM.MetadataRef, Decl: LLVM.MetadataRef, AlignInBits: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1148 */
   export declare function DIGlobalVariableExpressionGetVariable(GVE: LLVM.MetadataRef): LLVM.MetadataRef;
@@ -3278,7 +3278,7 @@ export namespace LLVM {
   export declare function DIVariableGetLine(Var: LLVM.MetadataRef): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1191 */
-  export declare function TemporaryMDNode(Ctx: LLVM.ContextRef, Data: Pointer<"Data">, NumElements: number): LLVM.MetadataRef;
+  export declare function TemporaryMDNode(Ctx: LLVM.ContextRef, Data: Pointer, NumElements: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1201 */
   export declare function DisposeTemporaryMDNode(TempNode: LLVM.MetadataRef): void;
@@ -3287,7 +3287,7 @@ export namespace LLVM {
   export declare function MetadataReplaceAllUsesWith(TempTargetMetadata: LLVM.MetadataRef, Replacement: LLVM.MetadataRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1228 */
-  export declare function DIBuilderCreateTempGlobalVariableFwdDecl(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<"Name">, NameLen: number, Linkage: Pointer<"Linkage">, LnkLen: number, File: LLVM.MetadataRef, LineNo: number, Ty: LLVM.MetadataRef, LocalToUnit: LLVM.Bool, Decl: LLVM.MetadataRef, AlignInBits: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateTempGlobalVariableFwdDecl(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer, NameLen: number, Linkage: Pointer, LnkLen: number, File: LLVM.MetadataRef, LineNo: number, Ty: LLVM.MetadataRef, LocalToUnit: LLVM.Bool, Decl: LLVM.MetadataRef, AlignInBits: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1243 */
   export declare function DIBuilderInsertDeclareBefore(Builder: LLVM.DIBuilderRef, Storage: LLVM.ValueRef, VarInfo: LLVM.MetadataRef, Expr: LLVM.MetadataRef, DebugLoc: LLVM.MetadataRef, Instr: LLVM.ValueRef): LLVM.ValueRef;
@@ -3302,10 +3302,10 @@ export namespace LLVM {
   export declare function DIBuilderInsertDbgValueAtEnd(Builder: LLVM.DIBuilderRef, Val: LLVM.ValueRef, VarInfo: LLVM.MetadataRef, Expr: LLVM.MetadataRef, DebugLoc: LLVM.MetadataRef, Block: LLVM.BasicBlockRef): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1309 */
-  export declare function DIBuilderCreateAutoVariable(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<"Name">, NameLen: number, File: LLVM.MetadataRef, LineNo: number, Ty: LLVM.MetadataRef, AlwaysPreserve: LLVM.Bool, Flags: LLVM.DIFlags, AlignInBits: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateAutoVariable(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer, NameLen: number, File: LLVM.MetadataRef, LineNo: number, Ty: LLVM.MetadataRef, AlwaysPreserve: LLVM.Bool, Flags: LLVM.DIFlags, AlignInBits: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1327 */
-  export declare function DIBuilderCreateParameterVariable(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<"Name">, NameLen: number, ArgNo: number, File: LLVM.MetadataRef, LineNo: number, Ty: LLVM.MetadataRef, AlwaysPreserve: LLVM.Bool, Flags: LLVM.DIFlags): LLVM.MetadataRef;
+  export declare function DIBuilderCreateParameterVariable(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer, NameLen: number, ArgNo: number, File: LLVM.MetadataRef, LineNo: number, Ty: LLVM.MetadataRef, AlwaysPreserve: LLVM.Bool, Flags: LLVM.DIFlags): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1337 */
   export declare function GetSubprogram(Func: LLVM.ValueRef): LLVM.MetadataRef;
@@ -3326,13 +3326,13 @@ export namespace LLVM {
   export declare function GetMetadataKind(Metadata: LLVM.MetadataRef): LLVM.MetadataKind;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Disassembler.h#L38 */
-  export declare function CreateDisasm(TripleName: Pointer<"TripleName">, DisInfo: Pointer<"DisInfo">, TagType: number, GetOpInfo: LLVM.OpInfoCallback, SymbolLookUp: LLVM.SymbolLookupCallback): LLVM.DisasmContextRef;
+  export declare function CreateDisasm(TripleName: Pointer, DisInfo: Pointer, TagType: number, GetOpInfo: LLVM.OpInfoCallback, SymbolLookUp: LLVM.SymbolLookupCallback): LLVM.DisasmContextRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Disassembler.h#L50 */
-  export declare function CreateDisasmCPU(Triple: Pointer<"Triple">, CPU: Pointer<"CPU">, DisInfo: Pointer<"DisInfo">, TagType: number, GetOpInfo: LLVM.OpInfoCallback, SymbolLookUp: LLVM.SymbolLookupCallback): LLVM.DisasmContextRef;
+  export declare function CreateDisasmCPU(Triple: Pointer, CPU: Pointer, DisInfo: Pointer, TagType: number, GetOpInfo: LLVM.OpInfoCallback, SymbolLookUp: LLVM.SymbolLookupCallback): LLVM.DisasmContextRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Disassembler.h#L63 */
-  export declare function CreateDisasmCPUFeatures(Triple: Pointer<"Triple">, CPU: Pointer<"CPU">, Features: Pointer<"Features">, DisInfo: Pointer<"DisInfo">, TagType: number, GetOpInfo: LLVM.OpInfoCallback, SymbolLookUp: LLVM.SymbolLookupCallback): LLVM.DisasmContextRef;
+  export declare function CreateDisasmCPUFeatures(Triple: Pointer, CPU: Pointer, Features: Pointer, DisInfo: Pointer, TagType: number, GetOpInfo: LLVM.OpInfoCallback, SymbolLookUp: LLVM.SymbolLookupCallback): LLVM.DisasmContextRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Disassembler.h#L72 */
   export declare function SetDisasmOptions(DC: LLVM.DisasmContextRef, Options: bigint): number;
@@ -3341,7 +3341,7 @@ export namespace LLVM {
   export declare function DisasmDispose(DC: LLVM.DisasmContextRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Disassembler.h#L100 */
-  export declare function DisasmInstruction(DC: LLVM.DisasmContextRef, Bytes: Pointer<"Bytes">, BytesSize: bigint, PC: bigint, OutString: Pointer<"OutString">, OutStringSize: number): number;
+  export declare function DisasmInstruction(DC: LLVM.DisasmContextRef, Bytes: Pointer, BytesSize: bigint, PC: bigint, OutString: Pointer, OutStringSize: number): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Error.h#L44 */
   export declare function GetErrorTypeId(Err: LLVM.ErrorRef): LLVM.ErrorTypeId;
@@ -3350,16 +3350,16 @@ export namespace LLVM {
   export declare function ConsumeError(Err: LLVM.ErrorRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Error.h#L60 */
-  export declare function GetErrorMessage(Err: LLVM.ErrorRef): Pointer<"LLVMGetErrorMessage">;
+  export declare function GetErrorMessage(Err: LLVM.ErrorRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Error.h#L65 */
-  export declare function DisposeErrorMessage(ErrMsg: Pointer<"ErrMsg">): void;
+  export declare function DisposeErrorMessage(ErrMsg: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Error.h#L70 */
   export declare function GetStringErrorTypeId(): LLVM.ErrorTypeId;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Error.h#L75 */
-  export declare function CreateStringError(ErrMsg: Pointer<"ErrMsg">): LLVM.ErrorRef;
+  export declare function CreateStringError(ErrMsg: Pointer): LLVM.ErrorRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm/Config/Targets.def#L26 */
   export declare function InitializeAArch64TargetInfo(): void;
@@ -3683,7 +3683,7 @@ export namespace LLVM {
   export declare function SetModuleDataLayout(M: LLVM.ModuleRef, DL: LLVM.TargetDataRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Target.h#L197 */
-  export declare function CreateTargetData(StringRep: Pointer<"StringRep">): LLVM.TargetDataRef;
+  export declare function CreateTargetData(StringRep: Pointer): LLVM.TargetDataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Target.h#L201 */
   export declare function DisposeTargetData(TD: LLVM.TargetDataRef): void;
@@ -3692,7 +3692,7 @@ export namespace LLVM {
   export declare function AddTargetLibraryInfo(TLI: LLVM.TargetLibraryInfoRef, PM: LLVM.PassManagerRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Target.h#L212 */
-  export declare function CopyStringRepOfTargetData(TD: LLVM.TargetDataRef): Pointer<"LLVMCopyStringRepOfTargetData">;
+  export declare function CopyStringRepOfTargetData(TD: LLVM.TargetDataRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Target.h#L217 */
   export declare function ByteOrder(TD: LLVM.TargetDataRef): LLVM.ByteOrdering;
@@ -3749,16 +3749,16 @@ export namespace LLVM {
   export declare function GetNextTarget(T: LLVM.TargetRef): LLVM.TargetRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/TargetMachine.h#L77 */
-  export declare function GetTargetFromName(Name: Pointer<"Name">): LLVM.TargetRef;
+  export declare function GetTargetFromName(Name: Pointer): LLVM.TargetRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/TargetMachine.h#L82 */
-  export declare function GetTargetFromTriple(Triple: Pointer<"Triple">, T: Pointer<"T">, ErrorMessage: Pointer<"ErrorMessage">): LLVM.Bool;
+  export declare function GetTargetFromTriple(Triple: Pointer, T: Pointer, ErrorMessage: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/TargetMachine.h#L86 */
-  export declare function GetTargetName(T: LLVM.TargetRef): Pointer<"LLVMGetTargetName">;
+  export declare function GetTargetName(T: LLVM.TargetRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/TargetMachine.h#L89 */
-  export declare function GetTargetDescription(T: LLVM.TargetRef): Pointer<"LLVMGetTargetDescription">;
+  export declare function GetTargetDescription(T: LLVM.TargetRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/TargetMachine.h#L92 */
   export declare function TargetHasJIT(T: LLVM.TargetRef): LLVM.Bool;
@@ -3770,7 +3770,7 @@ export namespace LLVM {
   export declare function TargetHasAsmBackend(T: LLVM.TargetRef): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/TargetMachine.h#L102 */
-  export declare function CreateTargetMachine(T: LLVM.TargetRef, Triple: Pointer<"Triple">, CPU: Pointer<"CPU">, Features: Pointer<"Features">, Level: LLVM.CodeGenOptLevel, Reloc: LLVM.RelocMode, CodeModel: LLVM.CodeModel): LLVM.TargetMachineRef;
+  export declare function CreateTargetMachine(T: LLVM.TargetRef, Triple: Pointer, CPU: Pointer, Features: Pointer, Level: LLVM.CodeGenOptLevel, Reloc: LLVM.RelocMode, CodeModel: LLVM.CodeModel): LLVM.TargetMachineRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/TargetMachine.h#L108 */
   export declare function DisposeTargetMachine(T: LLVM.TargetMachineRef): void;
@@ -3779,13 +3779,13 @@ export namespace LLVM {
   export declare function GetTargetMachineTarget(T: LLVM.TargetMachineRef): LLVM.TargetRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/TargetMachine.h#L116 */
-  export declare function GetTargetMachineTriple(T: LLVM.TargetMachineRef): Pointer<"LLVMGetTargetMachineTriple">;
+  export declare function GetTargetMachineTriple(T: LLVM.TargetMachineRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/TargetMachine.h#L121 */
-  export declare function GetTargetMachineCPU(T: LLVM.TargetMachineRef): Pointer<"LLVMGetTargetMachineCPU">;
+  export declare function GetTargetMachineCPU(T: LLVM.TargetMachineRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/TargetMachine.h#L126 */
-  export declare function GetTargetMachineFeatureString(T: LLVM.TargetMachineRef): Pointer<"LLVMGetTargetMachineFeatureString">;
+  export declare function GetTargetMachineFeatureString(T: LLVM.TargetMachineRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/TargetMachine.h#L129 */
   export declare function CreateTargetDataLayout(T: LLVM.TargetMachineRef): LLVM.TargetDataRef;
@@ -3794,22 +3794,22 @@ export namespace LLVM {
   export declare function SetTargetMachineAsmVerbosity(T: LLVM.TargetMachineRef, VerboseAsm: LLVM.Bool): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/TargetMachine.h#L138 */
-  export declare function TargetMachineEmitToFile(T: LLVM.TargetMachineRef, M: LLVM.ModuleRef, Filename: Pointer<"Filename">, codegen: LLVM.CodeGenFileType, ErrorMessage: Pointer<"ErrorMessage">): LLVM.Bool;
+  export declare function TargetMachineEmitToFile(T: LLVM.TargetMachineRef, M: LLVM.ModuleRef, Filename: Pointer, codegen: LLVM.CodeGenFileType, ErrorMessage: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/TargetMachine.h#L142 */
-  export declare function TargetMachineEmitToMemoryBuffer(T: LLVM.TargetMachineRef, M: LLVM.ModuleRef, codegen: LLVM.CodeGenFileType, ErrorMessage: Pointer<"ErrorMessage">, OutMemBuf: Pointer<"OutMemBuf">): LLVM.Bool;
+  export declare function TargetMachineEmitToMemoryBuffer(T: LLVM.TargetMachineRef, M: LLVM.ModuleRef, codegen: LLVM.CodeGenFileType, ErrorMessage: Pointer, OutMemBuf: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/TargetMachine.h#L148 */
-  export declare function GetDefaultTargetTriple(): Pointer<"LLVMGetDefaultTargetTriple">;
+  export declare function GetDefaultTargetTriple(): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/TargetMachine.h#L152 */
-  export declare function NormalizeTargetTriple(triple: Pointer<"triple">): Pointer<"LLVMNormalizeTargetTriple">;
+  export declare function NormalizeTargetTriple(triple: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/TargetMachine.h#L156 */
-  export declare function GetHostCPUName(): Pointer<"LLVMGetHostCPUName">;
+  export declare function GetHostCPUName(): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/TargetMachine.h#L160 */
-  export declare function GetHostCPUFeatures(): Pointer<"LLVMGetHostCPUFeatures">;
+  export declare function GetHostCPUFeatures(): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/TargetMachine.h#L163 */
   export declare function AddAnalysisPasses(T: LLVM.TargetMachineRef, PM: LLVM.PassManagerRef): void;
@@ -3824,7 +3824,7 @@ export namespace LLVM {
   export declare function CreateGenericValueOfInt(Ty: LLVM.TypeRef, N: bigint, IsSigned: LLVM.Bool): LLVM.GenericValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L57 */
-  export declare function CreateGenericValueOfPointer(P: Pointer<"P">): LLVM.GenericValueRef;
+  export declare function CreateGenericValueOfPointer(P: Pointer): LLVM.GenericValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L59 */
   export declare function CreateGenericValueOfFloat(Ty: LLVM.TypeRef, N: bigint): LLVM.GenericValueRef;
@@ -3836,7 +3836,7 @@ export namespace LLVM {
   export declare function GenericValueToInt(GenVal: LLVM.GenericValueRef, IsSigned: LLVM.Bool): bigint;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L66 */
-  export declare function GenericValueToPointer(GenVal: LLVM.GenericValueRef): Pointer<"LLVMGenericValueToPointer">;
+  export declare function GenericValueToPointer(GenVal: LLVM.GenericValueRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L68 */
   export declare function GenericValueToFloat(TyRef: LLVM.TypeRef, GenVal: LLVM.GenericValueRef): bigint;
@@ -3845,19 +3845,19 @@ export namespace LLVM {
   export declare function DisposeGenericValue(GenVal: LLVM.GenericValueRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L74 */
-  export declare function CreateExecutionEngineForModule(OutEE: Pointer<"OutEE">, M: LLVM.ModuleRef, OutError: Pointer<"OutError">): LLVM.Bool;
+  export declare function CreateExecutionEngineForModule(OutEE: Pointer, M: LLVM.ModuleRef, OutError: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L78 */
-  export declare function CreateInterpreterForModule(OutInterp: Pointer<"OutInterp">, M: LLVM.ModuleRef, OutError: Pointer<"OutError">): LLVM.Bool;
+  export declare function CreateInterpreterForModule(OutInterp: Pointer, M: LLVM.ModuleRef, OutError: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L82 */
-  export declare function CreateJITCompilerForModule(OutJIT: Pointer<"OutJIT">, M: LLVM.ModuleRef, OptLevel: number, OutError: Pointer<"OutError">): LLVM.Bool;
+  export declare function CreateJITCompilerForModule(OutJIT: Pointer, M: LLVM.ModuleRef, OptLevel: number, OutError: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L87 */
-  export declare function InitializeMCJITCompilerOptions(Options: Pointer<"Options">, SizeOfOptions: number): void;
+  export declare function InitializeMCJITCompilerOptions(Options: Pointer, SizeOfOptions: number): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L107 */
-  export declare function CreateMCJITCompilerForModule(OutJIT: Pointer<"OutJIT">, M: LLVM.ModuleRef, Options: Pointer<"Options">, SizeOfOptions: number, OutError: Pointer<"OutError">): LLVM.Bool;
+  export declare function CreateMCJITCompilerForModule(OutJIT: Pointer, M: LLVM.ModuleRef, Options: Pointer, SizeOfOptions: number, OutError: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L112 */
   export declare function DisposeExecutionEngine(EE: LLVM.ExecutionEngineRef): void;
@@ -3869,10 +3869,10 @@ export namespace LLVM {
   export declare function RunStaticDestructors(EE: LLVM.ExecutionEngineRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L118 */
-  export declare function RunFunctionAsMain(EE: LLVM.ExecutionEngineRef, F: LLVM.ValueRef, ArgC: number, ArgV: Pointer<"ArgV">, EnvP: Pointer<"EnvP">): number;
+  export declare function RunFunctionAsMain(EE: LLVM.ExecutionEngineRef, F: LLVM.ValueRef, ArgC: number, ArgV: Pointer, EnvP: Pointer): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L122 */
-  export declare function RunFunction(EE: LLVM.ExecutionEngineRef, F: LLVM.ValueRef, NumArgs: number, Args: Pointer<"Args">): LLVM.GenericValueRef;
+  export declare function RunFunction(EE: LLVM.ExecutionEngineRef, F: LLVM.ValueRef, NumArgs: number, Args: Pointer): LLVM.GenericValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L126 */
   export declare function FreeMachineCodeForFunction(EE: LLVM.ExecutionEngineRef, F: LLVM.ValueRef): void;
@@ -3881,13 +3881,13 @@ export namespace LLVM {
   export declare function AddModule(EE: LLVM.ExecutionEngineRef, M: LLVM.ModuleRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L130 */
-  export declare function RemoveModule(EE: LLVM.ExecutionEngineRef, M: LLVM.ModuleRef, OutMod: Pointer<"OutMod">, OutError: Pointer<"OutError">): LLVM.Bool;
+  export declare function RemoveModule(EE: LLVM.ExecutionEngineRef, M: LLVM.ModuleRef, OutMod: Pointer, OutError: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L133 */
-  export declare function FindFunction(EE: LLVM.ExecutionEngineRef, Name: Pointer<"Name">, OutFn: Pointer<"OutFn">): LLVM.Bool;
+  export declare function FindFunction(EE: LLVM.ExecutionEngineRef, Name: Pointer, OutFn: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L136 */
-  export declare function RecompileAndRelinkFunction(EE: LLVM.ExecutionEngineRef, Fn: LLVM.ValueRef): Pointer<"LLVMRecompileAndRelinkFunction">;
+  export declare function RecompileAndRelinkFunction(EE: LLVM.ExecutionEngineRef, Fn: LLVM.ValueRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L139 */
   export declare function GetExecutionEngineTargetData(EE: LLVM.ExecutionEngineRef): LLVM.TargetDataRef;
@@ -3896,22 +3896,22 @@ export namespace LLVM {
   export declare function GetExecutionEngineTargetMachine(EE: LLVM.ExecutionEngineRef): LLVM.TargetMachineRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L143 */
-  export declare function AddGlobalMapping(EE: LLVM.ExecutionEngineRef, Global: LLVM.ValueRef, Addr: Pointer<"Addr">): void;
+  export declare function AddGlobalMapping(EE: LLVM.ExecutionEngineRef, Global: LLVM.ValueRef, Addr: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L146 */
-  export declare function GetPointerToGlobal(EE: LLVM.ExecutionEngineRef, Global: LLVM.ValueRef): Pointer<"LLVMGetPointerToGlobal">;
+  export declare function GetPointerToGlobal(EE: LLVM.ExecutionEngineRef, Global: LLVM.ValueRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L148 */
-  export declare function GetGlobalValueAddress(EE: LLVM.ExecutionEngineRef, Name: Pointer<"Name">): bigint;
+  export declare function GetGlobalValueAddress(EE: LLVM.ExecutionEngineRef, Name: Pointer): bigint;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L150 */
-  export declare function GetFunctionAddress(EE: LLVM.ExecutionEngineRef, Name: Pointer<"Name">): bigint;
+  export declare function GetFunctionAddress(EE: LLVM.ExecutionEngineRef, Name: Pointer): bigint;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L154 */
-  export declare function ExecutionEngineGetErrMsg(EE: LLVM.ExecutionEngineRef, OutError: Pointer<"OutError">): LLVM.Bool;
+  export declare function ExecutionEngineGetErrMsg(EE: LLVM.ExecutionEngineRef, OutError: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L180 */
-  export declare function CreateSimpleMCJITMemoryManager(Opaque: Pointer<"Opaque">, AllocateCodeSection: LLVM.MemoryManagerAllocateCodeSectionCallback, AllocateDataSection: LLVM.MemoryManagerAllocateDataSectionCallback, FinalizeMemory: LLVM.MemoryManagerFinalizeMemoryCallback, Destroy: LLVM.MemoryManagerDestroyCallback): LLVM.MCJITMemoryManagerRef;
+  export declare function CreateSimpleMCJITMemoryManager(Opaque: Pointer, AllocateCodeSection: LLVM.MemoryManagerAllocateCodeSectionCallback, AllocateDataSection: LLVM.MemoryManagerAllocateDataSectionCallback, FinalizeMemory: LLVM.MemoryManagerFinalizeMemoryCallback, Destroy: LLVM.MemoryManagerDestroyCallback): LLVM.MCJITMemoryManagerRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L187 */
   export declare function DisposeMCJITMemoryManager(MM: LLVM.MCJITMemoryManagerRef): void;
@@ -3929,7 +3929,7 @@ export namespace LLVM {
   export declare function CreatePerfJITEventListener(): LLVM.JITEventListenerRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/IRReader.h#L38 */
-  export declare function ParseIRInContext(ContextRef: LLVM.ContextRef, MemBuf: LLVM.MemoryBufferRef, OutM: Pointer<"OutM">, OutMessage: Pointer<"OutMessage">): LLVM.Bool;
+  export declare function ParseIRInContext(ContextRef: LLVM.ContextRef, MemBuf: LLVM.MemoryBufferRef, OutM: Pointer, OutMessage: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Initialization.h#L34 */
   export declare function InitializeTransformUtils(R: LLVM.PassRegistryRef): void;
@@ -3968,7 +3968,7 @@ export namespace LLVM {
   export declare function InitializeTarget(R: LLVM.PassRegistryRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L457 */
-  export declare function OrcExecutionSessionSetErrorReporter(ES: LLVM.OrcExecutionSessionRef, ReportError: LLVM.OrcErrorReporterFunction, Ctx: Pointer<"Ctx">): void;
+  export declare function OrcExecutionSessionSetErrorReporter(ES: LLVM.OrcExecutionSessionRef, ReportError: LLVM.OrcErrorReporterFunction, Ctx: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L468 */
   export declare function OrcExecutionSessionGetSymbolStringPool(ES: LLVM.OrcExecutionSessionRef): LLVM.OrcSymbolStringPoolRef;
@@ -3977,7 +3977,7 @@ export namespace LLVM {
   export declare function OrcSymbolStringPoolClearDeadEntries(SSP: LLVM.OrcSymbolStringPoolRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L495 */
-  export declare function OrcExecutionSessionIntern(ES: LLVM.OrcExecutionSessionRef, Name: Pointer<"Name">): LLVM.OrcSymbolStringPoolEntryRef;
+  export declare function OrcExecutionSessionIntern(ES: LLVM.OrcExecutionSessionRef, Name: Pointer): LLVM.OrcSymbolStringPoolEntryRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L500 */
   export declare function OrcRetainSymbolStringPoolEntry(S: LLVM.OrcSymbolStringPoolEntryRef): void;
@@ -3986,7 +3986,7 @@ export namespace LLVM {
   export declare function OrcReleaseSymbolStringPoolEntry(S: LLVM.OrcSymbolStringPoolEntryRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L507 */
-  export declare function OrcSymbolStringPoolEntryStr(S: LLVM.OrcSymbolStringPoolEntryRef): Pointer<"LLVMOrcSymbolStringPoolEntryStr">;
+  export declare function OrcSymbolStringPoolEntryStr(S: LLVM.OrcSymbolStringPoolEntryRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L512 */
   export declare function OrcReleaseResourceTracker(RT: LLVM.OrcResourceTrackerRef): void;
@@ -4004,7 +4004,7 @@ export namespace LLVM {
   export declare function OrcDisposeMaterializationUnit(MU: LLVM.OrcMaterializationUnitRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L572 */
-  export declare function OrcCreateCustomMaterializationUnit(Name: Pointer<"Name">, Ctx: Pointer<"Ctx">, Syms: LLVM.OrcCSymbolFlagsMapPairs, NumSyms: number, InitSym: LLVM.OrcSymbolStringPoolEntryRef, Materialize: LLVM.OrcMaterializationUnitMaterializeFunction, Discard: LLVM.OrcMaterializationUnitDiscardFunction, Destroy: LLVM.OrcMaterializationUnitDestroyFunction): LLVM.OrcMaterializationUnitRef;
+  export declare function OrcCreateCustomMaterializationUnit(Name: Pointer, Ctx: Pointer, Syms: LLVM.OrcCSymbolFlagsMapPairs, NumSyms: number, InitSym: LLVM.OrcSymbolStringPoolEntryRef, Materialize: LLVM.OrcMaterializationUnitMaterializeFunction, Discard: LLVM.OrcMaterializationUnitDiscardFunction, Destroy: LLVM.OrcMaterializationUnitDestroyFunction): LLVM.OrcMaterializationUnitRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L601 */
   export declare function OrcAbsoluteSymbols(Syms: LLVM.OrcCSymbolMapPairs, NumPairs: number): LLVM.OrcMaterializationUnitRef;
@@ -4022,7 +4022,7 @@ export namespace LLVM {
   export declare function OrcMaterializationResponsibilityGetExecutionSession(MR: LLVM.OrcMaterializationResponsibilityRef): LLVM.OrcExecutionSessionRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L665 */
-  export declare function OrcMaterializationResponsibilityGetSymbols(MR: LLVM.OrcMaterializationResponsibilityRef, NumPairs: Pointer<"NumPairs">): LLVM.OrcCSymbolFlagsMapPairs;
+  export declare function OrcMaterializationResponsibilityGetSymbols(MR: LLVM.OrcMaterializationResponsibilityRef, NumPairs: Pointer): LLVM.OrcCSymbolFlagsMapPairs;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L673 */
   export declare function OrcDisposeCSymbolFlagsMap(Pairs: LLVM.OrcCSymbolFlagsMapPairs): void;
@@ -4031,10 +4031,10 @@ export namespace LLVM {
   export declare function OrcMaterializationResponsibilityGetInitializerSymbol(MR: LLVM.OrcMaterializationResponsibilityRef): LLVM.OrcSymbolStringPoolEntryRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L694 */
-  export declare function OrcMaterializationResponsibilityGetRequestedSymbols(MR: LLVM.OrcMaterializationResponsibilityRef, NumSymbols: Pointer<"NumSymbols">): Pointer<"LLVMOrcMaterializationResponsibilityGetRequestedSymbols">;
+  export declare function OrcMaterializationResponsibilityGetRequestedSymbols(MR: LLVM.OrcMaterializationResponsibilityRef, NumSymbols: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L702 */
-  export declare function OrcDisposeSymbols(Symbols: Pointer<"Symbols">): void;
+  export declare function OrcDisposeSymbols(Symbols: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L720 */
   export declare function OrcMaterializationResponsibilityNotifyResolved(MR: LLVM.OrcMaterializationResponsibilityRef, Symbols: LLVM.OrcCSymbolMapPairs, NumPairs: number): LLVM.ErrorRef;
@@ -4052,7 +4052,7 @@ export namespace LLVM {
   export declare function OrcMaterializationResponsibilityReplace(MR: LLVM.OrcMaterializationResponsibilityRef, MU: LLVM.OrcMaterializationUnitRef): LLVM.ErrorRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L786 */
-  export declare function OrcMaterializationResponsibilityDelegate(MR: LLVM.OrcMaterializationResponsibilityRef, Symbols: Pointer<"Symbols">, NumSymbols: number, Result: Pointer<"Result">): LLVM.ErrorRef;
+  export declare function OrcMaterializationResponsibilityDelegate(MR: LLVM.OrcMaterializationResponsibilityRef, Symbols: Pointer, NumSymbols: number, Result: Pointer): LLVM.ErrorRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L809 */
   export declare function OrcMaterializationResponsibilityAddDependencies(MR: LLVM.OrcMaterializationResponsibilityRef, Name: LLVM.OrcSymbolStringPoolEntryRef, Dependencies: LLVM.OrcCDependenceMapPairs, NumPairs: number): void;
@@ -4061,13 +4061,13 @@ export namespace LLVM {
   export declare function OrcMaterializationResponsibilityAddDependenciesForAll(MR: LLVM.OrcMaterializationResponsibilityRef, Dependencies: LLVM.OrcCDependenceMapPairs, NumPairs: number): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L833 */
-  export declare function OrcExecutionSessionCreateBareJITDylib(ES: LLVM.OrcExecutionSessionRef, Name: Pointer<"Name">): LLVM.OrcJITDylibRef;
+  export declare function OrcExecutionSessionCreateBareJITDylib(ES: LLVM.OrcExecutionSessionRef, Name: Pointer): LLVM.OrcJITDylibRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L849 */
-  export declare function OrcExecutionSessionCreateJITDylib(ES: LLVM.OrcExecutionSessionRef, Result: Pointer<"Result">, Name: Pointer<"Name">): LLVM.ErrorRef;
+  export declare function OrcExecutionSessionCreateJITDylib(ES: LLVM.OrcExecutionSessionRef, Result: Pointer, Name: Pointer): LLVM.ErrorRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L858 */
-  export declare function OrcExecutionSessionGetJITDylibByName(ES: LLVM.OrcExecutionSessionRef, Name: Pointer<"Name">): LLVM.OrcJITDylibRef;
+  export declare function OrcExecutionSessionGetJITDylibByName(ES: LLVM.OrcExecutionSessionRef, Name: Pointer): LLVM.OrcJITDylibRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L867 */
   export declare function OrcJITDylibCreateResourceTracker(JD: LLVM.OrcJITDylibRef): LLVM.OrcResourceTrackerRef;
@@ -4085,16 +4085,16 @@ export namespace LLVM {
   export declare function OrcJITDylibAddGenerator(JD: LLVM.OrcJITDylibRef, DG: LLVM.OrcDefinitionGeneratorRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L905 */
-  export declare function OrcCreateCustomCAPIDefinitionGenerator(F: LLVM.OrcCAPIDefinitionGeneratorTryToGenerateFunction, Ctx: Pointer<"Ctx">): LLVM.OrcDefinitionGeneratorRef;
+  export declare function OrcCreateCustomCAPIDefinitionGenerator(F: LLVM.OrcCAPIDefinitionGeneratorTryToGenerateFunction, Ctx: Pointer): LLVM.OrcDefinitionGeneratorRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L926 */
-  export declare function OrcCreateDynamicLibrarySearchGeneratorForProcess(Result: Pointer<"Result">, GlobalPrefx: number, Filter: LLVM.OrcSymbolPredicate, FilterCtx: Pointer<"FilterCtx">): LLVM.ErrorRef;
+  export declare function OrcCreateDynamicLibrarySearchGeneratorForProcess(Result: Pointer, GlobalPrefx: number, Filter: LLVM.OrcSymbolPredicate, FilterCtx: Pointer): LLVM.ErrorRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L951 */
-  export declare function OrcCreateDynamicLibrarySearchGeneratorForPath(Result: Pointer<"Result">, FileName: Pointer<"FileName">, GlobalPrefix: number, Filter: LLVM.OrcSymbolPredicate, FilterCtx: Pointer<"FilterCtx">): LLVM.ErrorRef;
+  export declare function OrcCreateDynamicLibrarySearchGeneratorForPath(Result: Pointer, FileName: Pointer, GlobalPrefix: number, Filter: LLVM.OrcSymbolPredicate, FilterCtx: Pointer): LLVM.ErrorRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L969 */
-  export declare function OrcCreateStaticLibrarySearchGeneratorForPath(Result: Pointer<"Result">, ObjLayer: LLVM.OrcObjectLayerRef, FileName: Pointer<"FileName">, TargetTriple: Pointer<"TargetTriple">): LLVM.ErrorRef;
+  export declare function OrcCreateStaticLibrarySearchGeneratorForPath(Result: Pointer, ObjLayer: LLVM.OrcObjectLayerRef, FileName: Pointer, TargetTriple: Pointer): LLVM.ErrorRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L981 */
   export declare function OrcCreateNewThreadSafeContext(): LLVM.OrcThreadSafeContextRef;
@@ -4112,10 +4112,10 @@ export namespace LLVM {
   export declare function OrcDisposeThreadSafeModule(TSM: LLVM.OrcThreadSafeModuleRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L1019 */
-  export declare function OrcThreadSafeModuleWithModuleDo(TSM: LLVM.OrcThreadSafeModuleRef, F: LLVM.OrcGenericIRModuleOperationFunction, Ctx: Pointer<"Ctx">): LLVM.ErrorRef;
+  export declare function OrcThreadSafeModuleWithModuleDo(TSM: LLVM.OrcThreadSafeModuleRef, F: LLVM.OrcGenericIRModuleOperationFunction, Ctx: Pointer): LLVM.ErrorRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L1031 */
-  export declare function OrcJITTargetMachineBuilderDetectHost(Result: Pointer<"Result">): LLVM.ErrorRef;
+  export declare function OrcJITTargetMachineBuilderDetectHost(Result: Pointer): LLVM.ErrorRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L1044 */
   export declare function OrcJITTargetMachineBuilderCreateFromTargetMachine(TM: LLVM.TargetMachineRef): LLVM.OrcJITTargetMachineBuilderRef;
@@ -4124,10 +4124,10 @@ export namespace LLVM {
   export declare function OrcDisposeJITTargetMachineBuilder(JTMB: LLVM.OrcJITTargetMachineBuilderRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L1058 */
-  export declare function OrcJITTargetMachineBuilderGetTargetTriple(JTMB: LLVM.OrcJITTargetMachineBuilderRef): Pointer<"LLVMOrcJITTargetMachineBuilderGetTargetTriple">;
+  export declare function OrcJITTargetMachineBuilderGetTargetTriple(JTMB: LLVM.OrcJITTargetMachineBuilderRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L1065 */
-  export declare function OrcJITTargetMachineBuilderSetTargetTriple(JTMB: LLVM.OrcJITTargetMachineBuilderRef, TargetTriple: Pointer<"TargetTriple">): void;
+  export declare function OrcJITTargetMachineBuilderSetTargetTriple(JTMB: LLVM.OrcJITTargetMachineBuilderRef, TargetTriple: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L1079 */
   export declare function OrcObjectLayerAddObjectFile(ObjLayer: LLVM.OrcObjectLayerRef, JD: LLVM.OrcJITDylibRef, ObjBuffer: LLVM.MemoryBufferRef): LLVM.ErrorRef;
@@ -4142,31 +4142,31 @@ export namespace LLVM {
   export declare function OrcIRTransformLayerEmit(IRTransformLayer: LLVM.OrcIRTransformLayerRef, MR: LLVM.OrcMaterializationResponsibilityRef, TSM: LLVM.OrcThreadSafeModuleRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L1122 */
-  export declare function OrcIRTransformLayerSetTransform(IRTransformLayer: LLVM.OrcIRTransformLayerRef, TransformFunction: LLVM.OrcIRTransformLayerTransformFunction, Ctx: Pointer<"Ctx">): void;
+  export declare function OrcIRTransformLayerSetTransform(IRTransformLayer: LLVM.OrcIRTransformLayerRef, TransformFunction: LLVM.OrcIRTransformLayerTransformFunction, Ctx: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L1129 */
-  export declare function OrcObjectTransformLayerSetTransform(ObjTransformLayer: LLVM.OrcObjectTransformLayerRef, TransformFunction: LLVM.OrcObjectTransformLayerTransformFunction, Ctx: Pointer<"Ctx">): void;
+  export declare function OrcObjectTransformLayerSetTransform(ObjTransformLayer: LLVM.OrcObjectTransformLayerRef, TransformFunction: LLVM.OrcObjectTransformLayerTransformFunction, Ctx: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L1140 */
-  export declare function OrcCreateLocalIndirectStubsManager(TargetTriple: Pointer<"TargetTriple">): LLVM.OrcIndirectStubsManagerRef;
+  export declare function OrcCreateLocalIndirectStubsManager(TargetTriple: Pointer): LLVM.OrcIndirectStubsManagerRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L1145 */
   export declare function OrcDisposeIndirectStubsManager(ISM: LLVM.OrcIndirectStubsManagerRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L1147 */
-  export declare function OrcCreateLocalLazyCallThroughManager(TargetTriple: Pointer<"TargetTriple">, ES: LLVM.OrcExecutionSessionRef, ErrorHandlerAddr: LLVM.OrcJITTargetAddress, LCTM: Pointer<"LCTM">): LLVM.ErrorRef;
+  export declare function OrcCreateLocalLazyCallThroughManager(TargetTriple: Pointer, ES: LLVM.OrcExecutionSessionRef, ErrorHandlerAddr: LLVM.OrcJITTargetAddress, LCTM: Pointer): LLVM.ErrorRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L1155 */
   export declare function OrcDisposeLazyCallThroughManager(LCTM: LLVM.OrcLazyCallThroughManagerRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L1172 */
-  export declare function OrcCreateDumpObjects(DumpDir: Pointer<"DumpDir">, IdentifierOverride: Pointer<"IdentifierOverride">): LLVM.OrcDumpObjectsRef;
+  export declare function OrcCreateDumpObjects(DumpDir: Pointer, IdentifierOverride: Pointer): LLVM.OrcDumpObjectsRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L1178 */
   export declare function OrcDisposeDumpObjects(DumpObjects: LLVM.OrcDumpObjectsRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L1183 */
-  export declare function OrcDumpObjects_CallOperator(DumpObjects: LLVM.OrcDumpObjectsRef, ObjBuffer: Pointer<"ObjBuffer">): LLVM.ErrorRef;
+  export declare function OrcDumpObjects_CallOperator(DumpObjects: LLVM.OrcDumpObjectsRef, ObjBuffer: Pointer): LLVM.ErrorRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/LLJIT.h#L74 */
   export declare function OrcCreateLLJITBuilder(): LLVM.OrcLLJITBuilderRef;
@@ -4178,10 +4178,10 @@ export namespace LLVM {
   export declare function OrcLLJITBuilderSetJITTargetMachineBuilder(Builder: LLVM.OrcLLJITBuilderRef, JTMB: LLVM.OrcJITTargetMachineBuilderRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/LLJIT.h#L98 */
-  export declare function OrcLLJITBuilderSetObjectLinkingLayerCreator(Builder: LLVM.OrcLLJITBuilderRef, F: LLVM.OrcLLJITBuilderObjectLinkingLayerCreatorFunction, Ctx: Pointer<"Ctx">): void;
+  export declare function OrcLLJITBuilderSetObjectLinkingLayerCreator(Builder: LLVM.OrcLLJITBuilderRef, F: LLVM.OrcLLJITBuilderObjectLinkingLayerCreatorFunction, Ctx: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/LLJIT.h#L116 */
-  export declare function OrcCreateLLJIT(Result: Pointer<"Result">, Builder: LLVM.OrcLLJITBuilderRef): LLVM.ErrorRef;
+  export declare function OrcCreateLLJIT(Result: Pointer, Builder: LLVM.OrcLLJITBuilderRef): LLVM.ErrorRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/LLJIT.h#L122 */
   export declare function OrcDisposeLLJIT(J: LLVM.OrcLLJITRef): LLVM.ErrorRef;
@@ -4193,13 +4193,13 @@ export namespace LLVM {
   export declare function OrcLLJITGetMainJITDylib(J: LLVM.OrcLLJITRef): LLVM.OrcJITDylibRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/LLJIT.h#L144 */
-  export declare function OrcLLJITGetTripleString(J: LLVM.OrcLLJITRef): Pointer<"LLVMOrcLLJITGetTripleString">;
+  export declare function OrcLLJITGetTripleString(J: LLVM.OrcLLJITRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/LLJIT.h#L149 */
   export declare function OrcLLJITGetGlobalPrefix(J: LLVM.OrcLLJITRef): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/LLJIT.h#L159 */
-  export declare function OrcLLJITMangleAndIntern(J: LLVM.OrcLLJITRef, UnmangledName: Pointer<"UnmangledName">): LLVM.OrcSymbolStringPoolEntryRef;
+  export declare function OrcLLJITMangleAndIntern(J: LLVM.OrcLLJITRef, UnmangledName: Pointer): LLVM.OrcSymbolStringPoolEntryRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/LLJIT.h#L170 */
   export declare function OrcLLJITAddObjectFile(J: LLVM.OrcLLJITRef, JD: LLVM.OrcJITDylibRef, ObjBuffer: LLVM.MemoryBufferRef): LLVM.ErrorRef;
@@ -4214,7 +4214,7 @@ export namespace LLVM {
   export declare function OrcLLJITAddLLVMIRModuleWithRT(J: LLVM.OrcLLJITRef, JD: LLVM.OrcResourceTrackerRef, TSM: LLVM.OrcThreadSafeModuleRef): LLVM.ErrorRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/LLJIT.h#L217 */
-  export declare function OrcLLJITLookup(J: LLVM.OrcLLJITRef, Result: Pointer<"Result">, Name: Pointer<"Name">): LLVM.ErrorRef;
+  export declare function OrcLLJITLookup(J: LLVM.OrcLLJITRef, Result: Pointer, Name: Pointer): LLVM.ErrorRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/LLJIT.h#L224 */
   export declare function OrcLLJITGetObjLinkingLayer(J: LLVM.OrcLLJITRef): LLVM.OrcObjectLayerRef;
@@ -4226,13 +4226,13 @@ export namespace LLVM {
   export declare function OrcLLJITGetIRTransformLayer(J: LLVM.OrcLLJITRef): LLVM.OrcIRTransformLayerRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/LLJIT.h#L243 */
-  export declare function OrcLLJITGetDataLayoutStr(J: LLVM.OrcLLJITRef): Pointer<"LLVMOrcLLJITGetDataLayoutStr">;
+  export declare function OrcLLJITGetDataLayoutStr(J: LLVM.OrcLLJITRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Linker.h#L41 */
   export declare function LinkModules2(Dest: LLVM.ModuleRef, Src: LLVM.ModuleRef): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L74 */
-  export declare function CreateBinary(MemBuf: LLVM.MemoryBufferRef, Context: LLVM.ContextRef, ErrorMessage: Pointer<"ErrorMessage">): LLVM.BinaryRef;
+  export declare function CreateBinary(MemBuf: LLVM.MemoryBufferRef, Context: LLVM.ContextRef, ErrorMessage: Pointer): LLVM.BinaryRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L84 */
   export declare function DisposeBinary(BR: LLVM.BinaryRef): void;
@@ -4244,7 +4244,7 @@ export namespace LLVM {
   export declare function BinaryGetType(BR: LLVM.BinaryRef): LLVM.BinaryType;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L115 */
-  export declare function MachOUniversalBinaryCopyObjectForArch(BR: LLVM.BinaryRef, Arch: Pointer<"Arch">, ArchLen: number, ErrorMessage: Pointer<"ErrorMessage">): LLVM.BinaryRef;
+  export declare function MachOUniversalBinaryCopyObjectForArch(BR: LLVM.BinaryRef, Arch: Pointer, ArchLen: number, ErrorMessage: Pointer): LLVM.BinaryRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L131 */
   export declare function ObjectFileCopySectionIterator(BR: LLVM.BinaryRef): LLVM.SectionIteratorRef;
@@ -4274,13 +4274,13 @@ export namespace LLVM {
   export declare function MoveToNextSymbol(SI: LLVM.SymbolIteratorRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L173 */
-  export declare function GetSectionName(SI: LLVM.SectionIteratorRef): Pointer<"LLVMGetSectionName">;
+  export declare function GetSectionName(SI: LLVM.SectionIteratorRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L174 */
   export declare function GetSectionSize(SI: LLVM.SectionIteratorRef): bigint;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L175 */
-  export declare function GetSectionContents(SI: LLVM.SectionIteratorRef): Pointer<"LLVMGetSectionContents">;
+  export declare function GetSectionContents(SI: LLVM.SectionIteratorRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L176 */
   export declare function GetSectionAddress(SI: LLVM.SectionIteratorRef): bigint;
@@ -4301,7 +4301,7 @@ export namespace LLVM {
   export declare function MoveToNextRelocation(RI: LLVM.RelocationIteratorRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L189 */
-  export declare function GetSymbolName(SI: LLVM.SymbolIteratorRef): Pointer<"LLVMGetSymbolName">;
+  export declare function GetSymbolName(SI: LLVM.SymbolIteratorRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L190 */
   export declare function GetSymbolAddress(SI: LLVM.SymbolIteratorRef): bigint;
@@ -4319,10 +4319,10 @@ export namespace LLVM {
   export declare function GetRelocationType(RI: LLVM.RelocationIteratorRef): bigint;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L199 */
-  export declare function GetRelocationTypeName(RI: LLVM.RelocationIteratorRef): Pointer<"LLVMGetRelocationTypeName">;
+  export declare function GetRelocationTypeName(RI: LLVM.RelocationIteratorRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L200 */
-  export declare function GetRelocationValueString(RI: LLVM.RelocationIteratorRef): Pointer<"LLVMGetRelocationValueString">;
+  export declare function GetRelocationValueString(RI: LLVM.RelocationIteratorRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L206 */
   export declare function CreateObjectFile(MemBuf: LLVM.MemoryBufferRef): LLVM.ObjectFileRef;
@@ -4349,7 +4349,7 @@ export namespace LLVM {
   export declare function OrcRTDyldObjectLinkingLayerRegisterJITEventListener(RTDyldObjLinkingLayer: LLVM.OrcObjectLayerRef, Listener: LLVM.JITEventListenerRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Remarks.h#L64 */
-  export declare function RemarkStringGetData(String: LLVM.RemarkStringRef): Pointer<"LLVMRemarkStringGetData">;
+  export declare function RemarkStringGetData(String: LLVM.RemarkStringRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Remarks.h#L71 */
   export declare function RemarkStringGetLen(String: LLVM.RemarkStringRef): number;
@@ -4403,10 +4403,10 @@ export namespace LLVM {
   export declare function RemarkEntryGetNextArg(It: LLVM.RemarkArgRef, Remark: LLVM.RemarkEntryRef): LLVM.RemarkArgRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Remarks.h#L243 */
-  export declare function RemarkParserCreateYAML(Buf: Pointer<"Buf">, Size: bigint): LLVM.RemarkParserRef;
+  export declare function RemarkParserCreateYAML(Buf: Pointer, Size: bigint): LLVM.RemarkParserRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Remarks.h#L257 */
-  export declare function RemarkParserCreateBitstream(Buf: Pointer<"Buf">, Size: bigint): LLVM.RemarkParserRef;
+  export declare function RemarkParserCreateBitstream(Buf: Pointer, Size: bigint): LLVM.RemarkParserRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Remarks.h#L302 */
   export declare function RemarkParserGetNext(Parser: LLVM.RemarkParserRef): LLVM.RemarkEntryRef;
@@ -4415,22 +4415,22 @@ export namespace LLVM {
   export declare function RemarkParserHasError(Parser: LLVM.RemarkParserRef): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Remarks.h#L322 */
-  export declare function RemarkParserGetErrorMessage(Parser: LLVM.RemarkParserRef): Pointer<"LLVMRemarkParserGetErrorMessage">;
+  export declare function RemarkParserGetErrorMessage(Parser: LLVM.RemarkParserRef): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Remarks.h#L329 */
   export declare function RemarkParserDispose(Parser: LLVM.RemarkParserRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Support.h#L35 */
-  export declare function LoadLibraryPermanently(Filename: Pointer<"Filename">): LLVM.Bool;
+  export declare function LoadLibraryPermanently(Filename: Pointer): LLVM.Bool;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Support.h#L45 */
-  export declare function ParseCommandLineOptions(argc: number, argv: Pointer<"argv">, Overview: Pointer<"Overview">): void;
+  export declare function ParseCommandLineOptions(argc: number, argv: Pointer, Overview: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Support.h#L55 */
-  export declare function SearchForAddressOfSymbol(symbolName: Pointer<"symbolName">): Pointer<"LLVMSearchForAddressOfSymbol">;
+  export declare function SearchForAddressOfSymbol(symbolName: Pointer): Pointer;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Support.h#L64 */
-  export declare function AddSymbol(symbolName: Pointer<"symbolName">, symbolValue: Pointer<"symbolValue">): void;
+  export declare function AddSymbol(symbolName: Pointer, symbolValue: Pointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Transforms/AggressiveInstCombine.h#L31 */
   export declare function AddAggressiveInstCombinerPass(PM: LLVM.PassManagerRef): void;
@@ -4523,7 +4523,7 @@ export namespace LLVM {
   export declare function AddInternalizePass(_0: LLVM.PassManagerRef, AllButMain: number): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Transforms/IPO.h#L79 */
-  export declare function AddInternalizePassWithMustPreservePredicate(PM: LLVM.PassManagerRef, Context: Pointer<"Context">, MustPreserve: FnPointer<"MustPreserve">): void;
+  export declare function AddInternalizePassWithMustPreservePredicate(PM: LLVM.PassManagerRef, Context: Pointer, MustPreserve: FnPointer): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Transforms/IPO.h#L85 */
   export declare function AddStripDeadPrototypesPass(PM: LLVM.PassManagerRef): void;
@@ -4535,7 +4535,7 @@ export namespace LLVM {
   export declare function AddInstructionCombiningPass(PM: LLVM.PassManagerRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Transforms/PassBuilder.h#L49 */
-  export declare function RunPasses(M: LLVM.ModuleRef, Passes: Pointer<"Passes">, TM: LLVM.TargetMachineRef, Options: LLVM.PassBuilderOptionsRef): LLVM.ErrorRef;
+  export declare function RunPasses(M: LLVM.ModuleRef, Passes: Pointer, TM: LLVM.TargetMachineRef, Options: LLVM.PassBuilderOptionsRef): LLVM.ErrorRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Transforms/PassBuilder.h#L60 */
   export declare function CreatePassBuilderOptions(): LLVM.PassBuilderOptionsRef;

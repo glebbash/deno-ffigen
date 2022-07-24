@@ -4,9 +4,9 @@ export type Opaque<BaseType, BrandType = unknown> = BaseType & {
   readonly [Symbols.brand]: BrandType;
 };
 
-export type Pointer<T> = Opaque<bigint, T>;
-export type FnPointer<T> = Pointer<T>;
-export type StructPointer<T> = Pointer<T>;
+export type Pointer<T = string> = Opaque<bigint, T>;
+export type FnPointer<T = string> = Pointer<T>;
+export type StructPointer<T = string> = Pointer<T>;
 
 namespace Symbols {
   export declare const base: unique symbol;
