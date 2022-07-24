@@ -359,8 +359,7 @@ function getTypeInfo(
   }
 
   if (type.tag === "size_t") {
-    // TODO: unhardcode this
-    return { tsType: `number`, nativeType: "u64" };
+    return { tsType: `number`, nativeType: "usize" };
   }
 
   if (

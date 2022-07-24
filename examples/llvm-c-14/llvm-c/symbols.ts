@@ -206,7 +206,7 @@ export const LLVM_SYMBOLS = {
   },
   GetEnumAttributeKindForName: {
     name: "LLVMGetEnumAttributeKindForName",
-    parameters: ["pointer", "u64"],
+    parameters: ["pointer", "usize"],
     result: "u32"
   },
   GetLastEnumAttributeKind: {
@@ -301,7 +301,7 @@ export const LLVM_SYMBOLS = {
   },
   SetModuleIdentifier: {
     name: "LLVMSetModuleIdentifier",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "void"
   },
   GetSourceFileName: {
@@ -311,7 +311,7 @@ export const LLVM_SYMBOLS = {
   },
   SetSourceFileName: {
     name: "LLVMSetSourceFileName",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "void"
   },
   GetDataLayoutStr: {
@@ -366,12 +366,12 @@ export const LLVM_SYMBOLS = {
   },
   GetModuleFlag: {
     name: "LLVMGetModuleFlag",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "pointer"
   },
   AddModuleFlag: {
     name: "LLVMAddModuleFlag",
-    parameters: ["pointer", "i32", "pointer", "u64", "pointer"],
+    parameters: ["pointer", "i32", "pointer", "usize", "pointer"],
     result: "void"
   },
   DumpModule: {
@@ -396,17 +396,17 @@ export const LLVM_SYMBOLS = {
   },
   SetModuleInlineAsm2: {
     name: "LLVMSetModuleInlineAsm2",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "void"
   },
   AppendModuleInlineAsm: {
     name: "LLVMAppendModuleInlineAsm",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "void"
   },
   GetInlineAsm: {
     name: "LLVMGetInlineAsm",
-    parameters: ["pointer", "pointer", "u64", "pointer", "u64", "i32", "i32", "i32", "i32"],
+    parameters: ["pointer", "pointer", "usize", "pointer", "usize", "i32", "i32", "i32", "i32"],
     result: "pointer"
   },
   GetModuleContext: {
@@ -441,12 +441,12 @@ export const LLVM_SYMBOLS = {
   },
   GetNamedMetadata: {
     name: "LLVMGetNamedMetadata",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "pointer"
   },
   GetOrInsertNamedMetadata: {
     name: "LLVMGetOrInsertNamedMetadata",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "pointer"
   },
   GetNamedMetadataName: {
@@ -891,7 +891,7 @@ export const LLVM_SYMBOLS = {
   },
   SetValueName2: {
     name: "LLVMSetValueName2",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "void"
   },
   DumpValue: {
@@ -2111,7 +2111,7 @@ export const LLVM_SYMBOLS = {
   },
   GetNamedGlobalAlias: {
     name: "LLVMGetNamedGlobalAlias",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "pointer"
   },
   GetFirstGlobalAlias: {
@@ -2166,7 +2166,7 @@ export const LLVM_SYMBOLS = {
   },
   LookupIntrinsicID: {
     name: "LLVMLookupIntrinsicID",
-    parameters: ["pointer", "u64"],
+    parameters: ["pointer", "usize"],
     result: "u32"
   },
   GetIntrinsicID: {
@@ -2176,12 +2176,12 @@ export const LLVM_SYMBOLS = {
   },
   GetIntrinsicDeclaration: {
     name: "LLVMGetIntrinsicDeclaration",
-    parameters: ["pointer", "u32", "pointer", "u64"],
+    parameters: ["pointer", "u32", "pointer", "usize"],
     result: "pointer"
   },
   IntrinsicGetType: {
     name: "LLVMIntrinsicGetType",
-    parameters: ["pointer", "u32", "pointer", "u64"],
+    parameters: ["pointer", "u32", "pointer", "usize"],
     result: "pointer"
   },
   IntrinsicGetName: {
@@ -2191,12 +2191,12 @@ export const LLVM_SYMBOLS = {
   },
   IntrinsicCopyOverloadedName: {
     name: "LLVMIntrinsicCopyOverloadedName",
-    parameters: ["u32", "pointer", "u64", "pointer"],
+    parameters: ["u32", "pointer", "usize", "pointer"],
     result: "pointer"
   },
   IntrinsicCopyOverloadedName2: {
     name: "LLVMIntrinsicCopyOverloadedName2",
-    parameters: ["pointer", "u32", "pointer", "u64", "pointer"],
+    parameters: ["pointer", "u32", "pointer", "usize", "pointer"],
     result: "pointer"
   },
   IntrinsicIsOverloaded: {
@@ -2311,12 +2311,12 @@ export const LLVM_SYMBOLS = {
   },
   AddGlobalIFunc: {
     name: "LLVMAddGlobalIFunc",
-    parameters: ["pointer", "pointer", "u64", "pointer", "u32", "pointer"],
+    parameters: ["pointer", "pointer", "usize", "pointer", "u32", "pointer"],
     result: "pointer"
   },
   GetNamedGlobalIFunc: {
     name: "LLVMGetNamedGlobalIFunc",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "pointer"
   },
   GetFirstGlobalIFunc: {
@@ -2361,12 +2361,12 @@ export const LLVM_SYMBOLS = {
   },
   MDStringInContext2: {
     name: "LLVMMDStringInContext2",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "pointer"
   },
   MDNodeInContext2: {
     name: "LLVMMDNodeInContext2",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "pointer"
   },
   MetadataAsValue: {
@@ -3606,12 +3606,12 @@ export const LLVM_SYMBOLS = {
   },
   CreateMemoryBufferWithMemoryRange: {
     name: "LLVMCreateMemoryBufferWithMemoryRange",
-    parameters: ["pointer", "u64", "pointer", "i32"],
+    parameters: ["pointer", "usize", "pointer", "i32"],
     result: "pointer"
   },
   CreateMemoryBufferWithMemoryRangeCopy: {
     name: "LLVMCreateMemoryBufferWithMemoryRangeCopy",
-    parameters: ["pointer", "u64", "pointer"],
+    parameters: ["pointer", "usize", "pointer"],
     result: "pointer"
   },
   GetBufferStart: {
@@ -3622,7 +3622,7 @@ export const LLVM_SYMBOLS = {
   GetBufferSize: {
     name: "LLVMGetBufferSize",
     parameters: ["pointer"],
-    result: "u64"
+    result: "usize"
   },
   DisposeMemoryBuffer: {
     name: "LLVMDisposeMemoryBuffer",
@@ -3731,27 +3731,27 @@ export const LLVM_SYMBOLS = {
   },
   DIBuilderCreateCompileUnit: {
     name: "LLVMDIBuilderCreateCompileUnit",
-    parameters: ["pointer", "i32", "pointer", "pointer", "u64", "i32", "pointer", "u64", "u32", "pointer", "u64", "i32", "u32", "i32", "i32", "pointer", "u64", "pointer", "u64"],
+    parameters: ["pointer", "i32", "pointer", "pointer", "usize", "i32", "pointer", "usize", "u32", "pointer", "usize", "i32", "u32", "i32", "i32", "pointer", "usize", "pointer", "usize"],
     result: "pointer"
   },
   DIBuilderCreateFile: {
     name: "LLVMDIBuilderCreateFile",
-    parameters: ["pointer", "pointer", "u64", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize", "pointer", "usize"],
     result: "pointer"
   },
   DIBuilderCreateModule: {
     name: "LLVMDIBuilderCreateModule",
-    parameters: ["pointer", "pointer", "pointer", "u64", "pointer", "u64", "pointer", "u64", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "pointer", "usize", "pointer", "usize", "pointer", "usize", "pointer", "usize"],
     result: "pointer"
   },
   DIBuilderCreateNameSpace: {
     name: "LLVMDIBuilderCreateNameSpace",
-    parameters: ["pointer", "pointer", "pointer", "u64", "i32"],
+    parameters: ["pointer", "pointer", "pointer", "usize", "i32"],
     result: "pointer"
   },
   DIBuilderCreateFunction: {
     name: "LLVMDIBuilderCreateFunction",
-    parameters: ["pointer", "pointer", "pointer", "u64", "pointer", "u64", "pointer", "u32", "pointer", "i32", "i32", "u32", "i32", "i32"],
+    parameters: ["pointer", "pointer", "pointer", "usize", "pointer", "usize", "pointer", "u32", "pointer", "i32", "i32", "u32", "i32", "i32"],
     result: "pointer"
   },
   DIBuilderCreateLexicalBlock: {
@@ -3781,7 +3781,7 @@ export const LLVM_SYMBOLS = {
   },
   DIBuilderCreateImportedDeclaration: {
     name: "LLVMDIBuilderCreateImportedDeclaration",
-    parameters: ["pointer", "pointer", "pointer", "pointer", "u32", "pointer", "u64", "pointer", "u32"],
+    parameters: ["pointer", "pointer", "pointer", "pointer", "u32", "pointer", "usize", "pointer", "u32"],
     result: "pointer"
   },
   DIBuilderCreateDebugLocation: {
@@ -3831,7 +3831,7 @@ export const LLVM_SYMBOLS = {
   },
   DIBuilderGetOrCreateTypeArray: {
     name: "LLVMDIBuilderGetOrCreateTypeArray",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "pointer"
   },
   DIBuilderCreateSubroutineType: {
@@ -3841,7 +3841,7 @@ export const LLVM_SYMBOLS = {
   },
   DIBuilderCreateMacro: {
     name: "LLVMDIBuilderCreateMacro",
-    parameters: ["pointer", "pointer", "u32", "i32", "pointer", "u64", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "u32", "i32", "pointer", "usize", "pointer", "usize"],
     result: "pointer"
   },
   DIBuilderCreateTempMacroFile: {
@@ -3851,17 +3851,17 @@ export const LLVM_SYMBOLS = {
   },
   DIBuilderCreateEnumerator: {
     name: "LLVMDIBuilderCreateEnumerator",
-    parameters: ["pointer", "pointer", "u64", "i64", "i32"],
+    parameters: ["pointer", "pointer", "usize", "i64", "i32"],
     result: "pointer"
   },
   DIBuilderCreateEnumerationType: {
     name: "LLVMDIBuilderCreateEnumerationType",
-    parameters: ["pointer", "pointer", "pointer", "u64", "pointer", "u32", "u64", "u32", "pointer", "u32", "pointer"],
+    parameters: ["pointer", "pointer", "pointer", "usize", "pointer", "u32", "u64", "u32", "pointer", "u32", "pointer"],
     result: "pointer"
   },
   DIBuilderCreateUnionType: {
     name: "LLVMDIBuilderCreateUnionType",
-    parameters: ["pointer", "pointer", "pointer", "u64", "pointer", "u32", "u64", "u32", "i32", "pointer", "u32", "u32", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "pointer", "usize", "pointer", "u32", "u64", "u32", "i32", "pointer", "u32", "u32", "pointer", "usize"],
     result: "pointer"
   },
   DIBuilderCreateArrayType: {
@@ -3876,32 +3876,32 @@ export const LLVM_SYMBOLS = {
   },
   DIBuilderCreateUnspecifiedType: {
     name: "LLVMDIBuilderCreateUnspecifiedType",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "pointer"
   },
   DIBuilderCreateBasicType: {
     name: "LLVMDIBuilderCreateBasicType",
-    parameters: ["pointer", "pointer", "u64", "u64", "u32", "i32"],
+    parameters: ["pointer", "pointer", "usize", "u64", "u32", "i32"],
     result: "pointer"
   },
   DIBuilderCreatePointerType: {
     name: "LLVMDIBuilderCreatePointerType",
-    parameters: ["pointer", "pointer", "u64", "u32", "u32", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "u64", "u32", "u32", "pointer", "usize"],
     result: "pointer"
   },
   DIBuilderCreateStructType: {
     name: "LLVMDIBuilderCreateStructType",
-    parameters: ["pointer", "pointer", "pointer", "u64", "pointer", "u32", "u64", "u32", "i32", "pointer", "pointer", "u32", "u32", "pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "pointer", "usize", "pointer", "u32", "u64", "u32", "i32", "pointer", "pointer", "u32", "u32", "pointer", "pointer", "usize"],
     result: "pointer"
   },
   DIBuilderCreateMemberType: {
     name: "LLVMDIBuilderCreateMemberType",
-    parameters: ["pointer", "pointer", "pointer", "u64", "pointer", "u32", "u64", "u32", "u64", "i32", "pointer"],
+    parameters: ["pointer", "pointer", "pointer", "usize", "pointer", "u32", "u64", "u32", "u64", "i32", "pointer"],
     result: "pointer"
   },
   DIBuilderCreateStaticMemberType: {
     name: "LLVMDIBuilderCreateStaticMemberType",
-    parameters: ["pointer", "pointer", "pointer", "u64", "pointer", "u32", "pointer", "i32", "pointer", "u32"],
+    parameters: ["pointer", "pointer", "pointer", "usize", "pointer", "u32", "pointer", "i32", "pointer", "u32"],
     result: "pointer"
   },
   DIBuilderCreateMemberPointerType: {
@@ -3911,12 +3911,12 @@ export const LLVM_SYMBOLS = {
   },
   DIBuilderCreateObjCIVar: {
     name: "LLVMDIBuilderCreateObjCIVar",
-    parameters: ["pointer", "pointer", "u64", "pointer", "u32", "u64", "u32", "u64", "i32", "pointer", "pointer"],
+    parameters: ["pointer", "pointer", "usize", "pointer", "u32", "u64", "u32", "u64", "i32", "pointer", "pointer"],
     result: "pointer"
   },
   DIBuilderCreateObjCProperty: {
     name: "LLVMDIBuilderCreateObjCProperty",
-    parameters: ["pointer", "pointer", "u64", "pointer", "u32", "pointer", "u64", "pointer", "u64", "u32", "pointer"],
+    parameters: ["pointer", "pointer", "usize", "pointer", "u32", "pointer", "usize", "pointer", "usize", "u32", "pointer"],
     result: "pointer"
   },
   DIBuilderCreateObjectPointerType: {
@@ -3941,7 +3941,7 @@ export const LLVM_SYMBOLS = {
   },
   DIBuilderCreateTypedef: {
     name: "LLVMDIBuilderCreateTypedef",
-    parameters: ["pointer", "pointer", "pointer", "u64", "pointer", "u32", "pointer", "u32"],
+    parameters: ["pointer", "pointer", "pointer", "usize", "pointer", "u32", "pointer", "u32"],
     result: "pointer"
   },
   DIBuilderCreateInheritance: {
@@ -3951,22 +3951,22 @@ export const LLVM_SYMBOLS = {
   },
   DIBuilderCreateForwardDecl: {
     name: "LLVMDIBuilderCreateForwardDecl",
-    parameters: ["pointer", "u32", "pointer", "u64", "pointer", "pointer", "u32", "u32", "u64", "u32", "pointer", "u64"],
+    parameters: ["pointer", "u32", "pointer", "usize", "pointer", "pointer", "u32", "u32", "u64", "u32", "pointer", "usize"],
     result: "pointer"
   },
   DIBuilderCreateReplaceableCompositeType: {
     name: "LLVMDIBuilderCreateReplaceableCompositeType",
-    parameters: ["pointer", "u32", "pointer", "u64", "pointer", "pointer", "u32", "u32", "u64", "u32", "i32", "pointer", "u64"],
+    parameters: ["pointer", "u32", "pointer", "usize", "pointer", "pointer", "u32", "u32", "u64", "u32", "i32", "pointer", "usize"],
     result: "pointer"
   },
   DIBuilderCreateBitFieldMemberType: {
     name: "LLVMDIBuilderCreateBitFieldMemberType",
-    parameters: ["pointer", "pointer", "pointer", "u64", "pointer", "u32", "u64", "u64", "u64", "i32", "pointer"],
+    parameters: ["pointer", "pointer", "pointer", "usize", "pointer", "u32", "u64", "u64", "u64", "i32", "pointer"],
     result: "pointer"
   },
   DIBuilderCreateClassType: {
     name: "LLVMDIBuilderCreateClassType",
-    parameters: ["pointer", "pointer", "pointer", "u64", "pointer", "u32", "u64", "u32", "u64", "i32", "pointer", "pointer", "u32", "pointer", "pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "pointer", "usize", "pointer", "u32", "u64", "u32", "u64", "i32", "pointer", "pointer", "u32", "pointer", "pointer", "pointer", "usize"],
     result: "pointer"
   },
   DIBuilderCreateArtificialType: {
@@ -4011,12 +4011,12 @@ export const LLVM_SYMBOLS = {
   },
   DIBuilderGetOrCreateArray: {
     name: "LLVMDIBuilderGetOrCreateArray",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "pointer"
   },
   DIBuilderCreateExpression: {
     name: "LLVMDIBuilderCreateExpression",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "pointer"
   },
   DIBuilderCreateConstantValueExpression: {
@@ -4026,7 +4026,7 @@ export const LLVM_SYMBOLS = {
   },
   DIBuilderCreateGlobalVariableExpression: {
     name: "LLVMDIBuilderCreateGlobalVariableExpression",
-    parameters: ["pointer", "pointer", "pointer", "u64", "pointer", "u64", "pointer", "u32", "pointer", "i32", "pointer", "pointer", "u32"],
+    parameters: ["pointer", "pointer", "pointer", "usize", "pointer", "usize", "pointer", "u32", "pointer", "i32", "pointer", "pointer", "u32"],
     result: "pointer"
   },
   DIGlobalVariableExpressionGetVariable: {
@@ -4056,7 +4056,7 @@ export const LLVM_SYMBOLS = {
   },
   TemporaryMDNode: {
     name: "LLVMTemporaryMDNode",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "pointer"
   },
   DisposeTemporaryMDNode: {
@@ -4071,7 +4071,7 @@ export const LLVM_SYMBOLS = {
   },
   DIBuilderCreateTempGlobalVariableFwdDecl: {
     name: "LLVMDIBuilderCreateTempGlobalVariableFwdDecl",
-    parameters: ["pointer", "pointer", "pointer", "u64", "pointer", "u64", "pointer", "u32", "pointer", "i32", "pointer", "u32"],
+    parameters: ["pointer", "pointer", "pointer", "usize", "pointer", "usize", "pointer", "u32", "pointer", "i32", "pointer", "u32"],
     result: "pointer"
   },
   DIBuilderInsertDeclareBefore: {
@@ -4096,12 +4096,12 @@ export const LLVM_SYMBOLS = {
   },
   DIBuilderCreateAutoVariable: {
     name: "LLVMDIBuilderCreateAutoVariable",
-    parameters: ["pointer", "pointer", "pointer", "u64", "pointer", "u32", "pointer", "i32", "i32", "u32"],
+    parameters: ["pointer", "pointer", "pointer", "usize", "pointer", "u32", "pointer", "i32", "i32", "u32"],
     result: "pointer"
   },
   DIBuilderCreateParameterVariable: {
     name: "LLVMDIBuilderCreateParameterVariable",
-    parameters: ["pointer", "pointer", "pointer", "u64", "u32", "pointer", "u32", "pointer", "i32", "i32"],
+    parameters: ["pointer", "pointer", "pointer", "usize", "u32", "pointer", "u32", "pointer", "i32", "i32"],
     result: "pointer"
   },
   GetSubprogram: {
@@ -4161,8 +4161,8 @@ export const LLVM_SYMBOLS = {
   },
   DisasmInstruction: {
     name: "LLVMDisasmInstruction",
-    parameters: ["pointer", "pointer", "u64", "u64", "pointer", "u64"],
-    result: "u64"
+    parameters: ["pointer", "pointer", "u64", "u64", "pointer", "usize"],
+    result: "usize"
   },
   GetErrorTypeId: {
     name: "LLVMGetErrorTypeId",
@@ -5016,12 +5016,12 @@ export const LLVM_SYMBOLS = {
   },
   InitializeMCJITCompilerOptions: {
     name: "LLVMInitializeMCJITCompilerOptions",
-    parameters: ["pointer", "u64"],
+    parameters: ["pointer", "usize"],
     result: "void"
   },
   CreateMCJITCompilerForModule: {
     name: "LLVMCreateMCJITCompilerForModule",
-    parameters: ["pointer", "pointer", "pointer", "u64", "pointer"],
+    parameters: ["pointer", "pointer", "pointer", "usize", "pointer"],
     result: "i32"
   },
   DisposeExecutionEngine: {
@@ -5266,17 +5266,17 @@ export const LLVM_SYMBOLS = {
   },
   OrcCreateCustomMaterializationUnit: {
     name: "LLVMOrcCreateCustomMaterializationUnit",
-    parameters: ["pointer", "pointer", "pointer", "u64", "pointer", "function", "function", "function"],
+    parameters: ["pointer", "pointer", "pointer", "usize", "pointer", "function", "function", "function"],
     result: "pointer"
   },
   OrcAbsoluteSymbols: {
     name: "LLVMOrcAbsoluteSymbols",
-    parameters: ["pointer", "u64"],
+    parameters: ["pointer", "usize"],
     result: "pointer"
   },
   OrcLazyReexports: {
     name: "LLVMOrcLazyReexports",
-    parameters: ["pointer", "pointer", "pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "pointer", "pointer", "usize"],
     result: "pointer"
   },
   OrcDisposeMaterializationResponsibility: {
@@ -5321,7 +5321,7 @@ export const LLVM_SYMBOLS = {
   },
   OrcMaterializationResponsibilityNotifyResolved: {
     name: "LLVMOrcMaterializationResponsibilityNotifyResolved",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "pointer"
   },
   OrcMaterializationResponsibilityNotifyEmitted: {
@@ -5331,7 +5331,7 @@ export const LLVM_SYMBOLS = {
   },
   OrcMaterializationResponsibilityDefineMaterializing: {
     name: "LLVMOrcMaterializationResponsibilityDefineMaterializing",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "pointer"
   },
   OrcMaterializationResponsibilityFailMaterialization: {
@@ -5346,17 +5346,17 @@ export const LLVM_SYMBOLS = {
   },
   OrcMaterializationResponsibilityDelegate: {
     name: "LLVMOrcMaterializationResponsibilityDelegate",
-    parameters: ["pointer", "pointer", "u64", "pointer"],
+    parameters: ["pointer", "pointer", "usize", "pointer"],
     result: "pointer"
   },
   OrcMaterializationResponsibilityAddDependencies: {
     name: "LLVMOrcMaterializationResponsibilityAddDependencies",
-    parameters: ["pointer", "pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "pointer", "usize"],
     result: "void"
   },
   OrcMaterializationResponsibilityAddDependenciesForAll: {
     name: "LLVMOrcMaterializationResponsibilityAddDependenciesForAll",
-    parameters: ["pointer", "pointer", "u64"],
+    parameters: ["pointer", "pointer", "usize"],
     result: "void"
   },
   OrcExecutionSessionCreateBareJITDylib: {
@@ -5666,7 +5666,7 @@ export const LLVM_SYMBOLS = {
   },
   MachOUniversalBinaryCopyObjectForArch: {
     name: "LLVMMachOUniversalBinaryCopyObjectForArch",
-    parameters: ["pointer", "pointer", "u64", "pointer"],
+    parameters: ["pointer", "pointer", "usize", "pointer"],
     result: "pointer"
   },
   ObjectFileCopySectionIterator: {
