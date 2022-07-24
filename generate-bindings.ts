@@ -281,10 +281,7 @@ function getTypeInfo(
       return { tsType: `Pointer<${rec.tsType}>`, nativeType: "pointer" };
     }
 
-    return {
-      tsType: `Pointer<"${name}">`,
-      nativeType: "pointer",
-    };
+    return { tsType: `Pointer<"${name}">`, nativeType: "pointer" };
   }
 
   if (type.tag === ":function-pointer") {
@@ -302,10 +299,7 @@ function getTypeInfo(
       );
     }
 
-    return {
-      tsType: `StructPointer<"${type.name}">`,
-      nativeType: "pointer",
-    };
+    return { tsType: `StructPointer<"${type.name}">`, nativeType: "pointer" };
   }
 
   // TODO: handle structs
@@ -314,10 +308,7 @@ function getTypeInfo(
       throw new Error("Struct does not have a name: " + JSON.stringify(type));
     }
 
-    return {
-      tsType: `StructPointer<"${name}">`,
-      nativeType: "pointer",
-    };
+    return { tsType: `StructPointer<"${name}">`, nativeType: "pointer" };
   }
 
   if (type.tag === ":void") {
