@@ -327,7 +327,6 @@ function getTypeInfo(
     };
   }
 
-  // TODO: handle structs
   if (type.tag === ":struct") {
     if (name !== null) {
       throw new Error(
@@ -338,7 +337,6 @@ function getTypeInfo(
     return { tsType: `StructPointer<"${type.name}">`, nativeType: "pointer" };
   }
 
-  // TODO: handle structs
   if (type.tag === "struct") {
     if (name === null) {
       throw new Error("Struct does not have a name: " + JSON.stringify(type));
