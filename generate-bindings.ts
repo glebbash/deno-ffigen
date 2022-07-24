@@ -293,43 +293,43 @@ function getTypeInfo(
 
   if (type.tag === "size_t") {
     // TODO: unhardcode this
-    return { tsType: `Opaque<number, "${name}">`, nativeType: "u64" };
+    return { tsType: `number`, nativeType: "u64" };
   }
 
   if (
     type.tag === "uint8_t" ||
     (type.tag === ":char" && type["bit-size"] === 8)
   ) {
-    return { tsType: `Opaque<number, "${name}">`, nativeType: "u8" };
+    return { tsType: `number`, nativeType: "u8" };
   }
 
   if (type.tag === ":int" && type["bit-size"] === 32) {
-    return { tsType: `Opaque<number, "${name}">`, nativeType: "i32" };
+    return { tsType: `number`, nativeType: "i32" };
   }
 
   if (
     type.tag === "uint32_t" ||
     (type.tag === ":unsigned-int" && type["bit-size"] === 32)
   ) {
-    return { tsType: `Opaque<number, "${name}">`, nativeType: "u32" };
+    return { tsType: `number`, nativeType: "u32" };
   }
 
   if (
     (type.tag === "int64_t") ||
     (type.tag === ":long-long" && type["bit-size"] === 64)
   ) {
-    return { tsType: `Opaque<bigint, "${name}">`, nativeType: "i64" };
+    return { tsType: `bigint`, nativeType: "i64" };
   }
 
   if (type.tag === ":double" && type["bit-size"] === 64) {
-    return { tsType: `Opaque<bigint, "${name}">`, nativeType: "f64" };
+    return { tsType: `bigint`, nativeType: "f64" };
   }
 
   if (
     type.tag === "uint64_t" ||
     (type.tag === ":unsigned-long-long" && type["bit-size"] === 64)
   ) {
-    return { tsType: `Opaque<bigint, "${name}">`, nativeType: "u64" };
+    return { tsType: `bigint`, nativeType: "u64" };
   }
 
   if (type.tag === ":enum") {
