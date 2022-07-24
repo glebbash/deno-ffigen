@@ -229,8 +229,10 @@ function linkLocationToSource(
     return baseSourcePath + location.slice("/usr/include/".length);
   }
 
-  if (location.startsWith("/data/./")) {
-    return baseSourcePath + location.slice("/data/./".length);
+  const LOCAL_FILE_SEP = "/./";
+  const sepIndex = location.indexOf(LOCAL_FILE_SEP);
+  if (sepIndex !== -1) {
+    return baseSourcePath + location.slice(sepIndex + LOCAL_FILE_SEP.length);
   }
 
   return location;
