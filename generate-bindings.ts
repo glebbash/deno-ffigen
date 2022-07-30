@@ -24,34 +24,37 @@ type FunctionsInfo = Map<string, {
   result: string;
 }>;
 
-export async function generateBindings(
-  symbolsFile: string,
-  exposedFunctions: string[],
-  outputFolder: string,
-  libName: string,
-  baseSourcePath: string,
-  libPrefix: string,
-) {
+export type BindingsOptions = {
+  libName: string;
+  libPrefix?: string;
+  headersPath: string;
+  symbolsFile: string;
+  exposedFunctions: string[];
+  outputFolder: string;
+};
+
+export async function generateBindings(opts: BindingsOptions) {
+  const libPrefix = opts.libPrefix ?? opts.libName;
   const ctx: GenerationContext = {
-    libName,
+    libName: opts.libName,
     libPrefix,
-    baseSourcePath,
+    baseSourcePath: opts.headersPath,
     enumNames: new Set(),
     typesInfo: new Map(),
     functionsInfo: new Map(),
-    libSymbols: await getLibSymbols(symbolsFile, libPrefix),
+    libSymbols: await getLibSymbols(opts.symbolsFile, libPrefix),
   };
 
   const modGen = buildMod(ctx);
-  const typesSource = buildTypes(ctx, exposedFunctions);
+  const typesSource = buildTypes(ctx, opts.exposedFunctions);
   const symbolsSource = buildSymbols(ctx);
   const safeFFISource = buildSafeFFI();
 
-  await Deno.mkdir(outputFolder, { recursive: true }).catch();
-  await Deno.writeTextFile(`${outputFolder}/mod.ts`, modGen);
-  await Deno.writeTextFile(`${outputFolder}/types.ts`, typesSource);
-  await Deno.writeTextFile(`${outputFolder}/symbols.ts`, symbolsSource);
-  await Deno.writeTextFile(`${outputFolder}/safe-ffi.ts`, safeFFISource);
+  await Deno.mkdir(opts.outputFolder, { recursive: true }).catch();
+  await Deno.writeTextFile(`${opts.outputFolder}/mod.ts`, modGen);
+  await Deno.writeTextFile(`${opts.outputFolder}/types.ts`, typesSource);
+  await Deno.writeTextFile(`${opts.outputFolder}/symbols.ts`, symbolsSource);
+  await Deno.writeTextFile(`${opts.outputFolder}/safe-ffi.ts`, safeFFISource);
 }
 
 async function getLibSymbols(symbolsFile: string, libPrefix: string) {

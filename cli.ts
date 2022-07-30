@@ -62,15 +62,11 @@ const cmd = new Command()
 
 const { args, options } = await cmd.parse();
 
-await generateBindings(
-  options.definitions,
-  await getFunctionsFromSharedLib(options.symbols),
-  args[0] ?? options.libName,
-  options.libName,
-  options.headers,
-  options.libPrefix === false
-    ? ""
-    : options.libPrefix === undefined
-    ? options.libName
-    : options.libPrefix as string,
-);
+await generateBindings({
+  symbolsFile: options.definitions,
+  exposedFunctions: await getFunctionsFromSharedLib(options.symbols),
+  outputFolder: args[0] ?? options.libName,
+  libName: options.libName,
+  headersPath: options.headers,
+  libPrefix: options.libPrefix === false ? "" : options.libPrefix as string,
+});
