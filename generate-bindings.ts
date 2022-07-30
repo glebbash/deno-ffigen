@@ -116,7 +116,7 @@ function buildMod(ctx: GenerationContext): string {
     import { ${ctx.libName} } from "./types.ts";
     import { ${ctx.libName}_SYMBOLS } from "./symbols.ts";
 
-    export { ${ctx.libName} } from "./types.ts";
+    export type { ${ctx.libName} };
 
     export function load${ctx.libName}(path: string): typeof ${ctx.libName} {
       const lib = Deno.dlopen(path, ${ctx.libName}_SYMBOLS);
