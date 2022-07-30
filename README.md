@@ -10,6 +10,7 @@ header file and shared library file.
 Bindings generation tested for:
 
 - LLVM-C, versions (14, 15)
+- sqlite3
 
 Try it out though, it might just work.
 
