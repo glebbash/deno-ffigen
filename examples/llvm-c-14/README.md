@@ -26,7 +26,7 @@ deno run -A https://raw.githubusercontent.com/glebbash/deno-ffigen/main/mod.ts \
   input/llvm-c_symbols.txt \
   llvm-c \
   LLVM \
-  "https://github.com/llvm/llvm-project/blob/315072/llvm/include/"
+  "https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/"
 ```
 
 Using `input/llvm-c.json` and `input/llvm-c_symbols.txt` as inputs. Bindings are

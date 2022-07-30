@@ -5406,12 +5406,12 @@ export const LLVM_SYMBOLS = {
   },
   OrcCreateDynamicLibrarySearchGeneratorForProcess: {
     name: "LLVMOrcCreateDynamicLibrarySearchGeneratorForProcess",
-    parameters: ["pointer", "u8", "function", "pointer"],
+    parameters: ["pointer", "i8", "function", "pointer"],
     result: "pointer"
   },
   OrcCreateDynamicLibrarySearchGeneratorForPath: {
     name: "LLVMOrcCreateDynamicLibrarySearchGeneratorForPath",
-    parameters: ["pointer", "pointer", "u8", "function", "pointer"],
+    parameters: ["pointer", "pointer", "i8", "function", "pointer"],
     result: "pointer"
   },
   OrcCreateStaticLibrarySearchGeneratorForPath: {
@@ -5587,7 +5587,7 @@ export const LLVM_SYMBOLS = {
   OrcLLJITGetGlobalPrefix: {
     name: "LLVMOrcLLJITGetGlobalPrefix",
     parameters: ["pointer"],
-    result: "u8"
+    result: "i8"
   },
   OrcLLJITMangleAndIntern: {
     name: "LLVMOrcLLJITMangleAndIntern",

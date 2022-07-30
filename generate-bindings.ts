@@ -1,6 +1,7 @@
 import { CEnum, CFunction, CSymbol, CType, CTypeDef } from "./types.ts";
 
 type GenerationContext = {
+  libName: string;
   libPrefix: string;
   baseSourcePath: string;
   typesInfo: TypesInfo;
@@ -29,6 +30,7 @@ export async function generateBindings(
   libPrefix = libName,
 ) {
   const ctx: GenerationContext = {
+    libName,
     libPrefix,
     baseSourcePath,
     enumNames: new Set(),
@@ -66,7 +68,7 @@ export async function generateBindings(
   await Deno.writeTextFile(`${outputFolder}/safe-ffi.ts`, buildSafeFFI());
 
   const allTypesSource = `// deno-lint-ignore-file\n` +
-    `import { Opaque, Pointer, FnPointer, StructPointer } from "./safe-ffi.ts";\n\n` +
+    `import { Pointer, FnPointer, StructPointer } from "./safe-ffi.ts";\n\n` +
     `export namespace ${libName} {\n` +
     typesSource + "\n\n" +
     enumsSource + "\n\n" +
@@ -117,13 +119,14 @@ function buildTypes(
   const typeDefs = libSymbols.filter((s): s is CTypeDef => s.tag === "typedef");
   console.log("Total types:", typeDefs.length);
 
-  const typesInfo = new Map(typeDefs.map((t) => {
+  const typesInfo: TypesInfo = new Map();
+  for (const t of typeDefs) {
     const name = t.name.slice(ctx.libPrefix.length);
-    return [name, {
+    typesInfo.set(name, {
       location: linkLocationToSource(t.location, ctx.baseSourcePath),
       type: getTypeInfo(t.type, name, ctx),
-    }];
-  }));
+    });
+  }
 
   const typesSource = [...typesInfo.entries()].map(([name, info]) => {
     return `  /** ${info.location} */\n` +
@@ -297,31 +300,6 @@ function getTypeInfo(
   name: string | null,
   ctx: GenerationContext,
 ): { tsType: string; nativeType: string } {
-  if (type.tag.startsWith(ctx.libPrefix)) {
-    const typeName = type.tag.substring(ctx.libPrefix.length);
-    const actualType = ctx.typesInfo.get(
-      typeName,
-    );
-
-    if (actualType === undefined) {
-      if (!ctx.enumNames.has(typeName)) {
-        throw new Error(
-          "Unexpected typedef: " + JSON.stringify({ type, name }),
-        );
-      }
-
-      return {
-        tsType: `${ctx.libPrefix}.${typeName}`,
-        nativeType: "i32",
-      };
-    }
-
-    return {
-      tsType: `${ctx.libPrefix}.${typeName}`,
-      nativeType: actualType.type.nativeType,
-    };
-  }
-
   if (type.tag === ":enum") {
     return {
       tsType: `${ctx.libPrefix}.${type.name.substring(ctx.libPrefix.length)}`,
@@ -347,7 +325,7 @@ function getTypeInfo(
   }
 
   if (type.tag === ":struct") {
-    if (name !== null) {
+    if (name !== null && name !== type.name) {
       throw new Error(
         "Struct has multiple names: " + JSON.stringify({ type, name }),
       );
@@ -373,8 +351,14 @@ function getTypeInfo(
   }
 
   if (
-    type.tag === "uint8_t" ||
     (type.tag === ":char" && type["bit-size"] === 8)
+  ) {
+    return { tsType: `number`, nativeType: "i8" };
+  }
+
+  if (
+    type.tag === "uint8_t" ||
+    (type.tag === ":unsigned-char" && type["bit-size"] === 8)
   ) {
     return { tsType: `number`, nativeType: "u8" };
   }
@@ -406,6 +390,39 @@ function getTypeInfo(
     (type.tag === ":unsigned-long-long" && type["bit-size"] === 64)
   ) {
     return { tsType: `bigint`, nativeType: "u64" };
+  }
+
+  // TODO: check if this works
+  if (type.tag === "__builtin_va_list") {
+    return {
+      tsType: "bigint",
+      nativeType: "pointer",
+    };
+  }
+
+  if (type.tag.startsWith(ctx.libPrefix)) {
+    const typeName = type.tag.substring(ctx.libPrefix.length);
+    const actualType = ctx.typesInfo.get(
+      typeName,
+    );
+
+    if (actualType === undefined) {
+      if (!ctx.enumNames.has(typeName)) {
+        throw new Error(
+          "Unexpected typedef: " + JSON.stringify({ type, name }),
+        );
+      }
+
+      return {
+        tsType: `${ctx.libName}.${typeName}`,
+        nativeType: "i32",
+      };
+    }
+
+    return {
+      tsType: `${ctx.libName}.${typeName}`,
+      nativeType: actualType.type.nativeType,
+    };
   }
 
   throw new Error(`Unknown type ${JSON.stringify({ type, name })}`);

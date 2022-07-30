@@ -1,5 +1,5 @@
 // deno-lint-ignore-file
-import { Opaque, Pointer, FnPointer, StructPointer } from "./safe-ffi.ts";
+import { Pointer, FnPointer, StructPointer } from "./safe-ffi.ts";
 
 export namespace LLVM {
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Types.h#L28 */

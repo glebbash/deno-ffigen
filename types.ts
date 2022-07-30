@@ -50,13 +50,15 @@ export type CType =
   | { tag: ":long-long"; "bit-size": number; "bit-alignment": number }
   | { tag: ":double"; "bit-size": number; "bit-alignment": number }
   | { tag: ":char"; "bit-size": number; "bit-alignment": number }
+  | { tag: ":unsigned-char"; "bit-size": number; "bit-alignment": number }
   | { tag: ":enum"; id: number; name: string }
   | { tag: ":function-pointer" }
   | { tag: ":pointer"; type: CType }
-  | { tag: "struct" }
   | { tag: ":struct"; name: string }
   | { tag: "size_t" }
   | { tag: "int64_t" }
   | { tag: "uint64_t" }
   | { tag: "uint32_t" }
-  | { tag: "uint8_t" };
+  | { tag: "uint8_t" }
+  | { tag: "struct" }
+  | { tag: "__builtin_va_list" };
