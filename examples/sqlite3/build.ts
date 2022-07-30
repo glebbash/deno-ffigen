@@ -16,6 +16,7 @@ if (Deno.args.includes("-s")) {
 
 await ffigen.generateBindings({
   libName: "sqlite3",
+  libPrefix: "",
   symbolsFile: "input/sqlite3.json",
   outputFolder: "sqlite3",
   exposedFunctions: await ffigen.getFunctionsFromSharedLib(
