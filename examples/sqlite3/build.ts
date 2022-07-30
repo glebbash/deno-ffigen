@@ -9,7 +9,7 @@ if (Deno.args.includes("-d")) {
 
 if (Deno.args.includes("-s")) {
   await ffigen.extractSymbols({
-    input: "libsqlite3.so.0.8.6",
+    input: "input/libsqlite3.so.0.8.6",
     output: "input/sqlite3_symbols.txt",
   });
 }
