@@ -21,12 +21,12 @@ exposed symbols of `/usr/lib/llvm-14/lib/libLLVM.so`.
 ## Generate bindings
 
 ```sh
-deno run -A https://raw.githubusercontent.com/glebbash/deno-ffigen/main/mod.ts \
-  input/llvm-c.json \
-  input/llvm-c_symbols.txt \
-  llvm-c \
-  LLVM \
-  "https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/"
+deno run -A https://deno.land/x/ffigen/cli.ts \
+  --definitions input/llvm-c.json \
+  --symbols input/llvm-c_symbols.txt \
+  --headers "https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/" \
+  --lib-name LLVM \
+  llvm-c
 ```
 
 Using `input/llvm-c.json` and `input/llvm-c_symbols.txt` as inputs. Bindings are
