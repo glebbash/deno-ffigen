@@ -36,9 +36,10 @@ const cmd = new Command()
     },
   )
   .option(
-    "-p, --lib-prefix <lib-prefix>",
+    "-p, --lib-prefix [lib-prefix]",
     "Library prefix to strip from all symbols.",
   )
+  .option("--no-lib-prefix", "Disable prefix stripping.")
   .helpOption("--help")
   .example(
     "headers",
@@ -53,8 +54,8 @@ const cmd = new Command()
       <lib-name> is used to strip prefix from all symbols.
       For example if <lib-name> is LLVM and function name is LLVMContextCreate,
       the generated function will be accessible as LLVM.ContextCreate.
-      You can set <lib-prefix> to set the specific prefix without changing the namespace name.
-      You can also set it to empty string to disable prefix stripping.
+      You can set <lib-prefix> to set the specific prefix without
+      changing the namespace name.
     `,
   )
   .arguments("[output-folder]");
@@ -71,5 +72,9 @@ await generateBindings(
   args[0] ?? options.libName,
   options.libName,
   options.headers,
-  options.libPrefix ?? options.libName,
+  options.libPrefix === false
+    ? ""
+    : options.libPrefix === undefined
+    ? options.libName
+    : options.libPrefix as string,
 );
