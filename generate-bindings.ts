@@ -8,6 +8,7 @@ type GenerationContext = {
   typesInfo: TypesInfo;
   enumNames: Set<string>;
   functionsInfo: FunctionsInfo;
+  libSymbols: CSymbol[];
 };
 
 type TypesInfo = Map<string, {
@@ -38,46 +39,31 @@ export async function generateBindings(
     enumNames: new Set(),
     typesInfo: new Map(),
     functionsInfo: new Map(),
+    libSymbols: await getLibSymbols(symbolsFile, libPrefix),
   };
 
+  const modGen = buildMod(ctx);
+  const typesSource = buildTypes(ctx, exposedFunctions);
+  const symbolsSource = buildSymbols(ctx);
+  const safeFFISource = buildSafeFFI();
+
+  await Deno.mkdir(outputFolder, { recursive: true }).catch();
+  await Deno.writeTextFile(`${outputFolder}/mod.ts`, modGen);
+  await Deno.writeTextFile(`${outputFolder}/types.ts`, typesSource);
+  await Deno.writeTextFile(`${outputFolder}/symbols.ts`, symbolsSource);
+  await Deno.writeTextFile(`${outputFolder}/safe-ffi.ts`, safeFFISource);
+}
+
+async function getLibSymbols(symbolsFile: string, libPrefix: string) {
   const allSymbols: CSymbol[] = JSON.parse(
-    Deno.readTextFileSync(symbolsFile),
+    await Deno.readTextFile(symbolsFile),
   );
 
   const rawLibSymbols = allSymbols.filter((s: CSymbol) =>
     s.name.startsWith(libPrefix) || (s.name === "" && s.tag === "enum")
   );
 
-  const libSymbols = routeTypeDefs(rawLibSymbols);
-
-  const typesSource = buildTypes(libSymbols, ctx);
-  const enumsSource = buildEnums(libSymbols, ctx);
-  const functionsSource = buildFunctions(libSymbols, exposedFunctions, ctx);
-  const symbolsSource = buildSymbols(ctx);
-  const modGen = buildMod(ctx);
-
-  await Deno.mkdir(outputFolder, { recursive: true }).catch();
-  await Deno.writeTextFile(`${outputFolder}/safe-ffi.ts`, buildSafeFFI());
-
-  const allTypesSource = m`
-    // deno-lint-ignore-file
-    import { Pointer, FnPointer, StructPointer } from "./safe-ffi.ts";
-
-    export namespace ${libName} {
-    ${typesSource}
-
-    ${enumsSource}
-
-    ${functionsSource}
-
-      export declare function close(): void;
-    }
-
-    `;
-
-  await Deno.writeTextFile(`${outputFolder}/types.ts`, allTypesSource);
-  await Deno.writeTextFile(`${outputFolder}/symbols.ts`, symbolsSource);
-  await Deno.writeTextFile(`${outputFolder}/mod.ts`, modGen);
+  return routeTypeDefs(rawLibSymbols);
 }
 
 function buildSymbols(ctx: GenerationContext): string {
@@ -98,6 +84,33 @@ function buildSymbols(ctx: GenerationContext): string {
   return symbolsSource;
 }
 
+function buildTypes(
+  ctx: GenerationContext,
+  exposedFunctions: string[],
+): string {
+  const typeDefsSource = buildTypeDefs(ctx);
+  const enumsSource = buildEnums(ctx);
+  const functionsSource = buildFunctions(ctx, exposedFunctions);
+
+  const namespaceSource = m`
+    // deno-lint-ignore-file
+    import { Pointer, FnPointer, StructPointer } from "./safe-ffi.ts";
+
+    export namespace ${ctx.libName} {
+    ${typeDefsSource}
+
+    ${enumsSource}
+
+    ${functionsSource}
+
+      export declare function close(): void;
+    }
+
+    `;
+
+  return namespaceSource;
+}
+
 function buildMod(ctx: GenerationContext): string {
   return m`
     import { ${ctx.libName} } from "./types.ts";
@@ -114,11 +127,30 @@ function buildMod(ctx: GenerationContext): string {
     `;
 }
 
-function buildTypes(
-  libSymbols: CSymbol[],
-  ctx: GenerationContext,
-): string {
-  const typeDefs = libSymbols.filter((s): s is CTypeDef => s.tag === "typedef");
+function buildSafeFFI() {
+  return m`
+    // deno-lint-ignore-file
+    export type Opaque<BaseType, BrandType = unknown> = BaseType & {
+      readonly [Symbols.base]: BaseType;
+      readonly [Symbols.brand]: BrandType;
+    };
+
+    export type Pointer<T = string> = Opaque<bigint, T>;
+    export type FnPointer<T = string> = Pointer<T>;
+    export type StructPointer<T = string> = Pointer<T>;
+
+    namespace Symbols {
+      export declare const base: unique symbol;
+      export declare const brand: unique symbol;
+    }
+
+    `;
+}
+
+function buildTypeDefs(ctx: GenerationContext): string {
+  const typeDefs = ctx.libSymbols.filter((s): s is CTypeDef =>
+    s.tag === "typedef"
+  );
   console.log("Total types:", typeDefs.length);
 
   const { typesInfo } = ctx;
@@ -130,19 +162,16 @@ function buildTypes(
     });
   }
 
-  const typesSource = [...typesInfo.entries()].map(([name, info]) => {
+  const typeDefsSource = [...typesInfo.entries()].map(([name, info]) => {
     return `  /** ${info.location} */\n` +
       `  export type ${name} = ${info.type.tsType};`;
   }).join("\n\n");
 
-  return typesSource;
+  return typeDefsSource;
 }
 
-function buildEnums(
-  libSymbols: CSymbol[],
-  ctx: GenerationContext,
-): string {
-  const enums = libSymbols.filter((s): s is CEnum => s.tag === "enum");
+function buildEnums(ctx: GenerationContext): string {
+  const enums = ctx.libSymbols.filter((s): s is CEnum => s.tag === "enum");
   console.log("Total enums:", enums.length);
 
   ctx.enumNames = new Set(
@@ -166,11 +195,10 @@ function buildEnums(
 }
 
 function buildFunctions(
-  libSymbols: CSymbol[],
-  exposedFunctions: string[],
   ctx: GenerationContext,
+  exposedFunctions: string[],
 ): string {
-  const allFunctions = libSymbols.filter((s): s is CFunction =>
+  const allFunctions = ctx.libSymbols.filter((s): s is CFunction =>
     s.tag === "function"
   );
   const uniqueFunctions = uniqueByKey(allFunctions, "name");
@@ -211,26 +239,6 @@ function buildFunctions(
   }).join("\n\n");
 
   return functionsSource;
-}
-
-function buildSafeFFI() {
-  return m`
-    // deno-lint-ignore-file
-    export type Opaque<BaseType, BrandType = unknown> = BaseType & {
-      readonly [Symbols.base]: BaseType;
-      readonly [Symbols.brand]: BrandType;
-    };
-
-    export type Pointer<T = string> = Opaque<bigint, T>;
-    export type FnPointer<T = string> = Pointer<T>;
-    export type StructPointer<T = string> = Pointer<T>;
-
-    namespace Symbols {
-      export declare const base: unique symbol;
-      export declare const brand: unique symbol;
-    }
-
-    `;
 }
 
 function uniqueByKey<T>(values: T[], key: keyof T): T[] {
