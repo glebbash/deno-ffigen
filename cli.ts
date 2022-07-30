@@ -6,7 +6,7 @@ import { generateBindings, getFunctionsFromSharedLib } from "./mod.ts";
 const cmd = new Command()
   .name("ffigen")
   .description("FFI Bindings generator for Deno.")
-  .version("v0.0.2beta")
+  .version("v1.0.0")
   .option(
     "-s, --symbols <symbols-file>",
     "Exposed symbols file (readelf output).",
