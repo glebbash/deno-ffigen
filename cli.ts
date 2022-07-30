@@ -38,17 +38,26 @@ const cmd = new Command()
   .option(
     "-p, --lib-prefix <lib-prefix>",
     "Library prefix to strip from all symbols.",
-    { default: "<lib-name>" },
   )
   .helpOption("--help")
   .example(
     "headers",
     m`
-      Headers option is used to generate links in description of each function.
+      <headers> is used to generate links in description of each function.
       Example: "https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/"
     `,
   )
-  .arguments("[outputFolder]");
+  .example(
+    "prefix",
+    m`
+      <lib-name> is used to strip prefix from all symbols.
+      For example if <lib-name> is LLVM and function name is LLVMContextCreate,
+      the generated function will be accessible as LLVM.ContextCreate.
+      You can set <lib-prefix> to set the specific prefix without changing the namespace name.
+      You can also set it to empty string to disable prefix stripping.
+    `,
+  )
+  .arguments("[output-folder]");
 
 const { args, options } = await cmd.parse();
 
