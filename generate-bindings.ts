@@ -33,6 +33,13 @@ export type BindingsOptions = {
   outputFolder: string;
 };
 
+/**
+ * Generates the following files in `outputFolder`:
+ * - `mod.ts` - Bindings entry that also dlopens the shared lib
+ * - `types.ts` - Namespace with all type/enum/function definitions
+ * - `symbols.ts` - Exports object with lib definition for `Deno.dlopen`
+ * - `safe-ffi.ts` - Type utils for making pointer typesafe
+ */
 export async function generateBindings(opts: BindingsOptions) {
   const libPrefix = opts.libPrefix ?? opts.libName;
   const ctx: GenerationContext = {
