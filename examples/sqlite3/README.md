@@ -4,14 +4,10 @@
 
 ```sh
 docker run -v $(pwd):/data glebbash/deno-ffigen-c2ffi /data/input/sqlite3.h > input/sqlite3.json
-docker run -v $(pwd):/data glebbash/deno-ffigen-c2ffi /data/input/sqlite3ext.h > input/sqlite3ext.json
 ```
 
 This will generate `input/sqlite3.h` file containing all symbols found in
 `input/sqlite3.json`.
-
-Also this will generate `input/sqlite3ext.h` file containing all symbols found
-in `input/sqlite3ext.json`.
 
 ## Extract exposed symbols from libsqlite3.so
 
@@ -34,8 +30,8 @@ deno run -A https://deno.land/x/ffigen/cli.ts \
   sqlite3
 ```
 
-Using `input/sqlite3.json` and `input/sqlite3_symbols.txt` as inputs. Bindings are
-generated for sqlite3.
+Using `input/sqlite3.json` and `input/sqlite3_symbols.txt` as inputs bindings
+are generated for sqlite3.
 
 Generated files are:
 
