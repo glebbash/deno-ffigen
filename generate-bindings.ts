@@ -1,4 +1,5 @@
 import { CEnum, CFunction, CSymbol, CType, CTypeDef } from "./types.ts";
+import { m } from "https://raw.githubusercontent.com/glebbash/multiline-str/master/src/multiline-str.ts";
 
 type GenerationContext = {
   libName: string;
@@ -6,6 +7,7 @@ type GenerationContext = {
   baseSourcePath: string;
   typesInfo: TypesInfo;
   enumNames: Set<string>;
+  functionsInfo: FunctionsInfo;
 };
 
 type TypesInfo = Map<string, {
@@ -27,7 +29,7 @@ export async function generateBindings(
   outputFolder: string,
   libName: string,
   baseSourcePath: string,
-  libPrefix = libName,
+  libPrefix: string,
 ) {
   const ctx: GenerationContext = {
     libName,
@@ -35,6 +37,7 @@ export async function generateBindings(
     baseSourcePath,
     enumNames: new Set(),
     typesInfo: new Map(),
+    functionsInfo: new Map(),
   };
 
   const allSymbols: CSymbol[] = JSON.parse(
@@ -47,42 +50,38 @@ export async function generateBindings(
 
   const libSymbols = routeTypeDefs(rawLibSymbols);
 
-  const { typesSource, typesInfo } = buildTypes(
-    libSymbols,
-    ctx,
-  );
-  ctx.typesInfo = typesInfo;
-
-  const { enumsSource, enumsInfo } = buildEnums(libSymbols, ctx);
-  ctx.enumNames = enumsInfo;
-
-  const { functionsInfo, functionsSource } = buildFunctions(
-    libSymbols,
-    exposedFunctions,
-    ctx,
-  );
-  const symbolsSource = buildSymbols(functionsInfo, libName);
-  const modGen = buildMod(libName);
+  const typesSource = buildTypes(libSymbols, ctx);
+  const enumsSource = buildEnums(libSymbols, ctx);
+  const functionsSource = buildFunctions(libSymbols, exposedFunctions, ctx);
+  const symbolsSource = buildSymbols(ctx);
+  const modGen = buildMod(ctx);
 
   await Deno.mkdir(outputFolder, { recursive: true }).catch();
   await Deno.writeTextFile(`${outputFolder}/safe-ffi.ts`, buildSafeFFI());
 
-  const allTypesSource = `// deno-lint-ignore-file\n` +
-    `import { Pointer, FnPointer, StructPointer } from "./safe-ffi.ts";\n\n` +
-    `export namespace ${libName} {\n` +
-    typesSource + "\n\n" +
-    enumsSource + "\n\n" +
-    functionsSource + "\n\n" +
-    "  export declare function close(): void;" +
-    "\n}\n";
+  const allTypesSource = m`
+    // deno-lint-ignore-file
+    import { Pointer, FnPointer, StructPointer } from "./safe-ffi.ts";
+
+    export namespace ${libName} {
+    ${typesSource}
+
+    ${enumsSource}
+
+    ${functionsSource}
+
+      export declare function close(): void;
+    }
+
+    `;
 
   await Deno.writeTextFile(`${outputFolder}/types.ts`, allTypesSource);
   await Deno.writeTextFile(`${outputFolder}/symbols.ts`, symbolsSource);
   await Deno.writeTextFile(`${outputFolder}/mod.ts`, modGen);
 }
 
-function buildSymbols(functionsInfo: FunctionsInfo, libName: string) {
-  const symbolsInfo = [...functionsInfo.entries()];
+function buildSymbols(ctx: GenerationContext): string {
+  const symbolsInfo = [...ctx.functionsInfo.entries()];
   const symbolsGen = symbolsInfo.map(([name, info]) => {
     return `  ${info.name}: {\n` +
       `    name: "${name}",\n` +
@@ -92,34 +91,37 @@ function buildSymbols(functionsInfo: FunctionsInfo, libName: string) {
       `    result: "${info.result}"\n  }`;
   }).join(",\n");
 
-  const symbolsSource = `export const ${libName}_SYMBOLS = {\n` +
+  const symbolsSource = `export const ${ctx.libName}_SYMBOLS = {\n` +
     symbolsGen +
     "\n} as const;\n";
 
   return symbolsSource;
 }
 
-function buildMod(libName: string): string {
-  return `import { ${libName} } from "./types.ts";
-import { ${libName}_SYMBOLS } from "./symbols.ts";
+function buildMod(ctx: GenerationContext): string {
+  return m`
+    import { ${ctx.libName} } from "./types.ts";
+    import { ${ctx.libName}_SYMBOLS } from "./symbols.ts";
 
-export { ${libName} } from "./types.ts";
+    export { ${ctx.libName} } from "./types.ts";
 
-export function load${libName}(path: string): typeof ${libName} {
-  const lib = Deno.dlopen(path, ${libName}_SYMBOLS);
+    export function load${ctx.libName}(path: string): typeof ${ctx.libName} {
+      const lib = Deno.dlopen(path, ${ctx.libName}_SYMBOLS);
 
-  return { ...lib.symbols, close: () => lib.close() } as never;
-}\n`;
+      return { ...lib.symbols, close: () => lib.close() } as never;
+    }
+
+    `;
 }
 
 function buildTypes(
   libSymbols: CSymbol[],
   ctx: GenerationContext,
-): { typesInfo: TypesInfo; typesSource: string } {
+): string {
   const typeDefs = libSymbols.filter((s): s is CTypeDef => s.tag === "typedef");
   console.log("Total types:", typeDefs.length);
 
-  const typesInfo: TypesInfo = new Map();
+  const { typesInfo } = ctx;
   for (const t of typeDefs) {
     const name = t.name.slice(ctx.libPrefix.length);
     typesInfo.set(name, {
@@ -133,17 +135,17 @@ function buildTypes(
       `  export type ${name} = ${info.type.tsType};`;
   }).join("\n\n");
 
-  return { typesInfo, typesSource };
+  return typesSource;
 }
 
 function buildEnums(
   libSymbols: CSymbol[],
   ctx: GenerationContext,
-): { enumsInfo: Set<string>; enumsSource: string } {
+): string {
   const enums = libSymbols.filter((s): s is CEnum => s.tag === "enum");
   console.log("Total enums:", enums.length);
 
-  const enumsInfo = new Set(
+  ctx.enumNames = new Set(
     enums.map((e) => e.name.slice(ctx.libPrefix.length)),
   );
 
@@ -160,14 +162,14 @@ function buildEnums(
       `  }`;
   }).join("\n\n");
 
-  return { enumsInfo, enumsSource };
+  return enumsSource;
 }
 
 function buildFunctions(
   libSymbols: CSymbol[],
   exposedFunctions: string[],
   ctx: GenerationContext,
-): { functionsInfo: FunctionsInfo; functionsSource: string } {
+): string {
   const allFunctions = libSymbols.filter((s): s is CFunction =>
     s.tag === "function"
   );
@@ -178,7 +180,7 @@ function buildFunctions(
   );
   console.log("Total functions:", functions.length);
 
-  const functionsInfo = new Map(functions.map((f) => {
+  ctx.functionsInfo = new Map(functions.map((f) => {
     const resultType = getTypeInfo(f["return-type"], null, ctx);
     const parametersInfo = f.parameters.map((p, index) => {
       return {
@@ -203,30 +205,32 @@ function buildFunctions(
     ];
   }));
 
-  const functionsSource = [...functionsInfo.entries()].map(([, info]) => {
+  const functionsSource = [...ctx.functionsInfo.entries()].map(([, info]) => {
     return `  /** ${info.location} */\n` +
       `  ${info.tsType}`;
   }).join("\n\n");
 
-  return { functionsInfo, functionsSource };
+  return functionsSource;
 }
 
 function buildSafeFFI() {
-  return `// deno-lint-ignore-file
-export type Opaque<BaseType, BrandType = unknown> = BaseType & {
-  readonly [Symbols.base]: BaseType;
-  readonly [Symbols.brand]: BrandType;
-};
+  return m`
+    // deno-lint-ignore-file
+    export type Opaque<BaseType, BrandType = unknown> = BaseType & {
+      readonly [Symbols.base]: BaseType;
+      readonly [Symbols.brand]: BrandType;
+    };
 
-export type Pointer<T = string> = Opaque<bigint, T>;
-export type FnPointer<T = string> = Pointer<T>;
-export type StructPointer<T = string> = Pointer<T>;
+    export type Pointer<T = string> = Opaque<bigint, T>;
+    export type FnPointer<T = string> = Pointer<T>;
+    export type StructPointer<T = string> = Pointer<T>;
 
-namespace Symbols {
-  export declare const base: unique symbol;
-  export declare const brand: unique symbol;
-}
-`;
+    namespace Symbols {
+      export declare const base: unique symbol;
+      export declare const brand: unique symbol;
+    }
+
+    `;
 }
 
 function uniqueByKey<T>(values: T[], key: keyof T): T[] {
@@ -402,27 +406,24 @@ function getTypeInfo(
 
   if (type.tag.startsWith(ctx.libPrefix)) {
     const typeName = type.tag.substring(ctx.libPrefix.length);
-    const actualType = ctx.typesInfo.get(
-      typeName,
-    );
 
-    if (actualType === undefined) {
-      if (!ctx.enumNames.has(typeName)) {
-        throw new Error(
-          "Unexpected typedef: " + JSON.stringify({ type, name }),
-        );
-      }
+    if (ctx.typesInfo.has(typeName)) {
+      return {
+        tsType: `${ctx.libName}.${typeName}`,
+        nativeType: ctx.typesInfo.get(typeName)!.type.nativeType,
+      };
+    }
 
+    if (ctx.enumNames.has(typeName)) {
       return {
         tsType: `${ctx.libName}.${typeName}`,
         nativeType: "i32",
       };
     }
 
-    return {
-      tsType: `${ctx.libName}.${typeName}`,
-      nativeType: actualType.type.nativeType,
-    };
+    throw new Error(
+      "Unexpected typedef: " + JSON.stringify({ type, name }),
+    );
   }
 
   throw new Error(`Unknown type ${JSON.stringify({ type, name })}`);
