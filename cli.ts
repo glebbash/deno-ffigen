@@ -62,13 +62,9 @@ const cmd = new Command()
 
 const { args, options } = await cmd.parse();
 
-const exposedFunctions = await getFunctionsFromSharedLib(
-  options.symbols,
-);
-
 await generateBindings(
   options.definitions,
-  exposedFunctions,
+  await getFunctionsFromSharedLib(options.symbols),
   args[0] ?? options.libName,
   options.libName,
   options.headers,
