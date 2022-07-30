@@ -22,6 +22,30 @@ Try it out though, it might just work.
 Following sections assume that [[C_LIB]] is the name of the library you are
 generating bindings for.
 
+## Usage
+
+There are 2 usage variants:
+
+- build script (recommended)
+- manual steps and cli (for simple cases)
+
+## Usage: Build script
+
+Created a `build.ts` file that uses functions from `ffigen`.
+
+You can find example (working) build scripts in:
+
+- [llvm-14](./examples/llvm-c-14/build.ts)
+- [sqlite3](./examples/sqlite3/build.ts)
+
+Run it using:
+
+```bash
+deno run -A build.ts
+```
+
+## Usage: Manual steps + cli
+
 ### Extract definitions from [[C_LIB]].h
 
 ```sh
@@ -65,7 +89,3 @@ For all the available options run
 ```bash
 deno run -A https://deno.land/x/ffigen/cli.ts --help
 ```
-
-## Programmatic usage
-
-See [mod.ts](./mod.ts) for a list of available functions.
