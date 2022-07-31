@@ -12,38 +12,40 @@ const SQLITE_ROW = 100;
 
 const _ = loadsqlite3("./input/libsqlite3.so.0.8.6");
 
-const dbRefRef = alloc<Pointer<sqlite3.sqlite3>>();
-const stmtRefRef = alloc<Pointer<sqlite3.sqlite3_stmt>>();
+let rc: number;
 
-let rc = _.sqlite3_open(cstr(":memory:"), dbRefRef);
-const dbRef = derefRef(dbRefRef);
+const dbRef = alloc<Pointer<sqlite3.sqlite3>>();
+rc = _.sqlite3_open(cstr(":memory:"), dbRef);
+const db = deref(dbRef);
 
 if (rc !== SQLITE_OK) {
-  throw new Error(`sqlite3_open failed: ${_.sqlite3_errmsg(dbRef)}`);
+  throw new Error(`sqlite3_open failed: ${_.sqlite3_errmsg(db)}`);
 }
 
+const stmtRef = alloc<Pointer<sqlite3.sqlite3_stmt>>();
 rc = _.sqlite3_prepare_v2(
-  dbRef,
+  db,
   cstr("SELECT SQLITE_VERSION()"),
   -1,
-  stmtRefRef,
+  stmtRef,
   null as never,
 );
+const stmt = deref(stmtRef);
+
 if (rc !== SQLITE_OK) {
-  throw new Error(`sqlite3_prepare_v2 failed: ${_.sqlite3_errmsg(dbRef)}`);
+  throw new Error(`sqlite3_prepare_v2 failed: ${_.sqlite3_errmsg(db)}`);
 }
-const stmtRef = derefRef(stmtRefRef);
 
-rc = _.sqlite3_step(stmtRef);
+rc = _.sqlite3_step(stmt);
 if (rc === SQLITE_ROW) {
-  console.log(readCString(_.sqlite3_column_text(stmtRef, 0)));
+  console.log(readCString(_.sqlite3_column_text(stmt, 0)));
 }
 
-_.sqlite3_finalize(stmtRef);
-_.sqlite3_close(dbRef);
+_.sqlite3_finalize(stmt);
+_.sqlite3_close(db);
 
 // utils
 
-function derefRef<T extends bigint>(ptr: Pointer<Pointer<T>>): Pointer<T> {
+function deref<T extends bigint>(ptr: Pointer<Pointer<T>>): Pointer<T> {
   return new Deno.UnsafePointerView(ptr).getBigUint64() as Pointer<T>;
 }
