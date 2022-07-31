@@ -126,6 +126,7 @@ function buildMod(ctx: GenerationContext): string {
     import { ${ctx.libName} } from "./types.ts";
     import { ${ctx.libName}_SYMBOLS } from "./symbols.ts";
 
+    export * from "./safe-ffi.ts";
     export type { ${ctx.libName} };
 
     export function load${ctx.libName}(path: string): typeof ${ctx.libName} {
@@ -154,6 +155,19 @@ function buildSafeFFI() {
       export declare const brand: unique symbol;
     }
 
+    export function alloc<T>(): Pointer<T> {
+      return Deno.UnsafePointer.of(new BigUint64Array(1)) as Pointer<T>;
+    }
+    
+    export function cstr(str: string) {
+      return Deno.UnsafePointer.of(
+        new TextEncoder().encode(str + "\0"),
+      ) as Pointer<number>;
+    }
+    
+    export function readCString(ptr: Pointer<number>): string {
+      return new Deno.UnsafePointerView(ptr).getCString();
+    }
     `;
 }
 

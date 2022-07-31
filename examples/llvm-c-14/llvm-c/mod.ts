@@ -1,6 +1,7 @@
 import { LLVM } from "./types.ts";
 import { LLVM_SYMBOLS } from "./symbols.ts";
 
+export * from "./safe-ffi.ts";
 export type { LLVM };
 
 export function loadLLVM(path: string): typeof LLVM {

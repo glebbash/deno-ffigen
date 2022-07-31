@@ -1,6 +1,11 @@
-import { loadsqlite3 } from "../sqlite3/mod.ts";
-import { Pointer } from "../sqlite3/safe-ffi.ts";
-import { sqlite3 } from "../sqlite3/types.ts";
+import {
+  alloc,
+  cstr,
+  loadsqlite3,
+  Pointer,
+  readCString,
+  sqlite3,
+} from "../sqlite3/mod.ts";
 
 const SQLITE_OK = 0;
 const SQLITE_ROW = 100;
@@ -94,24 +99,6 @@ function columnText(stmt: Pointer<sqlite3.sqlite3_stmt>, column: number) {
 
 // low-level helpers
 
-function alloc<T>(): Pointer<T> {
-  return Deno.UnsafePointer.of(new BigUint64Array(1)) as Pointer<T>;
-}
-
-function cstr(str: string) {
-  return Deno.UnsafePointer.of(new TextEncoder().encode(str + "\0")) as Pointer<
-    number
-  >;
-}
-
-function readCString(ptr: Pointer<number>): string {
-  return from(ptr).getCString();
-}
-
 function deref<T>(ptr: Pointer<Pointer<T>>): Pointer<T> {
-  return from(ptr).getBigUint64() as Pointer<T>;
-}
-
-function from<T>(ptr: Pointer<T>): Deno.UnsafePointerView {
-  return new Deno.UnsafePointerView(ptr);
+  return new Deno.UnsafePointerView(ptr).getBigUint64() as Pointer<T>;
 }
