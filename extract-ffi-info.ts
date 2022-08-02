@@ -141,13 +141,6 @@ function getTypeInfo(
   name: string | null,
   lib: LibInfo,
 ): TypeInfo {
-  if (type.tag === ":enum") {
-    return {
-      tsType: `${lib.prefix}.${mapName(lib, type.name)}`,
-      nativeType: "i32",
-    };
-  }
-
   if (type.tag === ":pointer") {
     if (name === null) {
       const rec = getTypeInfo(type.type, null, lib);
@@ -241,7 +234,7 @@ function getTypeInfo(
     };
   }
 
-  const typeName = mapName(lib, type.tag);
+  const typeName = mapName(lib, type.tag === ":enum" ? type.name : type.tag);
 
   const typeDef = lib.typeDefs.get(typeName);
 
