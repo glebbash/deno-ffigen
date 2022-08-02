@@ -144,7 +144,7 @@ function buildTypeDefs(typeDefs: Map<string, TypeDef>): string {
 
 function buildEnums(enums: Map<string, EnumDef>): string {
   const enumsSource = [...enums.entries()].map(([name, e]) => {
-    const fieldsGen = e.values
+    const fieldsGen = e.fields
       .map((f) => `    ${f.name} = ${f.value}`)
       .join(",\n");
 

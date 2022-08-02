@@ -14,7 +14,7 @@ export type TypeDef = {
 };
 
 export type EnumDef = TypeDef & {
-  values: { name: string; value: number }[];
+  fields: { name: string; value: number }[];
 };
 
 export type TypeInfo = { tsType: string; nativeType: string };
@@ -34,13 +34,12 @@ export function extractEnums(
   console.log("Total enums:", enums.length);
 
   return new Map(
-    enums.map((e) => {
-      const mappedName = mapName(lib, e.name);
-      return [mappedName, {
+    enums.map((e): [string, EnumDef] => {
+      return [mapName(lib, e.name), {
         originalName: e.name,
         location: linkLocationToSource(e.location, lib.headersPath),
-        type: { tsType: `${lib.name}.${mappedName}`, nativeType: "i32" },
-        values: e.fields.map((v) => ({ name: v.name, value: v.value })),
+        type: { tsType: "enum", nativeType: "i32" },
+        fields: e.fields.map((v) => ({ name: v.name, value: v.value })),
       }];
     }),
   );
