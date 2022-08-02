@@ -44,13 +44,18 @@ export type CFunction = {
 
 export type CType =
   | { tag: ":void" }
-  | { tag: ":int"; "bit-size": number; "bit-alignment": number }
-  | { tag: ":unsigned-int"; "bit-size": number; "bit-alignment": number }
-  | { tag: ":unsigned-long-long"; "bit-size": number; "bit-alignment": number }
-  | { tag: ":long-long"; "bit-size": number; "bit-alignment": number }
-  | { tag: ":double"; "bit-size": number; "bit-alignment": number }
   | { tag: ":char"; "bit-size": number; "bit-alignment": number }
   | { tag: ":unsigned-char"; "bit-size": number; "bit-alignment": number }
+  | { tag: ":signed-char"; "bit-size": number; "bit-alignment": number }
+  | { tag: ":short"; "bit-size": number; "bit-alignment": number }
+  | { tag: ":unsigned-short"; "bit-size": number; "bit-alignment": number }
+  | { tag: ":int"; "bit-size": number; "bit-alignment": number }
+  | { tag: ":unsigned-int"; "bit-size": number; "bit-alignment": number }
+  | { tag: ":long"; "bit-size": number; "bit-alignment": number }
+  | { tag: ":unsigned-long"; "bit-size": number; "bit-alignment": number }
+  | { tag: ":double"; "bit-size": number; "bit-alignment": number }
+  | { tag: ":long-long"; "bit-size": number; "bit-alignment": number }
+  | { tag: ":unsigned-long-long"; "bit-size": number; "bit-alignment": number }
   | { tag: ":enum"; id: number; name: string }
   | { tag: ":function-pointer" }
   | { tag: ":pointer"; type: CType }

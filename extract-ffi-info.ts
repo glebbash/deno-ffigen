@@ -181,7 +181,8 @@ function getTypeInfo(
   }
 
   if (
-    (type.tag === ":char" && type["bit-size"] === 8)
+    (type.tag === ":char" && type["bit-size"] === 8) ||
+    (type.tag === ":signed-char" && type["bit-size"] === 8)
   ) {
     return { tsType: `number`, nativeType: "i8" };
   }
@@ -191,6 +192,18 @@ function getTypeInfo(
     (type.tag === ":unsigned-char" && type["bit-size"] === 8)
   ) {
     return { tsType: `number`, nativeType: "u8" };
+  }
+
+  if (
+    (type.tag === ":short" && type["bit-size"] === 16)
+  ) {
+    return { tsType: `number`, nativeType: "i16" };
+  }
+
+  if (
+    (type.tag === ":unsigned-short" && type["bit-size"] === 16)
+  ) {
+    return { tsType: `number`, nativeType: "u16" };
   }
 
   if (type.tag === ":int" && type["bit-size"] === 32) {
@@ -206,6 +219,7 @@ function getTypeInfo(
 
   if (
     (type.tag === "int64_t") ||
+    (type.tag === ":long" && type["bit-size"] === 64) ||
     (type.tag === ":long-long" && type["bit-size"] === 64)
   ) {
     return { tsType: `bigint`, nativeType: "i64" };
@@ -217,6 +231,7 @@ function getTypeInfo(
 
   if (
     type.tag === "uint64_t" ||
+    (type.tag === ":unsigned-long" && type["bit-size"] === 64) ||
     (type.tag === ":unsigned-long-long" && type["bit-size"] === 64)
   ) {
     return { tsType: `bigint`, nativeType: "u64" };
@@ -230,7 +245,10 @@ function getTypeInfo(
     };
   }
 
-  const typeName = mapName(lib, type.tag === ":enum" ? type.name : type.tag);
+  const typeName = mapName(
+    lib,
+    type.tag === ":enum" ? type.name : type.tag,
+  );
 
   const typeDef = lib.typeDefs.get(typeName);
 
@@ -245,5 +263,9 @@ function getTypeInfo(
 }
 
 function mapName(lib: LibInfo, name: string): string {
+  if (!name.startsWith(lib.prefix)) {
+    return "$" + name;
+  }
+
   return name.slice(lib.prefix.length);
 }
