@@ -35,12 +35,15 @@ export async function generateBindings(opts: BindingsOptions) {
   const symbols = await getLibSymbols(opts.symbolsFile, libPrefix);
 
   const enums = extractEnums(lib, symbols);
+  console.log("Total enums:", enums.size);
   lib.typeDefs = new Map([...lib.typeDefs, ...enums]);
 
   const typeDefs = extractTypeDefs(lib, symbols);
+  console.log("Total types:", typeDefs.size);
   lib.typeDefs = new Map([...lib.typeDefs, ...typeDefs]);
 
   const functions = extractFunctions(lib, symbols, opts.exposedFunctions);
+  console.log("Total functions:", functions.size);
 
   const sources = generateSources(lib, typeDefs, enums, functions);
 

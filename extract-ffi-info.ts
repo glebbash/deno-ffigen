@@ -31,7 +31,6 @@ export function extractEnums(
   symbols: CSymbol[],
 ): Map<string, EnumDef> {
   const enums = symbols.filter((s): s is CEnum => s.tag === "enum");
-  console.log("Total enums:", enums.length);
 
   return new Map(
     enums.map((e): [string, EnumDef] => {
@@ -52,7 +51,6 @@ export function extractTypeDefs(
   lib = { ...lib, typeDefs: new Map() };
 
   const typeDefs = symbols.filter((s): s is CTypeDef => s.tag === "typedef");
-  console.log("Total types:", typeDefs.length);
 
   for (const t of typeDefs) {
     const mappedName = mapName(lib, t.name);
@@ -79,7 +77,6 @@ export function extractFunctions(
   const functions = nonInlinedFunctions.filter((f) =>
     exposedFunctions.includes(f.name as never)
   );
-  console.log("Total functions:", functions.length);
 
   return new Map(functions.map((f) => [
     mapName(lib, f.name),
