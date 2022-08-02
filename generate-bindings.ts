@@ -27,8 +27,8 @@ export async function generateBindings(opts: BindingsOptions) {
   const libPrefix = opts.libPrefix ?? opts.libName;
   const lib: LibInfo = {
     name: opts.libName,
-    prefix: libPrefix,
-    headersPath: opts.headersPath,
+    mapName: stripPrefixOrAddDollar(libPrefix),
+    formatLocation: linkLocationToSource(opts.headersPath),
     typeDefs: new Map(),
   };
 
@@ -52,4 +52,40 @@ export async function generateBindings(opts: BindingsOptions) {
   await Deno.writeTextFile(`${opts.outputFolder}/types.ts`, sources.types);
   await Deno.writeTextFile(`${opts.outputFolder}/symbols.ts`, sources.symbols);
   await Deno.writeTextFile(`${opts.outputFolder}/safe-ffi.ts`, sources.safeFFI);
+}
+
+function stripPrefixOrAddDollar(prefix: string): LibInfo["mapName"] {
+  return (name: string) => {
+    if (name.startsWith(prefix)) {
+      return name.slice(prefix.length);
+    }
+
+    return "$" + name;
+  };
+}
+
+function linkLocationToSource(
+  baseSourcePath: string,
+): LibInfo["formatLocation"] {
+  return (location) => {
+    location = location.split(" <Spelling=")[0];
+    location = fixLine(location);
+
+    if (location.startsWith("/usr/include/")) {
+      return baseSourcePath + location.slice("/usr/include/".length);
+    }
+
+    const LOCAL_FILE_SEP = "/./";
+    const sepIndex = location.indexOf(LOCAL_FILE_SEP);
+    if (sepIndex !== -1) {
+      return baseSourcePath + location.slice(sepIndex + LOCAL_FILE_SEP.length);
+    }
+
+    return location;
+  };
+}
+
+function fixLine(str: string): string {
+  const [path, line] = str.split(":");
+  return path + "#L" + line;
 }

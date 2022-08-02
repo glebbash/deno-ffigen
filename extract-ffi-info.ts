@@ -2,8 +2,8 @@ import { CEnum, CFunction, CSymbol, CType, CTypeDef } from "./types.ts";
 
 export type LibInfo = {
   name: string;
-  prefix: string;
-  headersPath: string;
+  mapName: (name: string) => string;
+  formatLocation: (location: string) => string;
   typeDefs: Map<string, TypeDef>;
 };
 
@@ -34,9 +34,9 @@ export function extractEnums(
 
   return new Map(
     enums.map((e): [string, EnumDef] => {
-      return [mapName(lib, e.name), {
+      return [lib.mapName(e.name), {
         originalName: e.name,
-        location: linkLocationToSource(e.location, lib.headersPath),
+        location: lib.formatLocation(e.location),
         type: { tsType: "enum", nativeType: "i32" },
         fields: e.fields.map((v) => ({ name: v.name, value: v.value })),
       }];
@@ -53,10 +53,10 @@ export function extractTypeDefs(
   const typeDefs = symbols.filter((s): s is CTypeDef => s.tag === "typedef");
 
   for (const t of typeDefs) {
-    const mappedName = mapName(lib, t.name);
+    const mappedName = lib.mapName(t.name);
     lib.typeDefs.set(mappedName, {
       originalName: t.name,
-      location: linkLocationToSource(t.location, lib.headersPath),
+      location: lib.formatLocation(t.location),
       type: getTypeInfo(t.type, mappedName, lib),
     });
   }
@@ -79,10 +79,10 @@ export function extractFunctions(
   );
 
   return new Map(functions.map((f) => [
-    mapName(lib, f.name),
+    lib.mapName(f.name),
     {
       fullName: f.name,
-      location: linkLocationToSource(f.location, lib.headersPath),
+      location: lib.formatLocation(f.location),
       parameters: f.parameters.map((p, index) => ({
         name: p.name || "_" + index,
         type: getTypeInfo(p.type, null, lib),
@@ -105,31 +105,6 @@ function uniqueByKey<T>(values: T[], key: keyof T): T[] {
   }
 
   return result;
-}
-
-function linkLocationToSource(
-  location: string,
-  baseSourcePath: string,
-): string {
-  location = location.split(" <Spelling=")[0];
-  location = fixLine(location);
-
-  if (location.startsWith("/usr/include/")) {
-    return baseSourcePath + location.slice("/usr/include/".length);
-  }
-
-  const LOCAL_FILE_SEP = "/./";
-  const sepIndex = location.indexOf(LOCAL_FILE_SEP);
-  if (sepIndex !== -1) {
-    return baseSourcePath + location.slice(sepIndex + LOCAL_FILE_SEP.length);
-  }
-
-  return location;
-}
-
-function fixLine(str: string): string {
-  const [path, line] = str.split(":");
-  return path + "#L" + line;
 }
 
 function getTypeInfo(
@@ -245,8 +220,7 @@ function getTypeInfo(
     };
   }
 
-  const typeName = mapName(
-    lib,
+  const typeName = lib.mapName(
     type.tag === ":enum" ? type.name : type.tag,
   );
 
@@ -260,12 +234,4 @@ function getTypeInfo(
     tsType: `${lib.name}.${typeName}`,
     nativeType: typeDef.type.nativeType,
   };
-}
-
-function mapName(lib: LibInfo, name: string): string {
-  if (!name.startsWith(lib.prefix)) {
-    return "$" + name;
-  }
-
-  return name.slice(lib.prefix.length);
 }
