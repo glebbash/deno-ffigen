@@ -253,28 +253,6 @@ function getTypeInfo(
     tsType: `${lib.name}.${typeName}`,
     nativeType: typeDef.type.nativeType,
   };
-
-  // if (type.tag.startsWith(lib.prefix)) {
-  //   const typeName = type.tag.substring(lib.prefix.length);
-
-  //   if (lib.typeDefs.has(typeName)) {
-  //     return {
-  //       tsType: `${lib.name}.${typeName}`,
-  //       nativeType: lib.typeDefs.get(typeName)!.type.nativeType,
-  //     };
-  //   }
-
-  //   if (lib.enums.has(typeName)) {
-  //     return {
-  //       tsType: `${lib.name}.${typeName}`,
-  //       nativeType: "i32",
-  //     };
-  //   }
-
-  //   throw new Error(
-  //     "Unexpected typedef: " + JSON.stringify({ type, name }),
-  //   );
-  // }
 }
 
 function mapName(lib: LibInfo, name: string): string {
