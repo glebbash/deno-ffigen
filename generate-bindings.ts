@@ -35,31 +35,38 @@ export async function getLibSymbols(symbolsFile: string) {
   );
 }
 
-export function introspect(
-  opts: Omit<BindingsOptions, "outputFolder" | "symbolsFile"> & {
-    symbols: CSymbol[];
-  },
-) {
+export type IntrospectOptions = {
+  libName: string;
+  libPrefix?: string;
+  headersPath: string;
+  exposedFunctions: string[];
+  symbols: CSymbol[];
+  processType?: LibInfo["getTypeInfo"];
+};
+
+export function introspect(opts: IntrospectOptions) {
   const libPrefix = opts.libPrefix ?? opts.libName;
+
   const lib: LibInfo = {
     name: opts.libName,
-    mapName: stripPrefixOrAddDollar(libPrefix),
-    formatLocation: linkLocationToSource(opts.headersPath),
+    symbols: filterSymbolsByPrefix(opts.symbols, libPrefix),
+    exposedFunctions: opts.exposedFunctions,
     typeDefs: new Map(),
+    mapName: stripPrefix(libPrefix, "$"),
+    formatLocation: linkLocationToSource(opts.headersPath),
+    getTypeInfo: opts.processType ?? ((ctx, next) => next(ctx)),
   };
 
-  const symbols = filterSymbolsByPrefix(opts.symbols, libPrefix);
-
-  return extractFFIInfo(lib, symbols, opts.exposedFunctions);
+  return extractFFIInfo(lib);
 }
 
-function stripPrefixOrAddDollar(prefix: string): LibInfo["mapName"] {
+function stripPrefix(prefix: string, otherPrefix: string): LibInfo["mapName"] {
   return (name: string) => {
     if (name.startsWith(prefix)) {
       return name.slice(prefix.length);
     }
 
-    return "$" + name;
+    return otherPrefix + name;
   };
 }
 

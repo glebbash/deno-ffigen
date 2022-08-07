@@ -1,4 +1,4 @@
-export type CSymbol = CTypeDef | CEnum | CStruct | CFunction;
+export type CSymbol = CTypeDef | CEnum | CUnion | CStruct | CFunction;
 
 export type CTypeDef = {
   tag: "typedef";
@@ -13,6 +13,23 @@ export type CEnum = {
   location: string;
   id: number;
   fields: { tag: "field"; name: string; value: number }[];
+};
+
+export type CUnion = {
+  tag: "union";
+  name: string;
+  location: string;
+  id: number;
+  "bit-size": number;
+  "bit-alignment": number;
+  fields: {
+    tag: "field";
+    name: string;
+    "bit-offset": 0;
+    "bit-size": 64;
+    "bit-alignment": 64;
+    type: CType;
+  }[];
 };
 
 export type CStruct = {
@@ -60,10 +77,10 @@ export type CType =
   | { tag: ":function-pointer" }
   | { tag: ":pointer"; type: CType }
   | { tag: ":struct"; name: string }
+  | { tag: "struct" }
   | { tag: "size_t" }
   | { tag: "int64_t" }
   | { tag: "uint64_t" }
   | { tag: "uint32_t" }
   | { tag: "uint8_t" }
-  | { tag: "struct" }
   | { tag: "__builtin_va_list" };

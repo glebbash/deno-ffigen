@@ -4,7 +4,19 @@ export type LibInfo = {
   name: string;
   mapName: (name: string) => string;
   formatLocation: (location: string) => string;
+  getTypeInfo: (
+    ctx: GetTypeInfoContext,
+    next: (ctx: GetTypeInfoContext) => TypeInfo,
+  ) => TypeInfo;
+  symbols: CSymbol[];
+  exposedFunctions: string[];
   typeDefs: Map<string, TypeDef>;
+};
+
+type GetTypeInfoContext = {
+  type: CType;
+  name: string | null;
+  lib: LibInfo;
 };
 
 export type TypeDef = {
@@ -33,12 +45,8 @@ export type FFIInfo = {
   functions: Map<string, FunctionDef>;
 };
 
-export function extractFFIInfo(
-  lib: LibInfo,
-  symbols: CSymbol[],
-  exposedFunctions: string[],
-): FFIInfo {
-  symbols = linkTypeDefs(symbols);
+export function extractFFIInfo(lib: LibInfo): FFIInfo {
+  const symbols = linkTypeDefs(lib.symbols);
 
   const enums = extractEnums(lib, symbols);
   console.log("Total enums:", enums.size);
@@ -48,7 +56,7 @@ export function extractFFIInfo(
   console.log("Total types:", typeDefs.size);
   lib.typeDefs = new Map([...lib.typeDefs, ...typeDefs]);
 
-  const functions = extractFunctions(lib, symbols, exposedFunctions);
+  const functions = extractFunctions(lib, symbols, lib.exposedFunctions);
   console.log("Total functions:", functions.size);
 
   return {
@@ -61,22 +69,21 @@ export function extractFFIInfo(
 
 function linkTypeDefs(symbols: CSymbol[]): CSymbol[] {
   const result: CSymbol[] = [];
-  const symbolsById = new Map<number, CSymbol>();
+  const unnamedSymbols = new Map<number, CSymbol>();
 
   for (const symbol of symbols) {
-    if (symbol.tag === "enum" && symbol.name === "") {
-      symbolsById.set(symbol.id, symbol);
+    if (symbol.name === "" && "id" in symbol) {
+      unnamedSymbols.set(symbol.id, symbol);
       continue;
     }
 
-    if (symbol.tag === "typedef" && symbol.type.tag === ":enum") {
-      const enumSymbol = symbolsById.get(symbol.type.id);
-      if (!enumSymbol) {
-        throw new Error(`Enum not found: ${symbol.type.id}`);
+    if (symbol.tag === "typedef") {
+      const originalSymbol = unnamedSymbols.get((symbol.type as any).id);
+      if (originalSymbol) {
+        originalSymbol.name = symbol.name;
+        result.push(originalSymbol);
+        continue;
       }
-      enumSymbol.name = symbol.name;
-      result.push(enumSymbol);
-      continue;
     }
 
     result.push(symbol);
@@ -116,7 +123,7 @@ export function extractTypeDefs(
     lib.typeDefs.set(mappedName, {
       originalName: t.name,
       location: lib.formatLocation(t.location),
-      type: getTypeInfo(t.type, mappedName, lib),
+      type: getTypeInfo({ type: t.type, name: mappedName, lib }),
     });
   }
 
@@ -144,9 +151,9 @@ export function extractFunctions(
       location: lib.formatLocation(f.location),
       parameters: f.parameters.map((p, index) => ({
         name: p.name || "_" + index,
-        type: getTypeInfo(p.type, null, lib),
+        type: getTypeInfo({ type: p.type, name: null, lib }),
       })),
-      result: getTypeInfo(f["return-type"], null, lib),
+      result: getTypeInfo({ type: f["return-type"], name: null, lib }),
     },
   ]));
 }
@@ -166,14 +173,14 @@ function uniqueByKey<T>(values: T[], key: keyof T): T[] {
   return result;
 }
 
-function getTypeInfo(
-  type: CType,
-  name: string | null,
-  lib: LibInfo,
-): TypeInfo {
+function getTypeInfo(ctx: GetTypeInfoContext): TypeInfo {
+  return ctx.lib.getTypeInfo(ctx, getTypeInfoBasic);
+}
+
+function getTypeInfoBasic({ type, name, lib }: GetTypeInfoContext): TypeInfo {
   if (type.tag === ":pointer") {
     if (name === null) {
-      const rec = getTypeInfo(type.type, null, lib);
+      const rec = getTypeInfo({ type: type.type, name: null, lib });
 
       return { tsType: `Pointer<${rec.tsType}>`, nativeType: "pointer" };
     }
