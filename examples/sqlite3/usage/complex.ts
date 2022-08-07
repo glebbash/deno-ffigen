@@ -1,16 +1,16 @@
 import {
   alloc,
   cstr,
-  loadsqlite3,
+  loadSQLite3,
   Pointer,
   readCString,
-  sqlite3,
+  SQLite3,
 } from "../lib/mod.ts";
 
 const SQLITE_OK = 0;
 const SQLITE_ROW = 100;
 
-const _ = loadsqlite3("./input/libsqlite3.so.0.8.6");
+const sqlite3 = loadSQLite3("./input/libsqlite3.so.0.8.6");
 
 const db = openDb("test.db");
 
@@ -33,27 +33,27 @@ while (step(stmt)) {
   console.log(columnInt(stmt, 0), columnText(stmt, 1), columnInt(stmt, 2));
 }
 
-_.sqlite3_finalize(stmt);
-_.sqlite3_close(db);
+sqlite3.finalize(stmt);
+sqlite3.close(db);
 
 // helpers
 
 function openDb(fileName = ":memory:") {
-  const dbRef = alloc<Pointer<sqlite3.sqlite3>>();
+  const dbRef = alloc<Pointer<SQLite3.$sqlite3>>();
 
-  const rc = _.sqlite3_open(cstr(fileName), dbRef);
+  const rc = sqlite3.open(cstr(fileName), dbRef);
   const db = deref(dbRef);
 
   if (rc !== SQLITE_OK) {
-    throw new Error(`sqlite3_open failed: ${_.sqlite3_errmsg(db)}`);
+    throw new Error(`sqlite3_open failed: ${sqlite3.errmsg(db)}`);
   }
 
   return db;
 }
 
-function execStmt(db: Pointer<sqlite3.sqlite3>, stmt: string) {
+function execStmt(db: Pointer<SQLite3.$sqlite3>, stmt: string) {
   const errRef = alloc<Pointer<number>>();
-  const rc = _.sqlite3_exec(
+  const rc = sqlite3.exec(
     db,
     cstr(stmt),
     null as never,
@@ -67,9 +67,9 @@ function execStmt(db: Pointer<sqlite3.sqlite3>, stmt: string) {
   }
 }
 
-function prepareStatement(dbRef: Pointer<sqlite3.sqlite3>, statement: string) {
-  const stmtRef = alloc<Pointer<sqlite3.sqlite3_stmt>>();
-  const rc = _.sqlite3_prepare_v2(
+function prepareStatement(dbRef: Pointer<SQLite3.$sqlite3>, statement: string) {
+  const stmtRef = alloc<Pointer<SQLite3.stmt>>();
+  const rc = sqlite3.prepare_v2(
     dbRef,
     cstr(statement),
     -1,
@@ -78,23 +78,23 @@ function prepareStatement(dbRef: Pointer<sqlite3.sqlite3>, statement: string) {
   );
 
   if (rc !== SQLITE_OK) {
-    throw new Error(`sqlite3_prepare_v2 failed: ${_.sqlite3_errmsg(dbRef)}`);
+    throw new Error(`sqlite3_prepare_v2 failed: ${sqlite3.errmsg(dbRef)}`);
   }
 
   return deref(stmtRef);
 }
 
-function step(stmt: Pointer<sqlite3.sqlite3_stmt>): boolean {
-  const rc = _.sqlite3_step(stmt);
+function step(stmt: Pointer<SQLite3.stmt>): boolean {
+  const rc = sqlite3.step(stmt);
   return rc === SQLITE_ROW;
 }
 
-function columnInt(stmt: Pointer<sqlite3.sqlite3_stmt>, column: number) {
-  return _.sqlite3_column_int(stmt, column);
+function columnInt(stmt: Pointer<SQLite3.stmt>, column: number) {
+  return sqlite3.column_int(stmt, column);
 }
 
-function columnText(stmt: Pointer<sqlite3.sqlite3_stmt>, column: number) {
-  return readCString(_.sqlite3_column_text(stmt, column));
+function columnText(stmt: Pointer<SQLite3.stmt>, column: number) {
+  return readCString(sqlite3.column_text(stmt, column));
 }
 
 // low-level helpers

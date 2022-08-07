@@ -2,6 +2,474 @@
 import { Pointer, FnPointer, StructPointer } from "./safe-ffi.ts";
 
 export namespace LLVM {
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L31 */
+  export type $__u_char = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L32 */
+  export type $__u_short = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L33 */
+  export type $__u_int = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L34 */
+  export type $__u_long = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L37 */
+  export type $__int8_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L38 */
+  export type $__uint8_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L39 */
+  export type $__int16_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L40 */
+  export type $__uint16_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L41 */
+  export type $__int32_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L42 */
+  export type $__uint32_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L44 */
+  export type $__int64_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L45 */
+  export type $__uint64_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L52 */
+  export type $__int_least8_t = LLVM.$__int8_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L53 */
+  export type $__uint_least8_t = LLVM.$__uint8_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L54 */
+  export type $__int_least16_t = LLVM.$__int16_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L55 */
+  export type $__uint_least16_t = LLVM.$__uint16_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L56 */
+  export type $__int_least32_t = LLVM.$__int32_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L57 */
+  export type $__uint_least32_t = LLVM.$__uint32_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L58 */
+  export type $__int_least64_t = LLVM.$__int64_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L59 */
+  export type $__uint_least64_t = LLVM.$__uint64_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L63 */
+  export type $__quad_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L64 */
+  export type $__u_quad_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L72 */
+  export type $__intmax_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L73 */
+  export type $__uintmax_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L145 */
+  export type $__dev_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L146 */
+  export type $__uid_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L147 */
+  export type $__gid_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L148 */
+  export type $__ino_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L149 */
+  export type $__ino64_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L150 */
+  export type $__mode_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L151 */
+  export type $__nlink_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L152 */
+  export type $__off_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L153 */
+  export type $__off64_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L154 */
+  export type $__pid_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L155 */
+  export type $__fsid_t = StructPointer<"$__fsid_t">;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L156 */
+  export type $__clock_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L157 */
+  export type $__rlim_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L158 */
+  export type $__rlim64_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L159 */
+  export type $__id_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L160 */
+  export type $__time_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L161 */
+  export type $__useconds_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L162 */
+  export type $__suseconds_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L163 */
+  export type $__suseconds64_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L165 */
+  export type $__daddr_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L166 */
+  export type $__key_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L169 */
+  export type $__clockid_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L172 */
+  export type $__timer_t = Pointer<"$__timer_t">;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L175 */
+  export type $__blksize_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L180 */
+  export type $__blkcnt_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L181 */
+  export type $__blkcnt64_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L184 */
+  export type $__fsblkcnt_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L185 */
+  export type $__fsblkcnt64_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L188 */
+  export type $__fsfilcnt_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L189 */
+  export type $__fsfilcnt64_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L192 */
+  export type $__fsword_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L194 */
+  export type $__ssize_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L197 */
+  export type $__syscall_slong_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L199 */
+  export type $__syscall_ulong_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L203 */
+  export type $__loff_t = LLVM.$__off64_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L204 */
+  export type $__caddr_t = Pointer<"$__caddr_t">;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L207 */
+  export type $__intptr_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L210 */
+  export type $__socklen_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L215 */
+  export type $__sig_atomic_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/stdint-intn.h#L24 */
+  export type $int8_t = LLVM.$__int8_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/stdint-intn.h#L25 */
+  export type $int16_t = LLVM.$__int16_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/stdint-intn.h#L26 */
+  export type $int32_t = LLVM.$__int32_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/stdint-intn.h#L27 */
+  export type $int64_t = LLVM.$__int64_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/stdint-uintn.h#L24 */
+  export type $uint8_t = LLVM.$__uint8_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/stdint-uintn.h#L25 */
+  export type $uint16_t = LLVM.$__uint16_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/stdint-uintn.h#L26 */
+  export type $uint32_t = LLVM.$__uint32_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/stdint-uintn.h#L27 */
+  export type $uint64_t = LLVM.$__uint64_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L43 */
+  export type $int_least8_t = LLVM.$__int_least8_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L44 */
+  export type $int_least16_t = LLVM.$__int_least16_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L45 */
+  export type $int_least32_t = LLVM.$__int_least32_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L46 */
+  export type $int_least64_t = LLVM.$__int_least64_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L49 */
+  export type $uint_least8_t = LLVM.$__uint_least8_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L50 */
+  export type $uint_least16_t = LLVM.$__uint_least16_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L51 */
+  export type $uint_least32_t = LLVM.$__uint_least32_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L52 */
+  export type $uint_least64_t = LLVM.$__uint_least64_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L58 */
+  export type $int_fast8_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L60 */
+  export type $int_fast16_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L61 */
+  export type $int_fast32_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L62 */
+  export type $int_fast64_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L71 */
+  export type $uint_fast8_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L73 */
+  export type $uint_fast16_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L74 */
+  export type $uint_fast32_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L75 */
+  export type $uint_fast64_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L87 */
+  export type $intptr_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L90 */
+  export type $uintptr_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L101 */
+  export type $intmax_t = LLVM.$__intmax_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L102 */
+  export type $uintmax_t = LLVM.$__uintmax_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/inttypes.h#L34 */
+  export type $__gwchar_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/inttypes.h#L275 */
+  export type $imaxdiv_t = StructPointer<"$imaxdiv_t">;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L33 */
+  export type $u_char = LLVM.$__u_char;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L34 */
+  export type $u_short = LLVM.$__u_short;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L35 */
+  export type $u_int = LLVM.$__u_int;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L36 */
+  export type $u_long = LLVM.$__u_long;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L37 */
+  export type $quad_t = LLVM.$__quad_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L38 */
+  export type $u_quad_t = LLVM.$__u_quad_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L39 */
+  export type $fsid_t = LLVM.$__fsid_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L42 */
+  export type $loff_t = LLVM.$__loff_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L47 */
+  export type $ino_t = LLVM.$__ino_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L59 */
+  export type $dev_t = LLVM.$__dev_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L64 */
+  export type $gid_t = LLVM.$__gid_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L69 */
+  export type $mode_t = LLVM.$__mode_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L74 */
+  export type $nlink_t = LLVM.$__nlink_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L79 */
+  export type $uid_t = LLVM.$__uid_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L85 */
+  export type $off_t = LLVM.$__off_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L97 */
+  export type $pid_t = LLVM.$__pid_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L103 */
+  export type $id_t = LLVM.$__id_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L108 */
+  export type $ssize_t = LLVM.$__ssize_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L114 */
+  export type $daddr_t = LLVM.$__daddr_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L115 */
+  export type $caddr_t = LLVM.$__caddr_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L121 */
+  export type $key_t = LLVM.$__key_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types/clock_t.h#L7 */
+  export type $clock_t = LLVM.$__clock_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types/clockid_t.h#L7 */
+  export type $clockid_t = LLVM.$__clockid_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types/time_t.h#L10 */
+  export type $time_t = LLVM.$__time_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types/timer_t.h#L7 */
+  export type $timer_t = LLVM.$__timer_t;
+
+  /** /usr/lib/clang/14.0.6/include/stddef.h#L46 */
+  export type $size_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L148 */
+  export type $ulong = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L149 */
+  export type $ushort = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L150 */
+  export type $uint = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L158 */
+  export type $u_int8_t = LLVM.$__uint8_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L159 */
+  export type $u_int16_t = LLVM.$__uint16_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L160 */
+  export type $u_int32_t = LLVM.$__uint32_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L161 */
+  export type $u_int64_t = LLVM.$__uint64_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L166 */
+  export type $register_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types/__sigset_t.h#L8 */
+  export type $__sigset_t = StructPointer<"$__sigset_t">;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types/sigset_t.h#L7 */
+  export type $sigset_t = LLVM.$__sigset_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/select.h#L43 */
+  export type $suseconds_t = LLVM.$__suseconds_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/select.h#L49 */
+  export type $__fd_mask = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/select.h#L70 */
+  export type $fd_set = StructPointer<"$fd_set">;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/select.h#L77 */
+  export type $fd_mask = LLVM.$__fd_mask;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L185 */
+  export type $blksize_t = LLVM.$__blksize_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L192 */
+  export type $blkcnt_t = LLVM.$__blkcnt_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L196 */
+  export type $fsblkcnt_t = LLVM.$__fsblkcnt_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L200 */
+  export type $fsfilcnt_t = LLVM.$__fsfilcnt_t;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/atomic_wide_counter.h#L33 */
+  export type $__atomic_wide_counter = unknown;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/thread-shared-types.h#L55 */
+  export type $__pthread_list_t = StructPointer<"__pthread_internal_list">;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/thread-shared-types.h#L60 */
+  export type $__pthread_slist_t = StructPointer<"__pthread_internal_slist">;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/thread-shared-types.h#L105 */
+  export type $__tss_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/thread-shared-types.h#L106 */
+  export type $__thrd_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/thread-shared-types.h#L111 */
+  export type $__once_flag = StructPointer<"$__once_flag">;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L27 */
+  export type $pthread_t = bigint;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L36 */
+  export type $pthread_mutexattr_t = unknown;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L45 */
+  export type $pthread_condattr_t = unknown;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L49 */
+  export type $pthread_key_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L53 */
+  export type $pthread_once_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L62 */
+  export type $pthread_attr_t = unknown;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L72 */
+  export type $pthread_mutex_t = unknown;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L80 */
+  export type $pthread_cond_t = unknown;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L91 */
+  export type $pthread_rwlock_t = unknown;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L97 */
+  export type $pthread_rwlockattr_t = unknown;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L103 */
+  export type $pthread_spinlock_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L112 */
+  export type $pthread_barrier_t = unknown;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L118 */
+  export type $pthread_barrierattr_t = unknown;
+
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Types.h#L28 */
   export type Bool = number;
 
@@ -86,6 +554,15 @@ export namespace LLVM {
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L179 */
   export type DWARFTypeEncoding = number;
 
+  /** /usr/lib/clang/14.0.6/include/stddef.h#L35 */
+  export type $ptrdiff_t = bigint;
+
+  /** /usr/lib/clang/14.0.6/include/stddef.h#L74 */
+  export type $wchar_t = number;
+
+  /** /usr/lib/clang/14.0.6/include/__stddef_max_align_t.h#L24 */
+  export type $max_align_t = StructPointer<"$max_align_t">;
+
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DisassemblerTypes.h#L29 */
   export type DisasmContextRef = Pointer<"DisasmContextRef">;
 
@@ -135,13 +612,13 @@ export namespace LLVM {
   export type MemoryManagerDestroyCallback = FnPointer<"MemoryManagerDestroyCallback">;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L46 */
-  export type OrcJITTargetAddress = bigint;
+  export type OrcJITTargetAddress = LLVM.$uint64_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L51 */
-  export type OrcExecutorAddress = bigint;
+  export type OrcExecutorAddress = LLVM.$uint64_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L66 */
-  export type JITSymbolTargetFlags = number;
+  export type JITSymbolTargetFlags = LLVM.$uint8_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Orc.h#L74 */
   export type JITSymbolFlags = StructPointer<"JITSymbolFlags">;
@@ -310,6 +787,27 @@ export namespace LLVM {
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Transforms/PassBuilder.h#L38 */
   export type PassBuilderOptionsRef = Pointer<"PassBuilderOptionsRef">;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/lto.h#L31 */
+  export type $lto_bool_t = number;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/lto.h#L95 */
+  export type $lto_module_t = Pointer<"$lto_module_t">;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/lto.h#L98 */
+  export type $lto_code_gen_t = Pointer<"$lto_code_gen_t">;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/lto.h#L101 */
+  export type $thinlto_code_gen_t = Pointer<"$thinlto_code_gen_t">;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/lto.h#L346 */
+  export type $lto_diagnostic_handler_t = FnPointer<"$lto_diagnostic_handler_t">;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/lto.h#L608 */
+  export type $lto_input_t = Pointer<"$lto_input_t">;
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/lto.h#L673 */
+  export type $LTOObjectBuffer = StructPointer<"$LTOObjectBuffer">;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Analysis.h#L34 */
   export enum VerifierFailureAction {
@@ -844,6 +1342,51 @@ export namespace LLVM {
     LLVMRemarkTypeFailure = 6,
   }
 
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/lto.h#L54 */
+  export enum $lto_symbol_attributes {
+    LTO_SYMBOL_ALIGNMENT_MASK = 31,
+    LTO_SYMBOL_PERMISSIONS_MASK = 224,
+    LTO_SYMBOL_PERMISSIONS_CODE = 160,
+    LTO_SYMBOL_PERMISSIONS_DATA = 192,
+    LTO_SYMBOL_PERMISSIONS_RODATA = 128,
+    LTO_SYMBOL_DEFINITION_MASK = 1792,
+    LTO_SYMBOL_DEFINITION_REGULAR = 256,
+    LTO_SYMBOL_DEFINITION_TENTATIVE = 512,
+    LTO_SYMBOL_DEFINITION_WEAK = 768,
+    LTO_SYMBOL_DEFINITION_UNDEFINED = 1024,
+    LTO_SYMBOL_DEFINITION_WEAKUNDEF = 1280,
+    LTO_SYMBOL_SCOPE_MASK = 14336,
+    LTO_SYMBOL_SCOPE_INTERNAL = 2048,
+    LTO_SYMBOL_SCOPE_HIDDEN = 4096,
+    LTO_SYMBOL_SCOPE_PROTECTED = 8192,
+    LTO_SYMBOL_SCOPE_DEFAULT = 6144,
+    LTO_SYMBOL_SCOPE_DEFAULT_CAN_BE_HIDDEN = 10240,
+    LTO_SYMBOL_COMDAT = 16384,
+    LTO_SYMBOL_ALIAS = 32768,
+  }
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/lto.h#L79 */
+  export enum $lto_debug_model {
+    LTO_DEBUG_MODEL_NONE = 0,
+    LTO_DEBUG_MODEL_DWARF = 1,
+  }
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/lto.h#L87 */
+  export enum $lto_codegen_model {
+    LTO_CODEGEN_PIC_MODEL_STATIC = 0,
+    LTO_CODEGEN_PIC_MODEL_DYNAMIC = 1,
+    LTO_CODEGEN_PIC_MODEL_DYNAMIC_NO_PIC = 2,
+    LTO_CODEGEN_PIC_MODEL_DEFAULT = 3,
+  }
+
+  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/lto.h#L330 */
+  export enum $lto_codegen_diagnostic_severity_t {
+    LTO_DS_ERROR = 0,
+    LTO_DS_WARNING = 1,
+    LTO_DS_REMARK = 3,
+    LTO_DS_NOTE = 2,
+  }
+
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Analysis.h#L44 */
   export declare function VerifyModule(M: LLVM.ModuleRef, Action: LLVM.VerifierFailureAction, OutMessage: Pointer<Pointer<number>>): LLVM.Bool;
 
@@ -974,13 +1517,13 @@ export namespace LLVM {
   export declare function GetLastEnumAttributeKind(): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L595 */
-  export declare function CreateEnumAttribute(C: LLVM.ContextRef, KindID: number, Val: bigint): LLVM.AttributeRef;
+  export declare function CreateEnumAttribute(C: LLVM.ContextRef, KindID: number, Val: LLVM.$uint64_t): LLVM.AttributeRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L602 */
   export declare function GetEnumAttributeKind(A: LLVM.AttributeRef): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L607 */
-  export declare function GetEnumAttributeValue(A: LLVM.AttributeRef): bigint;
+  export declare function GetEnumAttributeValue(A: LLVM.AttributeRef): LLVM.$uint64_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L612 */
   export declare function CreateTypeAttribute(C: LLVM.ContextRef, KindID: number, type_ref: LLVM.TypeRef): LLVM.AttributeRef;
@@ -1721,13 +2264,13 @@ export namespace LLVM {
   export declare function ConstInt(IntTy: LLVM.TypeRef, N: bigint, SignExtend: LLVM.Bool): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1942 */
-  export declare function ConstIntOfArbitraryPrecision(IntTy: LLVM.TypeRef, NumWords: number, Words: Pointer<bigint>): LLVM.ValueRef;
+  export declare function ConstIntOfArbitraryPrecision(IntTy: LLVM.TypeRef, NumWords: number, Words: Pointer<LLVM.$uint64_t>): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1955 */
-  export declare function ConstIntOfString(IntTy: LLVM.TypeRef, Text: Pointer<number>, Radix: number): LLVM.ValueRef;
+  export declare function ConstIntOfString(IntTy: LLVM.TypeRef, Text: Pointer<number>, Radix: LLVM.$uint8_t): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1964 */
-  export declare function ConstIntOfStringAndSize(IntTy: LLVM.TypeRef, Text: Pointer<number>, SLen: number, Radix: number): LLVM.ValueRef;
+  export declare function ConstIntOfStringAndSize(IntTy: LLVM.TypeRef, Text: Pointer<number>, SLen: number, Radix: LLVM.$uint8_t): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Core.h#L1970 */
   export declare function ConstReal(RealTy: LLVM.TypeRef, N: bigint): LLVM.ValueRef;
@@ -3155,43 +3698,43 @@ export namespace LLVM {
   export declare function DIBuilderCreateTempMacroFile(Builder: LLVM.DIBuilderRef, ParentMacroFile: LLVM.MetadataRef, Line: number, File: LLVM.MetadataRef): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L598 */
-  export declare function DIBuilderCreateEnumerator(Builder: LLVM.DIBuilderRef, Name: Pointer<number>, NameLen: number, Value: bigint, IsUnsigned: LLVM.Bool): LLVM.MetadataRef;
+  export declare function DIBuilderCreateEnumerator(Builder: LLVM.DIBuilderRef, Name: Pointer<number>, NameLen: number, Value: LLVM.$int64_t, IsUnsigned: LLVM.Bool): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L617 */
-  export declare function DIBuilderCreateEnumerationType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: bigint, AlignInBits: number, Elements: Pointer<LLVM.MetadataRef>, NumElements: number, ClassTy: LLVM.MetadataRef): LLVM.MetadataRef;
+  export declare function DIBuilderCreateEnumerationType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: LLVM.$uint64_t, AlignInBits: LLVM.$uint32_t, Elements: Pointer<LLVM.MetadataRef>, NumElements: number, ClassTy: LLVM.MetadataRef): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L640 */
-  export declare function DIBuilderCreateUnionType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: bigint, AlignInBits: number, Flags: LLVM.DIFlags, Elements: Pointer<LLVM.MetadataRef>, NumElements: number, RunTimeLang: number, UniqueId: Pointer<number>, UniqueIdLen: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateUnionType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: LLVM.$uint64_t, AlignInBits: LLVM.$uint32_t, Flags: LLVM.DIFlags, Elements: Pointer<LLVM.MetadataRef>, NumElements: number, RunTimeLang: number, UniqueId: Pointer<number>, UniqueIdLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L658 */
-  export declare function DIBuilderCreateArrayType(Builder: LLVM.DIBuilderRef, Size: bigint, AlignInBits: number, Ty: LLVM.MetadataRef, Subscripts: Pointer<LLVM.MetadataRef>, NumSubscripts: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateArrayType(Builder: LLVM.DIBuilderRef, Size: LLVM.$uint64_t, AlignInBits: LLVM.$uint32_t, Ty: LLVM.MetadataRef, Subscripts: Pointer<LLVM.MetadataRef>, NumSubscripts: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L673 */
-  export declare function DIBuilderCreateVectorType(Builder: LLVM.DIBuilderRef, Size: bigint, AlignInBits: number, Ty: LLVM.MetadataRef, Subscripts: Pointer<LLVM.MetadataRef>, NumSubscripts: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateVectorType(Builder: LLVM.DIBuilderRef, Size: LLVM.$uint64_t, AlignInBits: LLVM.$uint32_t, Ty: LLVM.MetadataRef, Subscripts: Pointer<LLVM.MetadataRef>, NumSubscripts: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L685 */
   export declare function DIBuilderCreateUnspecifiedType(Builder: LLVM.DIBuilderRef, Name: Pointer<number>, NameLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L699 */
-  export declare function DIBuilderCreateBasicType(Builder: LLVM.DIBuilderRef, Name: Pointer<number>, NameLen: number, SizeInBits: bigint, Encoding: LLVM.DWARFTypeEncoding, Flags: LLVM.DIFlags): LLVM.MetadataRef;
+  export declare function DIBuilderCreateBasicType(Builder: LLVM.DIBuilderRef, Name: Pointer<number>, NameLen: number, SizeInBits: LLVM.$uint64_t, Encoding: LLVM.DWARFTypeEncoding, Flags: LLVM.DIFlags): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L714 */
-  export declare function DIBuilderCreatePointerType(Builder: LLVM.DIBuilderRef, PointeeTy: LLVM.MetadataRef, SizeInBits: bigint, AlignInBits: number, AddressSpace: number, Name: Pointer<number>, NameLen: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreatePointerType(Builder: LLVM.DIBuilderRef, PointeeTy: LLVM.MetadataRef, SizeInBits: LLVM.$uint64_t, AlignInBits: LLVM.$uint32_t, AddressSpace: number, Name: Pointer<number>, NameLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L737 */
-  export declare function DIBuilderCreateStructType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: bigint, AlignInBits: number, Flags: LLVM.DIFlags, DerivedFrom: LLVM.MetadataRef, Elements: Pointer<LLVM.MetadataRef>, NumElements: number, RunTimeLang: number, VTableHolder: LLVM.MetadataRef, UniqueId: Pointer<number>, UniqueIdLen: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateStructType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: LLVM.$uint64_t, AlignInBits: LLVM.$uint32_t, Flags: LLVM.DIFlags, DerivedFrom: LLVM.MetadataRef, Elements: Pointer<LLVM.MetadataRef>, NumElements: number, RunTimeLang: number, VTableHolder: LLVM.MetadataRef, UniqueId: Pointer<number>, UniqueIdLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L759 */
-  export declare function DIBuilderCreateMemberType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNo: number, SizeInBits: bigint, AlignInBits: number, OffsetInBits: bigint, Flags: LLVM.DIFlags, Ty: LLVM.MetadataRef): LLVM.MetadataRef;
+  export declare function DIBuilderCreateMemberType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNo: number, SizeInBits: LLVM.$uint64_t, AlignInBits: LLVM.$uint32_t, OffsetInBits: LLVM.$uint64_t, Flags: LLVM.DIFlags, Ty: LLVM.MetadataRef): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L780 */
-  export declare function DIBuilderCreateStaticMemberType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, Type: LLVM.MetadataRef, Flags: LLVM.DIFlags, ConstantVal: LLVM.ValueRef, AlignInBits: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateStaticMemberType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, Type: LLVM.MetadataRef, Flags: LLVM.DIFlags, ConstantVal: LLVM.ValueRef, AlignInBits: LLVM.$uint32_t): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L796 */
-  export declare function DIBuilderCreateMemberPointerType(Builder: LLVM.DIBuilderRef, PointeeType: LLVM.MetadataRef, ClassType: LLVM.MetadataRef, SizeInBits: bigint, AlignInBits: number, Flags: LLVM.DIFlags): LLVM.MetadataRef;
+  export declare function DIBuilderCreateMemberPointerType(Builder: LLVM.DIBuilderRef, PointeeType: LLVM.MetadataRef, ClassType: LLVM.MetadataRef, SizeInBits: LLVM.$uint64_t, AlignInBits: LLVM.$uint32_t, Flags: LLVM.DIFlags): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L817 */
-  export declare function DIBuilderCreateObjCIVar(Builder: LLVM.DIBuilderRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNo: number, SizeInBits: bigint, AlignInBits: number, OffsetInBits: bigint, Flags: LLVM.DIFlags, Ty: LLVM.MetadataRef, PropertyNode: LLVM.MetadataRef): LLVM.MetadataRef;
+  export declare function DIBuilderCreateObjCIVar(Builder: LLVM.DIBuilderRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNo: number, SizeInBits: LLVM.$uint64_t, AlignInBits: LLVM.$uint32_t, OffsetInBits: LLVM.$uint64_t, Flags: LLVM.DIFlags, Ty: LLVM.MetadataRef, PropertyNode: LLVM.MetadataRef): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L839 */
   export declare function DIBuilderCreateObjCProperty(Builder: LLVM.DIBuilderRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNo: number, GetterName: Pointer<number>, GetterNameLen: number, SetterName: Pointer<number>, SetterNameLen: number, PropertyAttributes: number, Ty: LLVM.MetadataRef): LLVM.MetadataRef;
@@ -3209,22 +3752,22 @@ export namespace LLVM {
   export declare function DIBuilderCreateNullPtrType(Builder: LLVM.DIBuilderRef): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L896 */
-  export declare function DIBuilderCreateTypedef(Builder: LLVM.DIBuilderRef, Type: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNo: number, Scope: LLVM.MetadataRef, AlignInBits: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateTypedef(Builder: LLVM.DIBuilderRef, Type: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNo: number, Scope: LLVM.MetadataRef, AlignInBits: LLVM.$uint32_t): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L912 */
-  export declare function DIBuilderCreateInheritance(Builder: LLVM.DIBuilderRef, Ty: LLVM.MetadataRef, BaseTy: LLVM.MetadataRef, BaseOffset: bigint, VBPtrOffset: number, Flags: LLVM.DIFlags): LLVM.MetadataRef;
+  export declare function DIBuilderCreateInheritance(Builder: LLVM.DIBuilderRef, Ty: LLVM.MetadataRef, BaseTy: LLVM.MetadataRef, BaseOffset: LLVM.$uint64_t, VBPtrOffset: LLVM.$uint32_t, Flags: LLVM.DIFlags): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L933 */
-  export declare function DIBuilderCreateForwardDecl(Builder: LLVM.DIBuilderRef, Tag: number, Name: Pointer<number>, NameLen: number, Scope: LLVM.MetadataRef, File: LLVM.MetadataRef, Line: number, RuntimeLang: number, SizeInBits: bigint, AlignInBits: number, UniqueIdentifier: Pointer<number>, UniqueIdentifierLen: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateForwardDecl(Builder: LLVM.DIBuilderRef, Tag: number, Name: Pointer<number>, NameLen: number, Scope: LLVM.MetadataRef, File: LLVM.MetadataRef, Line: number, RuntimeLang: number, SizeInBits: LLVM.$uint64_t, AlignInBits: LLVM.$uint32_t, UniqueIdentifier: Pointer<number>, UniqueIdentifierLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L957 */
-  export declare function DIBuilderCreateReplaceableCompositeType(Builder: LLVM.DIBuilderRef, Tag: number, Name: Pointer<number>, NameLen: number, Scope: LLVM.MetadataRef, File: LLVM.MetadataRef, Line: number, RuntimeLang: number, SizeInBits: bigint, AlignInBits: number, Flags: LLVM.DIFlags, UniqueIdentifier: Pointer<number>, UniqueIdentifierLen: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateReplaceableCompositeType(Builder: LLVM.DIBuilderRef, Tag: number, Name: Pointer<number>, NameLen: number, Scope: LLVM.MetadataRef, File: LLVM.MetadataRef, Line: number, RuntimeLang: number, SizeInBits: LLVM.$uint64_t, AlignInBits: LLVM.$uint32_t, Flags: LLVM.DIFlags, UniqueIdentifier: Pointer<number>, UniqueIdentifierLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L979 */
-  export declare function DIBuilderCreateBitFieldMemberType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: bigint, OffsetInBits: bigint, StorageOffsetInBits: bigint, Flags: LLVM.DIFlags, Type: LLVM.MetadataRef): LLVM.MetadataRef;
+  export declare function DIBuilderCreateBitFieldMemberType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: LLVM.$uint64_t, OffsetInBits: LLVM.$uint64_t, StorageOffsetInBits: LLVM.$uint64_t, Flags: LLVM.DIFlags, Type: LLVM.MetadataRef): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1010 */
-  export declare function DIBuilderCreateClassType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: bigint, AlignInBits: number, OffsetInBits: bigint, Flags: LLVM.DIFlags, DerivedFrom: LLVM.MetadataRef, Elements: Pointer<LLVM.MetadataRef>, NumElements: number, VTableHolder: LLVM.MetadataRef, TemplateParamsNode: LLVM.MetadataRef, UniqueIdentifier: Pointer<number>, UniqueIdentifierLen: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateClassType(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNumber: number, SizeInBits: LLVM.$uint64_t, AlignInBits: LLVM.$uint32_t, OffsetInBits: LLVM.$uint64_t, Flags: LLVM.DIFlags, DerivedFrom: LLVM.MetadataRef, Elements: Pointer<LLVM.MetadataRef>, NumElements: number, VTableHolder: LLVM.MetadataRef, TemplateParamsNode: LLVM.MetadataRef, UniqueIdentifier: Pointer<number>, UniqueIdentifierLen: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1025 */
   export declare function DIBuilderCreateArtificialType(Builder: LLVM.DIBuilderRef, Type: LLVM.MetadataRef): LLVM.MetadataRef;
@@ -3233,13 +3776,13 @@ export namespace LLVM {
   export declare function DITypeGetName(DType: LLVM.MetadataRef, Length: Pointer<number>): Pointer<number>;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1043 */
-  export declare function DITypeGetSizeInBits(DType: LLVM.MetadataRef): bigint;
+  export declare function DITypeGetSizeInBits(DType: LLVM.MetadataRef): LLVM.$uint64_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1051 */
-  export declare function DITypeGetOffsetInBits(DType: LLVM.MetadataRef): bigint;
+  export declare function DITypeGetOffsetInBits(DType: LLVM.MetadataRef): LLVM.$uint64_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1059 */
-  export declare function DITypeGetAlignInBits(DType: LLVM.MetadataRef): number;
+  export declare function DITypeGetAlignInBits(DType: LLVM.MetadataRef): LLVM.$uint32_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1067 */
   export declare function DITypeGetLine(DType: LLVM.MetadataRef): number;
@@ -3248,19 +3791,19 @@ export namespace LLVM {
   export declare function DITypeGetFlags(DType: LLVM.MetadataRef): LLVM.DIFlags;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1083 */
-  export declare function DIBuilderGetOrCreateSubrange(Builder: LLVM.DIBuilderRef, LowerBound: bigint, Count: bigint): LLVM.MetadataRef;
+  export declare function DIBuilderGetOrCreateSubrange(Builder: LLVM.DIBuilderRef, LowerBound: LLVM.$int64_t, Count: LLVM.$int64_t): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1093 */
   export declare function DIBuilderGetOrCreateArray(Builder: LLVM.DIBuilderRef, Data: Pointer<LLVM.MetadataRef>, NumElements: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1104 */
-  export declare function DIBuilderCreateExpression(Builder: LLVM.DIBuilderRef, Addr: Pointer<bigint>, Length: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateExpression(Builder: LLVM.DIBuilderRef, Addr: Pointer<LLVM.$uint64_t>, Length: number): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1114 */
-  export declare function DIBuilderCreateConstantValueExpression(Builder: LLVM.DIBuilderRef, Value: bigint): LLVM.MetadataRef;
+  export declare function DIBuilderCreateConstantValueExpression(Builder: LLVM.DIBuilderRef, Value: LLVM.$uint64_t): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1136 */
-  export declare function DIBuilderCreateGlobalVariableExpression(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, Linkage: Pointer<number>, LinkLen: number, File: LLVM.MetadataRef, LineNo: number, Ty: LLVM.MetadataRef, LocalToUnit: LLVM.Bool, Expr: LLVM.MetadataRef, Decl: LLVM.MetadataRef, AlignInBits: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateGlobalVariableExpression(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, Linkage: Pointer<number>, LinkLen: number, File: LLVM.MetadataRef, LineNo: number, Ty: LLVM.MetadataRef, LocalToUnit: LLVM.Bool, Expr: LLVM.MetadataRef, Decl: LLVM.MetadataRef, AlignInBits: LLVM.$uint32_t): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1148 */
   export declare function DIGlobalVariableExpressionGetVariable(GVE: LLVM.MetadataRef): LLVM.MetadataRef;
@@ -3287,7 +3830,7 @@ export namespace LLVM {
   export declare function MetadataReplaceAllUsesWith(TempTargetMetadata: LLVM.MetadataRef, Replacement: LLVM.MetadataRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1228 */
-  export declare function DIBuilderCreateTempGlobalVariableFwdDecl(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, Linkage: Pointer<number>, LnkLen: number, File: LLVM.MetadataRef, LineNo: number, Ty: LLVM.MetadataRef, LocalToUnit: LLVM.Bool, Decl: LLVM.MetadataRef, AlignInBits: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateTempGlobalVariableFwdDecl(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, Linkage: Pointer<number>, LnkLen: number, File: LLVM.MetadataRef, LineNo: number, Ty: LLVM.MetadataRef, LocalToUnit: LLVM.Bool, Decl: LLVM.MetadataRef, AlignInBits: LLVM.$uint32_t): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1243 */
   export declare function DIBuilderInsertDeclareBefore(Builder: LLVM.DIBuilderRef, Storage: LLVM.ValueRef, VarInfo: LLVM.MetadataRef, Expr: LLVM.MetadataRef, DebugLoc: LLVM.MetadataRef, Instr: LLVM.ValueRef): LLVM.ValueRef;
@@ -3302,7 +3845,7 @@ export namespace LLVM {
   export declare function DIBuilderInsertDbgValueAtEnd(Builder: LLVM.DIBuilderRef, Val: LLVM.ValueRef, VarInfo: LLVM.MetadataRef, Expr: LLVM.MetadataRef, DebugLoc: LLVM.MetadataRef, Block: LLVM.BasicBlockRef): LLVM.ValueRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1309 */
-  export declare function DIBuilderCreateAutoVariable(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNo: number, Ty: LLVM.MetadataRef, AlwaysPreserve: LLVM.Bool, Flags: LLVM.DIFlags, AlignInBits: number): LLVM.MetadataRef;
+  export declare function DIBuilderCreateAutoVariable(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, File: LLVM.MetadataRef, LineNo: number, Ty: LLVM.MetadataRef, AlwaysPreserve: LLVM.Bool, Flags: LLVM.DIFlags, AlignInBits: LLVM.$uint32_t): LLVM.MetadataRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/DebugInfo.h#L1327 */
   export declare function DIBuilderCreateParameterVariable(Builder: LLVM.DIBuilderRef, Scope: LLVM.MetadataRef, Name: Pointer<number>, NameLen: number, ArgNo: number, File: LLVM.MetadataRef, LineNo: number, Ty: LLVM.MetadataRef, AlwaysPreserve: LLVM.Bool, Flags: LLVM.DIFlags): LLVM.MetadataRef;
@@ -3335,13 +3878,13 @@ export namespace LLVM {
   export declare function CreateDisasmCPUFeatures(Triple: Pointer<number>, CPU: Pointer<number>, Features: Pointer<number>, DisInfo: Pointer<void>, TagType: number, GetOpInfo: LLVM.OpInfoCallback, SymbolLookUp: LLVM.SymbolLookupCallback): LLVM.DisasmContextRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Disassembler.h#L72 */
-  export declare function SetDisasmOptions(DC: LLVM.DisasmContextRef, Options: bigint): number;
+  export declare function SetDisasmOptions(DC: LLVM.DisasmContextRef, Options: LLVM.$uint64_t): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Disassembler.h#L88 */
   export declare function DisasmDispose(DC: LLVM.DisasmContextRef): void;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Disassembler.h#L100 */
-  export declare function DisasmInstruction(DC: LLVM.DisasmContextRef, Bytes: Pointer<number>, BytesSize: bigint, PC: bigint, OutString: Pointer<number>, OutStringSize: number): number;
+  export declare function DisasmInstruction(DC: LLVM.DisasmContextRef, Bytes: Pointer<LLVM.$uint8_t>, BytesSize: LLVM.$uint64_t, PC: LLVM.$uint64_t, OutString: Pointer<number>, OutStringSize: number): number;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Error.h#L44 */
   export declare function GetErrorTypeId(Err: LLVM.ErrorRef): LLVM.ErrorTypeId;
@@ -3902,10 +4445,10 @@ export namespace LLVM {
   export declare function GetPointerToGlobal(EE: LLVM.ExecutionEngineRef, Global: LLVM.ValueRef): Pointer<void>;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L148 */
-  export declare function GetGlobalValueAddress(EE: LLVM.ExecutionEngineRef, Name: Pointer<number>): bigint;
+  export declare function GetGlobalValueAddress(EE: LLVM.ExecutionEngineRef, Name: Pointer<number>): LLVM.$uint64_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L150 */
-  export declare function GetFunctionAddress(EE: LLVM.ExecutionEngineRef, Name: Pointer<number>): bigint;
+  export declare function GetFunctionAddress(EE: LLVM.ExecutionEngineRef, Name: Pointer<number>): LLVM.$uint64_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/ExecutionEngine.h#L154 */
   export declare function ExecutionEngineGetErrMsg(EE: LLVM.ExecutionEngineRef, OutError: Pointer<Pointer<number>>): LLVM.Bool;
@@ -4277,13 +4820,13 @@ export namespace LLVM {
   export declare function GetSectionName(SI: LLVM.SectionIteratorRef): Pointer<number>;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L174 */
-  export declare function GetSectionSize(SI: LLVM.SectionIteratorRef): bigint;
+  export declare function GetSectionSize(SI: LLVM.SectionIteratorRef): LLVM.$uint64_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L175 */
   export declare function GetSectionContents(SI: LLVM.SectionIteratorRef): Pointer<number>;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L176 */
-  export declare function GetSectionAddress(SI: LLVM.SectionIteratorRef): bigint;
+  export declare function GetSectionAddress(SI: LLVM.SectionIteratorRef): LLVM.$uint64_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L177 */
   export declare function GetSectionContainsSymbol(SI: LLVM.SectionIteratorRef, Sym: LLVM.SymbolIteratorRef): LLVM.Bool;
@@ -4304,19 +4847,19 @@ export namespace LLVM {
   export declare function GetSymbolName(SI: LLVM.SymbolIteratorRef): Pointer<number>;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L190 */
-  export declare function GetSymbolAddress(SI: LLVM.SymbolIteratorRef): bigint;
+  export declare function GetSymbolAddress(SI: LLVM.SymbolIteratorRef): LLVM.$uint64_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L191 */
-  export declare function GetSymbolSize(SI: LLVM.SymbolIteratorRef): bigint;
+  export declare function GetSymbolSize(SI: LLVM.SymbolIteratorRef): LLVM.$uint64_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L194 */
-  export declare function GetRelocationOffset(RI: LLVM.RelocationIteratorRef): bigint;
+  export declare function GetRelocationOffset(RI: LLVM.RelocationIteratorRef): LLVM.$uint64_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L195 */
   export declare function GetRelocationSymbol(RI: LLVM.RelocationIteratorRef): LLVM.SymbolIteratorRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L196 */
-  export declare function GetRelocationType(RI: LLVM.RelocationIteratorRef): bigint;
+  export declare function GetRelocationType(RI: LLVM.RelocationIteratorRef): LLVM.$uint64_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Object.h#L199 */
   export declare function GetRelocationTypeName(RI: LLVM.RelocationIteratorRef): Pointer<number>;
@@ -4352,16 +4895,16 @@ export namespace LLVM {
   export declare function RemarkStringGetData(String: LLVM.RemarkStringRef): Pointer<number>;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Remarks.h#L71 */
-  export declare function RemarkStringGetLen(String: LLVM.RemarkStringRef): number;
+  export declare function RemarkStringGetLen(String: LLVM.RemarkStringRef): LLVM.$uint32_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Remarks.h#L86 */
   export declare function RemarkDebugLocGetSourceFilePath(DL: LLVM.RemarkDebugLocRef): LLVM.RemarkStringRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Remarks.h#L93 */
-  export declare function RemarkDebugLocGetSourceLine(DL: LLVM.RemarkDebugLocRef): number;
+  export declare function RemarkDebugLocGetSourceLine(DL: LLVM.RemarkDebugLocRef): LLVM.$uint32_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Remarks.h#L100 */
-  export declare function RemarkDebugLocGetSourceColumn(DL: LLVM.RemarkDebugLocRef): number;
+  export declare function RemarkDebugLocGetSourceColumn(DL: LLVM.RemarkDebugLocRef): LLVM.$uint32_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Remarks.h#L117 */
   export declare function RemarkArgGetKey(Arg: LLVM.RemarkArgRef): LLVM.RemarkStringRef;
@@ -4391,10 +4934,10 @@ export namespace LLVM {
   export declare function RemarkEntryGetDebugLoc(Remark: LLVM.RemarkEntryRef): LLVM.RemarkDebugLocRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Remarks.h#L198 */
-  export declare function RemarkEntryGetHotness(Remark: LLVM.RemarkEntryRef): bigint;
+  export declare function RemarkEntryGetHotness(Remark: LLVM.RemarkEntryRef): LLVM.$uint64_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Remarks.h#L205 */
-  export declare function RemarkEntryGetNumArgs(Remark: LLVM.RemarkEntryRef): number;
+  export declare function RemarkEntryGetNumArgs(Remark: LLVM.RemarkEntryRef): LLVM.$uint32_t;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Remarks.h#L216 */
   export declare function RemarkEntryGetFirstArg(Remark: LLVM.RemarkEntryRef): LLVM.RemarkArgRef;
@@ -4403,10 +4946,10 @@ export namespace LLVM {
   export declare function RemarkEntryGetNextArg(It: LLVM.RemarkArgRef, Remark: LLVM.RemarkEntryRef): LLVM.RemarkArgRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Remarks.h#L243 */
-  export declare function RemarkParserCreateYAML(Buf: Pointer<void>, Size: bigint): LLVM.RemarkParserRef;
+  export declare function RemarkParserCreateYAML(Buf: Pointer<void>, Size: LLVM.$uint64_t): LLVM.RemarkParserRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Remarks.h#L257 */
-  export declare function RemarkParserCreateBitstream(Buf: Pointer<void>, Size: bigint): LLVM.RemarkParserRef;
+  export declare function RemarkParserCreateBitstream(Buf: Pointer<void>, Size: LLVM.$uint64_t): LLVM.RemarkParserRef;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Remarks.h#L302 */
   export declare function RemarkParserGetNext(Parser: LLVM.RemarkParserRef): LLVM.RemarkEntryRef;

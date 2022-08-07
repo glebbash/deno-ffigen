@@ -1,29 +1,29 @@
 import {
   alloc,
   cstr,
-  loadsqlite3,
+  loadSQLite3,
   Pointer,
   readCString,
-  sqlite3,
+  SQLite3,
 } from "../lib/mod.ts";
 
 const SQLITE_OK = 0;
 const SQLITE_ROW = 100;
 
-const _ = loadsqlite3("./input/libsqlite3.so.0.8.6");
+const sqlite3 = loadSQLite3("./input/libsqlite3.so.0.8.6");
 
 let rc: number;
 
-const dbRef = alloc<Pointer<sqlite3.sqlite3>>();
-rc = _.sqlite3_open(cstr(":memory:"), dbRef);
+const dbRef = alloc<Pointer<SQLite3.$sqlite3>>();
+rc = sqlite3.open(cstr(":memory:"), dbRef);
 const db = deref(dbRef);
 
 if (rc !== SQLITE_OK) {
-  throw new Error(`sqlite3_open failed: ${_.sqlite3_errmsg(db)}`);
+  throw new Error(`sqlite3_open failed: ${sqlite3.errmsg(db)}`);
 }
 
-const stmtRef = alloc<Pointer<sqlite3.sqlite3_stmt>>();
-rc = _.sqlite3_prepare_v2(
+const stmtRef = alloc<Pointer<SQLite3.stmt>>();
+rc = sqlite3.prepare_v2(
   db,
   cstr("SELECT SQLITE_VERSION()"),
   -1,
@@ -33,16 +33,16 @@ rc = _.sqlite3_prepare_v2(
 const stmt = deref(stmtRef);
 
 if (rc !== SQLITE_OK) {
-  throw new Error(`sqlite3_prepare_v2 failed: ${_.sqlite3_errmsg(db)}`);
+  throw new Error(`sqlite3_prepare_v2 failed: ${sqlite3.errmsg(db)}`);
 }
 
-rc = _.sqlite3_step(stmt);
+rc = sqlite3.step(stmt);
 if (rc === SQLITE_ROW) {
-  console.log(readCString(_.sqlite3_column_text(stmt, 0)));
+  console.log(readCString(sqlite3.column_text(stmt, 0)));
 }
 
-_.sqlite3_finalize(stmt);
-_.sqlite3_close(db);
+sqlite3.finalize(stmt);
+sqlite3.close(db);
 
 // utils
 

@@ -62,6 +62,7 @@ export type CFunction = {
 export type CType =
   | { tag: ":void" }
   | { tag: ":char"; "bit-size": number; "bit-alignment": number }
+  | { tag: ":_Bool"; "bit-size": number; "bit-alignment": number }
   | { tag: ":unsigned-char"; "bit-size": number; "bit-alignment": number }
   | { tag: ":signed-char"; "bit-size": number; "bit-alignment": number }
   | { tag: ":short"; "bit-size": number; "bit-alignment": number }
@@ -78,9 +79,7 @@ export type CType =
   | { tag: ":pointer"; type: CType }
   | { tag: ":struct"; name: string }
   | { tag: "struct" }
+  | { tag: ":union"; name: string; id: number }
+  | CUnion
   | { tag: "size_t" }
-  | { tag: "int64_t" }
-  | { tag: "uint64_t" }
-  | { tag: "uint32_t" }
-  | { tag: "uint8_t" }
   | { tag: "__builtin_va_list" };

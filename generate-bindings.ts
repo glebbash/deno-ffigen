@@ -45,14 +45,12 @@ export type IntrospectOptions = {
 };
 
 export function introspect(opts: IntrospectOptions) {
-  const libPrefix = opts.libPrefix ?? opts.libName;
-
   const lib: LibInfo = {
     name: opts.libName,
-    symbols: filterSymbolsByPrefix(opts.symbols, libPrefix),
+    symbols: opts.symbols,
     exposedFunctions: opts.exposedFunctions,
     typeDefs: new Map(),
-    mapName: stripPrefix(libPrefix, "$"),
+    mapName: stripPrefix(opts.libPrefix ?? opts.libName, "$"),
     formatLocation: linkLocationToSource(opts.headersPath),
     getTypeInfo: opts.processType ?? ((ctx, next) => next(ctx)),
   };
@@ -68,13 +66,6 @@ function stripPrefix(prefix: string, otherPrefix: string): LibInfo["mapName"] {
 
     return otherPrefix + name;
   };
-}
-
-function filterSymbolsByPrefix(
-  symbols: CSymbol[],
-  libPrefix: string,
-): CSymbol[] {
-  return symbols.filter((s) => s.name === "" || s.name.startsWith(libPrefix));
 }
 
 function linkLocationToSource(

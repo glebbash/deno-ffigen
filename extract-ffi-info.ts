@@ -1,4 +1,4 @@
-import { CEnum, CFunction, CSymbol, CType, CTypeDef } from "./types.ts";
+import { CEnum, CFunction, CSymbol, CType, CTypeDef, CUnion } from "./types.ts";
 
 export type LibInfo = {
   name: string;
@@ -13,7 +13,15 @@ export type LibInfo = {
   typeDefs: Map<string, TypeDef>;
 };
 
-type GetTypeInfoContext = {
+export type FFIInfo = {
+  lib: LibInfo;
+  enums: Map<string, EnumDef>;
+  unions: Map<string, UnionDef>;
+  typeDefs: Map<string, TypeDef>;
+  functions: Map<string, FunctionDef>;
+};
+
+export type GetTypeInfoContext = {
   type: CType;
   name: string | null;
   lib: LibInfo;
@@ -29,6 +37,16 @@ export type EnumDef = TypeDef & {
   fields: { name: string; value: number }[];
 };
 
+export type UnionDef = TypeDef & {
+  bitSize: number;
+  bitAlignment: number;
+  fields: {
+    bitSize: number;
+    bitAlignment: number;
+    type: TypeInfo;
+  }[];
+};
+
 export type TypeInfo = { tsType: string; nativeType: string };
 
 export type FunctionDef = {
@@ -38,19 +56,16 @@ export type FunctionDef = {
   result: TypeInfo;
 };
 
-export type FFIInfo = {
-  lib: LibInfo;
-  enums: Map<string, EnumDef>;
-  typeDefs: Map<string, TypeDef>;
-  functions: Map<string, FunctionDef>;
-};
-
 export function extractFFIInfo(lib: LibInfo): FFIInfo {
   const symbols = linkTypeDefs(lib.symbols);
 
   const enums = extractEnums(lib, symbols);
   console.log("Total enums:", enums.size);
   lib.typeDefs = new Map([...lib.typeDefs, ...enums]);
+
+  const unions = extractUnions(lib, symbols);
+  console.log("Total unions:", unions.size);
+  lib.typeDefs = new Map([...lib.typeDefs, ...unions]);
 
   const typeDefs = extractTypeDefs(lib, symbols);
   console.log("Total types:", typeDefs.size);
@@ -63,6 +78,7 @@ export function extractFFIInfo(lib: LibInfo): FFIInfo {
     lib,
     enums,
     typeDefs,
+    unions,
     functions,
   };
 }
@@ -78,7 +94,9 @@ function linkTypeDefs(symbols: CSymbol[]): CSymbol[] {
     }
 
     if (symbol.tag === "typedef") {
-      const originalSymbol = unnamedSymbols.get((symbol.type as any).id);
+      const originalSymbol = unnamedSymbols.get(
+        (symbol.type as { id: number }).id,
+      );
       if (originalSymbol) {
         originalSymbol.name = symbol.name;
         result.push(originalSymbol);
@@ -110,24 +128,48 @@ export function extractEnums(
   );
 }
 
+export function extractUnions(
+  lib: LibInfo,
+  symbols: CSymbol[],
+): Map<string, UnionDef> {
+  const enums = symbols.filter((s): s is CUnion => s.tag === "union");
+
+  return new Map(
+    enums.map((u): [string, UnionDef] => {
+      return [lib.mapName(u.name), {
+        originalName: u.name,
+        location: lib.formatLocation(u.location),
+        // TODO: check for better union types
+        type: { tsType: "unknown", nativeType: "u" + u["bit-size"] },
+        bitSize: u["bit-size"],
+        bitAlignment: u["bit-alignment"],
+        // TODO: check how to handle this: field types depend on type info before this definition
+        fields: [],
+      }];
+    }),
+  );
+}
+
 export function extractTypeDefs(
   lib: LibInfo,
   symbols: CSymbol[],
 ): Map<string, TypeDef> {
-  lib = { ...lib, typeDefs: new Map() };
-
   const typeDefs = symbols.filter((s): s is CTypeDef => s.tag === "typedef");
+
+  const resultTypeDefs = new Map<string, TypeDef>();
 
   for (const t of typeDefs) {
     const mappedName = lib.mapName(t.name);
-    lib.typeDefs.set(mappedName, {
+    const typeDef = {
       originalName: t.name,
       location: lib.formatLocation(t.location),
       type: getTypeInfo({ type: t.type, name: mappedName, lib }),
-    });
+    };
+    lib.typeDefs.set(mappedName, typeDef);
+    resultTypeDefs.set(mappedName, typeDef);
   }
 
-  return lib.typeDefs;
+  return resultTypeDefs;
 }
 
 export function extractFunctions(
@@ -196,12 +238,6 @@ function getTypeInfoBasic({ type, name, lib }: GetTypeInfoContext): TypeInfo {
   }
 
   if (type.tag === ":struct") {
-    if (name !== null && name !== type.name) {
-      throw new Error(
-        "Struct has multiple names: " + JSON.stringify({ type, name }),
-      );
-    }
-
     return { tsType: `StructPointer<"${type.name}">`, nativeType: "pointer" };
   }
 
@@ -211,6 +247,17 @@ function getTypeInfoBasic({ type, name, lib }: GetTypeInfoContext): TypeInfo {
     }
 
     return { tsType: `StructPointer<"${name}">`, nativeType: "pointer" };
+  }
+
+  if (type.tag === "union") {
+    // TODO: check for better union types
+    return { tsType: `unknown`, nativeType: "u" + type["bit-size"] };
+  }
+
+  if (type.tag === ":union") {
+    const union = lib.typeDefs.get(lib.mapName(type.name));
+
+    return union!.type;
   }
 
   if (type.tag === ":void") {
@@ -229,7 +276,7 @@ function getTypeInfoBasic({ type, name, lib }: GetTypeInfoContext): TypeInfo {
   }
 
   if (
-    type.tag === "uint8_t" ||
+    (type.tag === ":_Bool" && type["bit-size"] === 8) ||
     (type.tag === ":unsigned-char" && type["bit-size"] === 8)
   ) {
     return { tsType: `number`, nativeType: "u8" };
@@ -252,14 +299,12 @@ function getTypeInfoBasic({ type, name, lib }: GetTypeInfoContext): TypeInfo {
   }
 
   if (
-    type.tag === "uint32_t" ||
     (type.tag === ":unsigned-int" && type["bit-size"] === 32)
   ) {
     return { tsType: `number`, nativeType: "u32" };
   }
 
   if (
-    (type.tag === "int64_t") ||
     (type.tag === ":long" && type["bit-size"] === 64) ||
     (type.tag === ":long-long" && type["bit-size"] === 64)
   ) {
@@ -271,7 +316,6 @@ function getTypeInfoBasic({ type, name, lib }: GetTypeInfoContext): TypeInfo {
   }
 
   if (
-    type.tag === "uint64_t" ||
     (type.tag === ":unsigned-long" && type["bit-size"] === 64) ||
     (type.tag === ":unsigned-long-long" && type["bit-size"] === 64)
   ) {
