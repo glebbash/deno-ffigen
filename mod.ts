@@ -1,4 +1,6 @@
 // TODO: clean up
+// TODO: add docs on advanced usage
+// TODO: improve symbol location handling
 // TODO: check what can be done on struct support
 
 export * from "./generate-bindings.ts";
