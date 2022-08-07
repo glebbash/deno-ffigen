@@ -1,4 +1,5 @@
 // TODO: clean up
+// TODO: make sure that close's function name is unique
 // TODO: check what can be done on struct support
 
 export * from "./generate-bindings.ts";

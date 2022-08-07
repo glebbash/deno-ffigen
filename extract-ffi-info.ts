@@ -311,8 +311,16 @@ function getTypeInfoBasic({ type, name, lib }: GetTypeInfoContext): TypeInfo {
     return { tsType: `bigint`, nativeType: "i64" };
   }
 
+  if (type.tag === ":float" && type["bit-size"] === 32) {
+    return { tsType: `bigint`, nativeType: "f64" };
+  }
+
   if (type.tag === ":double" && type["bit-size"] === 64) {
     return { tsType: `bigint`, nativeType: "f64" };
+  }
+
+  if (type.tag === ":long-double" && type["bit-size"] === 128) {
+    return { tsType: `bigint`, nativeType: "f128" };
   }
 
   if (

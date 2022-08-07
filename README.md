@@ -11,6 +11,7 @@ Bindings generation tested for:
 
 - LLVM-C, versions (14, 15)
 - sqlite3
+- lua 5.4
 
 Try it out though, it might just work.
 

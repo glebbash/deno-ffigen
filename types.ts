@@ -71,7 +71,9 @@ export type CType =
   | { tag: ":unsigned-int"; "bit-size": number; "bit-alignment": number }
   | { tag: ":long"; "bit-size": number; "bit-alignment": number }
   | { tag: ":unsigned-long"; "bit-size": number; "bit-alignment": number }
+  | { tag: ":float"; "bit-size": number; "bit-alignment": number }
   | { tag: ":double"; "bit-size": number; "bit-alignment": number }
+  | { tag: ":long-double"; "bit-size": number; "bit-alignment": number }
   | { tag: ":long-long"; "bit-size": number; "bit-alignment": number }
   | { tag: ":unsigned-long-long"; "bit-size": number; "bit-alignment": number }
   | { tag: ":enum"; id: number; name: string }
