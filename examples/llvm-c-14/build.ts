@@ -17,7 +17,7 @@ if (Deno.args.includes("-s")) {
 await ffigen.generateBindings({
   libName: "LLVM",
   symbolsFile: "input/llvm-c.json",
-  outputFolder: "llvm-c",
+  outputFolder: "lib",
   exposedFunctions: await ffigen.getFunctionsFromSharedLib(
     "input/llvm-c_symbols.txt",
   ),
