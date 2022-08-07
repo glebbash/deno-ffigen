@@ -5260,5 +5260,5 @@ export namespace LLVM {
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Transforms/Vectorize.h#L39 */
   export declare function AddSLPVectorizePass(PM: LLVM.PassManagerRef): void;
 
-  export declare function close(): void;
+  export declare function $$close(): void;
 }

@@ -88,7 +88,7 @@ function buildTypes(
 
     ${functionsSource}
 
-      export declare function close(): void;
+      export declare function $$close(): void;
     }
 
     `;
@@ -107,7 +107,7 @@ function buildMod(ctx: LibInfo): string {
     export function load${ctx.name}(path: string): typeof ${ctx.name} {
       const lib = Deno.dlopen(path, ${ctx.name}_SYMBOLS);
 
-      return { ...lib.symbols, close: () => lib.close() } as never;
+      return { ...lib.symbols, $$close: () => lib.close() } as never;
     }
 
     `;

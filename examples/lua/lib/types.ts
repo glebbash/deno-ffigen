@@ -901,5 +901,5 @@ export namespace LUA {
   /** /data/input/include/lauxlib.h#L197 */
   export declare function luaL_buffinitsize(L: Pointer<LUA.lua_State>, B: Pointer<LUA.luaL_Buffer>, sz: number): Pointer<number>;
 
-  export declare function close(): void;
+  export declare function $$close(): void;
 }

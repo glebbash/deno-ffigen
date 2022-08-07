@@ -913,5 +913,5 @@ export namespace SQLite3 {
   /** /data/input/sqlite3.h#L9946 */
   export declare function rtree_query_callback(db: Pointer<SQLite3.$sqlite3>, zQueryFunc: Pointer<number>, xQueryFunc: FnPointer, pContext: Pointer<void>, xDestructor: FnPointer): number;
 
-  export declare function close(): void;
+  export declare function $$close(): void;
 }

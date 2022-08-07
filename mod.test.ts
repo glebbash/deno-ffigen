@@ -15,6 +15,13 @@ Deno.test("it generates bindings for sqlite3", async () => {
   });
 });
 
+Deno.test("it generates bindings for lua", async () => {
+  await stubWrites(async () => {
+    const path = chdir("./examples/lua");
+    await import(`${path}/build.ts`);
+  });
+});
+
 // utils
 
 async function stubWrites(fn: () => unknown) {

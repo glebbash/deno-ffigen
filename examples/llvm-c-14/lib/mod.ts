@@ -7,5 +7,5 @@ export type { LLVM };
 export function loadLLVM(path: string): typeof LLVM {
   const lib = Deno.dlopen(path, LLVM_SYMBOLS);
 
-  return { ...lib.symbols, close: () => lib.close() } as never;
+  return { ...lib.symbols, $$close: () => lib.close() } as never;
 }

@@ -11,4 +11,4 @@ console.log(readCString(data));
 llvm.DisposeModule(mod);
 llvm.ContextDispose(ctx);
 
-llvm.close();
+llvm.$$close();
