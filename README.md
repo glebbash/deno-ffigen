@@ -38,6 +38,7 @@ You can find example (working) build scripts in:
 
 - [llvm-14](./examples/llvm-c-14/build.ts)
 - [sqlite3](./examples/sqlite3/build.ts)
+- [lua](./examples/lua/build.ts)
 
 Run it using:
 
