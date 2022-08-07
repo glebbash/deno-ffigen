@@ -1,26 +1,10 @@
-// TODO: add docs on advanced usage
+// TODO: add release pipeline
+// TODO: add examples of advanced usage
 // TODO: improve symbol location handling
 // TODO: check what can be done on struct support
 
-export * from "./ffigen/generate-bindings.ts";
-export * from "./ffigen/generate-sources.ts";
-export * from "./ffigen/get-functions-from-shared-lib.ts";
-
-export async function extractDefinitions(
-  opts: { input: string; output: string },
-) {
-  await exec(
-    `docker run -v $(pwd):/data glebbash/deno-ffigen-c2ffi ` +
-      `/data/${opts.input} > ${opts.output}`,
-  );
-}
-
-export async function extractSymbols(opts: { input: string; output: string }) {
-  await exec(`readelf -Ws --dyn-syms ${opts.input} > ${opts.output}`);
-}
-
-export async function exec(command: string) {
-  await Deno.run({
-    cmd: ["bash", "-c", command],
-  }).status();
-}
+export * from "./ffigen/bindings-generator.ts";
+export * from "./ffigen/ts-sources.ts";
+export * from "./ffigen/ffi-extractor.ts";
+export * from "./ffigen/exposed-symbols.ts";
+export * from "./ffigen/utils.ts";

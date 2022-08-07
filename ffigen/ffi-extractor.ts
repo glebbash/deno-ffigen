@@ -1,3 +1,4 @@
+import { exec } from "../mod.ts";
 import { CEnum, CFunction, CSymbol, CType, CTypeDef, CUnion } from "./types.ts";
 
 export type LibInfo = {
@@ -56,6 +57,20 @@ export type FunctionDef = {
   result: TypeInfo;
 };
 
+/**
+ * Extracts symbol definitions from the header file at path `opts.input`
+ * and writes them to `opts.output` file in c2ffi's json format.
+ */
+export async function extractSymbolDefinitions(
+  opts: { input: string; output: string },
+) {
+  await exec(
+    `docker run -v $(pwd):/data glebbash/deno-ffigen-c2ffi ` +
+      `/data/${opts.input} > ${opts.output}`,
+  );
+}
+
+/** Extracts all FFI info from the library described in `lib`. */
 export function extractFFIInfo(lib: LibInfo): FFIInfo {
   const symbols = linkTypeDefs(lib.symbols);
 

@@ -1,15 +1,26 @@
-export async function getFunctionsFromSharedLib(
+import { exec } from "./utils.ts";
+
+/**
+ * Extracts exposed symbols names from a dynamic library at path `opts.input`
+ * and writes them to `opts.output` file in readelf text format.
+ */
+export async function extractExposedSymbols(
+  opts: { input: string; output: string },
+) {
+  await exec(`readelf -Ws --dyn-syms ${opts.input} > ${opts.output}`);
+}
+
+/**
+ * Finds exposed functions names in pre-built `exposedSymbolsFile`
+ * that contains readelf's text output.
+ */
+export async function getExposedFunctionNames(
   exposedSymbolsFile: string,
-  libPrefix?: string,
 ): Promise<string[]> {
   const output = await Deno.readTextFile(exposedSymbolsFile);
 
   const lines = output.split("\n");
-  const usefulLines = lines.slice(4, -1);
-
-  const functionsOfInterest = libPrefix
-    ? usefulLines.filter((def) => getName(def).startsWith(libPrefix))
-    : usefulLines;
+  const functionsOfInterest = lines.slice(4, -1);
 
   const allFunctions = functionsOfInterest
     .filter((s) => s.includes(" FUNC "))

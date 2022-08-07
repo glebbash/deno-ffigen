@@ -1,12 +1,14 @@
 import { Command } from "https://deno.land/x/cliffy@v0.24.3/command/mod.ts";
 import { m } from "https://raw.githubusercontent.com/glebbash/multiline-str/master/src/multiline-str.ts";
 
-import { generateBindings, getFunctionsFromSharedLib } from "./mod.ts";
+import { generateBindings } from "./mod.ts";
+
+const LIB_VERSION = "v0.2.0";
 
 const cmd = new Command()
   .name("ffigen")
   .description("FFI Bindings generator for Deno.")
-  .version("v1.0.0")
+  .version(LIB_VERSION)
   .option(
     "-s, --symbols <symbols-file>",
     "Exposed symbols file (readelf output).",
@@ -64,9 +66,9 @@ const { args, options } = await cmd.parse();
 
 await generateBindings({
   symbolsFile: options.definitions,
-  exposedFunctions: await getFunctionsFromSharedLib(options.symbols),
+  exposedSymbolsFile: options.symbols,
   outputFolder: args[0] ?? options.libName,
   libName: options.libName,
-  headersPath: options.headers,
+  headersBaseUrl: options.headers,
   libPrefix: options.libPrefix === false ? "" : options.libPrefix as string,
 });

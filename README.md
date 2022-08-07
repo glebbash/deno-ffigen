@@ -32,13 +32,13 @@ There are 2 usage variants:
 
 ## Usage: Build script
 
-Created a `build.ts` file that uses functions from `ffigen`.
+Create a `build.ts` file that uses functions from `ffigen`.
 
 You can find example (working) build scripts in:
 
-- [llvm-14](./examples/llvm-c-14/build.ts)
-- [sqlite3](./examples/sqlite3/build.ts)
-- [lua](./examples/lua/build.ts)
+- [llvm-14](https://deno.land/x/ffigen@0.2.0/examples/llvm-c-14/build.ts)
+- [sqlite3](https://deno.land/x/ffigen@0.2.0/examples/sqlite3/build.ts)
+- [lua](https://deno.land/x/ffigen@0.2.0/examples/lua/build.ts)
 
 Run it using:
 

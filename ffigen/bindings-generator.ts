@@ -1,13 +1,34 @@
-import { extractFFIInfo, LibInfo } from "./extract-ffi-info.ts";
-import { generateSources, printSources } from "./generate-sources.ts";
+import { extractFFIInfo, LibInfo } from "./ffi-extractor.ts";
+import { generateSources, printSources } from "./ts-sources.ts";
+import { getExposedFunctionNames } from "./exposed-symbols.ts";
 import { CSymbol } from "./types.ts";
 
 export type BindingsOptions = {
+  /** Name of the library, will be used as the name of generated namespace */
   libName: string;
+
+  /**
+   * Prefix of C library's functions that will be stripped away.
+   *
+   * Functions that do not start with this prefix will instead
+   * be prefixed with `$` (dollar sign).
+   */
   libPrefix?: string;
-  headersPath: string;
+
+  /**
+   * Base url for the headers of target library.
+   *
+   * Used as a base url for links generated in description of each function.
+   */
+  headersBaseUrl: string;
+
+  /** All symbols file (c2ffi json output). */
   symbolsFile: string;
-  exposedFunctions: string[];
+
+  /** Exposed symbols file (readelf output). */
+  exposedSymbolsFile: string;
+
+  /** Folder where generated files will be saved. */
   outputFolder: string;
 };
 
@@ -21,7 +42,8 @@ export type BindingsOptions = {
 export async function generateBindings(opts: BindingsOptions) {
   const ffiInfo = introspect({
     ...opts,
-    symbols: await getLibSymbols(opts.symbolsFile),
+    symbols: await readJson(opts.symbolsFile),
+    exposedFunctions: await getExposedFunctionNames(opts.exposedSymbolsFile),
   });
 
   const sources = generateSources(ffiInfo);
@@ -29,7 +51,8 @@ export async function generateBindings(opts: BindingsOptions) {
   await printSources(sources, opts.outputFolder);
 }
 
-export async function getLibSymbols(symbolsFile: string) {
+/** Parses a json file. */
+export async function readJson(symbolsFile: string) {
   return JSON.parse(
     await Deno.readTextFile(symbolsFile),
   );
@@ -38,12 +61,13 @@ export async function getLibSymbols(symbolsFile: string) {
 export type IntrospectOptions = {
   libName: string;
   libPrefix?: string;
-  headersPath: string;
+  headersBaseUrl: string;
   exposedFunctions: string[];
   symbols: CSymbol[];
   getTypeInfo?: LibInfo["getTypeInfo"];
 };
 
+/** Extracts all FFI info from the library using the extraction config. */
 export function introspect(opts: IntrospectOptions) {
   const lib: LibInfo = {
     name: opts.libName,
@@ -51,7 +75,7 @@ export function introspect(opts: IntrospectOptions) {
     exposedFunctions: opts.exposedFunctions,
     typeDefs: new Map(),
     mapName: stripPrefix(opts.libPrefix ?? opts.libName, "$"),
-    formatLocation: linkLocationToSource(opts.headersPath),
+    formatLocation: linkLocationToSource(opts.headersBaseUrl),
     getTypeInfo: opts.getTypeInfo ?? ((ctx, next) => next(ctx)),
   };
 

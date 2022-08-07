@@ -5,7 +5,7 @@ import {
   FunctionDef,
   LibInfo,
   TypeDef,
-} from "./extract-ffi-info.ts";
+} from "./ffi-extractor.ts";
 
 export type LibSources = {
   mod: string;
@@ -14,6 +14,7 @@ export type LibSources = {
   safeFFI: string;
 };
 
+/** Generates TypeScript source code from extracted FFI info. */
 export function generateSources(
   { lib, typeDefs, enums, functions }: FFIInfo,
 ): LibSources {
@@ -30,6 +31,7 @@ export function generateSources(
   };
 }
 
+/** Prints TypeScript source code to files in target `folder`. */
 export async function printSources(
   sources: LibSources,
   outputFolder: string,
