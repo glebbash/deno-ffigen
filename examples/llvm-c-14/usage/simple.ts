@@ -1,4 +1,4 @@
-import { cstr, loadLLVM, readCString } from "../llvm-c/mod.ts";
+import { cstr, loadLLVM, readCString } from "../lib/mod.ts";
 
 const llvm = loadLLVM("/usr/lib/llvm-14/lib/libLLVM.so");
 

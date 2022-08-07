@@ -5,7 +5,7 @@ import {
   Pointer,
   readCString,
   sqlite3,
-} from "../sqlite3/mod.ts";
+} from "../lib/mod.ts";
 
 const SQLITE_OK = 0;
 const SQLITE_ROW = 100;
