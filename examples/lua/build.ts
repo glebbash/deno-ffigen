@@ -16,7 +16,7 @@ if (Deno.args.includes("-s")) {
 
 await ffigen.generateBindings({
   libName: "LUA",
-  libPrefix: "lua_",
+  libPrefix: "",
   exposedFunctions: await ffigen.getFunctionsFromSharedLib(
     "input/lua_symbols.txt",
   ),
