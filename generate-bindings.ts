@@ -41,7 +41,7 @@ export type IntrospectOptions = {
   headersPath: string;
   exposedFunctions: string[];
   symbols: CSymbol[];
-  processType?: LibInfo["getTypeInfo"];
+  getTypeInfo?: LibInfo["getTypeInfo"];
 };
 
 export function introspect(opts: IntrospectOptions) {
@@ -52,7 +52,7 @@ export function introspect(opts: IntrospectOptions) {
     typeDefs: new Map(),
     mapName: stripPrefix(opts.libPrefix ?? opts.libName, "$"),
     formatLocation: linkLocationToSource(opts.headersPath),
-    getTypeInfo: opts.processType ?? ((ctx, next) => next(ctx)),
+    getTypeInfo: opts.getTypeInfo ?? ((ctx, next) => next(ctx)),
   };
 
   return extractFFIInfo(lib);

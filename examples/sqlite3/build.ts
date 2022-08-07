@@ -14,21 +14,13 @@ if (Deno.args.includes("-s")) {
   });
 }
 
-const ffiInfo = ffigen.introspect({
+await ffigen.generateBindings({
   libName: "SQLite3",
   libPrefix: "sqlite3_",
   exposedFunctions: await ffigen.getFunctionsFromSharedLib(
     "input/sqlite3_symbols.txt",
   ),
   headersPath: ".",
-  symbols: await ffigen.getLibSymbols("input/sqlite3.json"),
-  // processType: (ctx, next) => {
-  //   if (ctx.type.tag.startsWith(":")) {
-  //     console.log(ctx.type.tag);
-  //   }
-  //   return next(ctx);
-  // },
+  symbolsFile: "input/sqlite3.json",
+  outputFolder: "lib",
 });
-
-const sources = ffigen.generateSources(ffiInfo);
-await ffigen.printSources(sources, "lib");
