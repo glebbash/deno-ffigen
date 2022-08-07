@@ -1,11 +1,6 @@
-import {
-  extractEnums,
-  extractFunctions,
-  extractTypeDefs,
-  LibInfo,
-} from "./extract-ffi-info.ts";
-import { generateSources } from "./generate-sources.ts";
-import { getLibSymbols } from "./get-lib-symbols.ts";
+import { extractFFIInfo, LibInfo } from "./extract-ffi-info.ts";
+import { generateSources, printSources } from "./generate-sources.ts";
+import { CSymbol } from "./types.ts";
 
 export type BindingsOptions = {
   libName: string;
@@ -24,6 +19,27 @@ export type BindingsOptions = {
  * - `safe-ffi.ts` - Type utils for making pointer typesafe
  */
 export async function generateBindings(opts: BindingsOptions) {
+  const ffiInfo = introspect({
+    ...opts,
+    symbols: await getLibSymbols(opts.symbolsFile),
+  });
+
+  const sources = generateSources(ffiInfo);
+
+  await printSources(sources, opts.outputFolder);
+}
+
+export async function getLibSymbols(symbolsFile: string) {
+  return JSON.parse(
+    await Deno.readTextFile(symbolsFile),
+  );
+}
+
+export function introspect(
+  opts: Omit<BindingsOptions, "outputFolder" | "symbolsFile"> & {
+    symbols: CSymbol[];
+  },
+) {
   const libPrefix = opts.libPrefix ?? opts.libName;
   const lib: LibInfo = {
     name: opts.libName,
@@ -32,26 +48,9 @@ export async function generateBindings(opts: BindingsOptions) {
     typeDefs: new Map(),
   };
 
-  const symbols = await getLibSymbols(opts.symbolsFile, libPrefix);
+  const symbols = filterSymbolsByPrefix(opts.symbols, libPrefix);
 
-  const enums = extractEnums(lib, symbols);
-  console.log("Total enums:", enums.size);
-  lib.typeDefs = new Map([...lib.typeDefs, ...enums]);
-
-  const typeDefs = extractTypeDefs(lib, symbols);
-  console.log("Total types:", typeDefs.size);
-  lib.typeDefs = new Map([...lib.typeDefs, ...typeDefs]);
-
-  const functions = extractFunctions(lib, symbols, opts.exposedFunctions);
-  console.log("Total functions:", functions.size);
-
-  const sources = generateSources(lib, typeDefs, enums, functions);
-
-  await Deno.mkdir(opts.outputFolder, { recursive: true }).catch();
-  await Deno.writeTextFile(`${opts.outputFolder}/mod.ts`, sources.mod);
-  await Deno.writeTextFile(`${opts.outputFolder}/types.ts`, sources.types);
-  await Deno.writeTextFile(`${opts.outputFolder}/symbols.ts`, sources.symbols);
-  await Deno.writeTextFile(`${opts.outputFolder}/safe-ffi.ts`, sources.safeFFI);
+  return extractFFIInfo(lib, symbols, opts.exposedFunctions);
 }
 
 function stripPrefixOrAddDollar(prefix: string): LibInfo["mapName"] {
@@ -62,6 +61,13 @@ function stripPrefixOrAddDollar(prefix: string): LibInfo["mapName"] {
 
     return "$" + name;
   };
+}
+
+function filterSymbolsByPrefix(
+  symbols: CSymbol[],
+  libPrefix: string,
+): CSymbol[] {
+  return symbols.filter((s) => s.name === "" || s.name.startsWith(libPrefix));
 }
 
 function linkLocationToSource(

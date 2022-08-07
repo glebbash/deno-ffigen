@@ -26,6 +26,65 @@ export type FunctionDef = {
   result: TypeInfo;
 };
 
+export type FFIInfo = {
+  lib: LibInfo;
+  enums: Map<string, EnumDef>;
+  typeDefs: Map<string, TypeDef>;
+  functions: Map<string, FunctionDef>;
+};
+
+export function extractFFIInfo(
+  lib: LibInfo,
+  symbols: CSymbol[],
+  exposedFunctions: string[],
+): FFIInfo {
+  symbols = linkTypeDefs(symbols);
+
+  const enums = extractEnums(lib, symbols);
+  console.log("Total enums:", enums.size);
+  lib.typeDefs = new Map([...lib.typeDefs, ...enums]);
+
+  const typeDefs = extractTypeDefs(lib, symbols);
+  console.log("Total types:", typeDefs.size);
+  lib.typeDefs = new Map([...lib.typeDefs, ...typeDefs]);
+
+  const functions = extractFunctions(lib, symbols, exposedFunctions);
+  console.log("Total functions:", functions.size);
+
+  return {
+    lib,
+    enums,
+    typeDefs,
+    functions,
+  };
+}
+
+function linkTypeDefs(symbols: CSymbol[]): CSymbol[] {
+  const result: CSymbol[] = [];
+  const symbolsById = new Map<number, CSymbol>();
+
+  for (const symbol of symbols) {
+    if (symbol.tag === "enum" && symbol.name === "") {
+      symbolsById.set(symbol.id, symbol);
+      continue;
+    }
+
+    if (symbol.tag === "typedef" && symbol.type.tag === ":enum") {
+      const enumSymbol = symbolsById.get(symbol.type.id);
+      if (!enumSymbol) {
+        throw new Error(`Enum not found: ${symbol.type.id}`);
+      }
+      enumSymbol.name = symbol.name;
+      result.push(enumSymbol);
+      continue;
+    }
+
+    result.push(symbol);
+  }
+
+  return result;
+}
+
 export function extractEnums(
   lib: LibInfo,
   symbols: CSymbol[],

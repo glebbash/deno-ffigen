@@ -1,8 +1,9 @@
 // TODO: clean up
 // TODO: check what can be done on struct support
 
-export { generateBindings } from "./generate-bindings.ts";
-export { getFunctionsFromSharedLib } from "./get-functions-from-shared-lib.ts";
+export * from "./generate-bindings.ts";
+export * from "./generate-sources.ts";
+export * from "./get-functions-from-shared-lib.ts";
 
 export async function extractDefinitions(
   opts: { input: string; output: string },

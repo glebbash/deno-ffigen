@@ -1,5 +1,11 @@
 import { m } from "https://raw.githubusercontent.com/glebbash/multiline-str/master/src/multiline-str.ts";
-import { EnumDef, FunctionDef, LibInfo, TypeDef } from "./extract-ffi-info.ts";
+import {
+  EnumDef,
+  FFIInfo,
+  FunctionDef,
+  LibInfo,
+  TypeDef,
+} from "./extract-ffi-info.ts";
 
 export type LibSources = {
   mod: string;
@@ -9,10 +15,7 @@ export type LibSources = {
 };
 
 export function generateSources(
-  lib: LibInfo,
-  typeDefs: Map<string, TypeDef>,
-  enums: Map<string, EnumDef>,
-  functions: Map<string, FunctionDef>,
+  { lib, typeDefs, enums, functions }: FFIInfo,
 ): LibSources {
   const modSource = buildMod(lib);
   const typesSource = buildTypes(lib, typeDefs, enums, functions);
@@ -25,6 +28,17 @@ export function generateSources(
     symbols: symbolsSource,
     safeFFI: safeFFISource,
   };
+}
+
+export async function printSources(
+  sources: LibSources,
+  outputFolder: string,
+) {
+  await Deno.mkdir(outputFolder, { recursive: true }).catch();
+  await Deno.writeTextFile(`${outputFolder}/mod.ts`, sources.mod);
+  await Deno.writeTextFile(`${outputFolder}/types.ts`, sources.types);
+  await Deno.writeTextFile(`${outputFolder}/symbols.ts`, sources.symbols);
+  await Deno.writeTextFile(`${outputFolder}/safe-ffi.ts`, sources.safeFFI);
 }
 
 function buildSymbols(
