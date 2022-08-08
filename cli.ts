@@ -3,7 +3,7 @@ import { m } from "https://raw.githubusercontent.com/glebbash/multiline-str/mast
 
 import { generateBindings } from "./mod.ts";
 
-const LIB_VERSION = "v0.2.0";
+const LIB_VERSION = "v0.2.1";
 
 const cmd = new Command()
   .name("ffigen")

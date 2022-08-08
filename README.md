@@ -1,7 +1,7 @@
 # deno-ffigen - FFI Bindings generator for Deno
 
-This tool will create typesafe bindings for a C library. You need to provide a C
-header file and shared library file.
+This tool will create typesafe bindings for a C library. You just need to
+provide a C header file and shared library file.
 
 ## Status
 
@@ -13,15 +13,33 @@ Bindings generation tested for:
 - sqlite3
 - lua 5.4
 
-Try it out though, it might just work.
+Testing deno-ffigen includes building bindings for all libraries in
+[examples](./examples/) folder, so they will always be working and up to date.
+
+Try it out if you have a C library that you want to have bindings for, if it
+doesn't work you can submit a PR adding your setup to examples folder, and
+hopefully we can update ffigen to support your case.
+
+Supported features by OS:
+
+| Feature                   | Linux            | OS X | Windows |
+| ------------------------- | ---------------- | ---- | ------- |
+| Exposed symbol extraction | + (uses readelf) | -    | -       |
+| c2ffi symbol extraction   | +                | -    | -       |
+| Generated libs target     | +                | +    | +       |
+
+Note: Due to C not being crossplatform, generated bindings might not work on
+platforms that differ from the one extracting symbols.
+
+But, if the library that you are generating bindings for exposes the same
+functions for all targets, and does not have OS and architecture specific types
+than bindings generated on Linux should work on all platforms.
 
 ## Prerequisites
 
-- [docker](https://www.docker.com/)
 - [deno](https://deno.land/)
-
-Following sections assume that [[C_LIB]] is the name of the library you are
-generating bindings for.
+- [docker](https://www.docker.com/) - for using c2ffi without building it from
+  source
 
 ## Usage
 
@@ -32,13 +50,13 @@ There are 2 usage variants:
 
 ## Usage: Build script
 
-Create a `build.ts` file that uses functions from `ffigen`.
+Create a `build.ts` file that uses `deno-ffigen` API.
 
-You can find example (working) build scripts in:
+You can find all example build scripts in `examples` folder:
 
-- [llvm-14](https://deno.land/x/ffigen@v0.2.0/examples/llvm-c-14/build.ts)
-- [sqlite3](https://deno.land/x/ffigen@v0.2.0/examples/sqlite3/build.ts)
-- [lua](https://deno.land/x/ffigen@v0.2.0/examples/lua/build.ts)
+- [llvm-14](https://deno.land/x/ffigen@v0.2.1/examples/llvm-c-14/build.ts)
+- [sqlite3](https://deno.land/x/ffigen@v0.2.1/examples/sqlite3/build.ts)
+- [lua](https://deno.land/x/ffigen@v0.2.1/examples/lua/build.ts)
 
 Run it using:
 
@@ -47,6 +65,9 @@ deno run -A build.ts
 ```
 
 ## Usage: Manual steps + cli
+
+Following sections assume that [[C_LIB]] is the name of the library you are
+generating bindings for.
 
 ### Extract definitions from [[C_LIB]].h
 
