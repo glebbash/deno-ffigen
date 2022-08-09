@@ -33,7 +33,7 @@ platforms that differ from the one extracting symbols.
 
 But, if the library that you are generating bindings for exposes the same
 functions for all targets, and does not have OS and architecture specific types
-than bindings generated on Linux should work on all platforms.
+then bindings generated on Linux should work on all platforms.
 
 ## Prerequisites
 
