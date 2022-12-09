@@ -112,3 +112,13 @@ For all the available options run
 ```bash
 deno run -A https://deno.land/x/ffigen/cli.ts --help
 ```
+
+## Mac OSX Users
+
+This software requires [`readelf`](https://man7.org/linux/man-pages/man1/readelf.1.html) to be installed. As this is a Linux tool, there is a workaround for MacOSX users.
+
+1. `brew install binutils`
+
+which will provider you with `greadelf` with is equivalent.
+
+_Note_ - You will need to use the `.so` linux shared library, rather than the equivalent `.dylib` osx dynamic library.

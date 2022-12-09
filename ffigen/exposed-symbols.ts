@@ -7,7 +7,8 @@ import { exec } from "./utils.ts";
 export async function extractExposedSymbols(
   opts: { input: string; output: string },
 ) {
-  await exec(`readelf -Ws --dyn-syms ${opts.input} > ${opts.output}`);
+  const program = Deno.build.os == "darwin" ? 'greadelf' : 'readelf'
+  await exec(`${program} -Ws --dyn-syms ${opts.input} > ${opts.output}`);
 }
 
 /**
