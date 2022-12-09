@@ -146,6 +146,22 @@ function buildSafeFFI() {
       return new Deno.UnsafePointerView(ptr).getCString();
     }
 
+    export function cstrAry2PtrAry(arr: string[]) {
+      const buffer = new BigInt64Array(arr.length);
+      arr.map((a, i) => {
+        buffer[i] = BigInt(cstr(a));
+      });
+      return Deno.UnsafePointer.of(buffer) as Pointer<Pointer<number>>;
+    }
+    
+    export function cstrJsonAry2PtrAry(arr: { [key: string]: string | boolean }[]) {
+      const buffer = new BigInt64Array(arr.length);
+      arr.map((a, i) => {
+        buffer[i] = BigInt(cstr(JSON.stringify(a)));
+      });
+      return Deno.UnsafePointer.of(buffer) as Pointer<Pointer<number>>;
+    }
+
     `;
 }
 
