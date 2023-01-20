@@ -257,13 +257,14 @@ function getTypeInfoBasic({ type, name, lib }: GetTypeInfoContext): TypeInfo {
   }
 
   if (type.tag === "struct") {
-    if (name === null && type.name !== null) {
-      return { tsType: `StructPointer<"${type.name}">`, nativeType: "pointer" };
-    } else if (name === null && type.name === null) {
+    if (name === null && type.name === null) {
       throw new Error("Struct does not have a name: " + JSON.stringify(type));
     }
 
-    return { tsType: `StructPointer<"${name}">`, nativeType: "pointer" };
+    return {
+      tsType: `StructPointer<"${name ?? type.name}">`,
+      nativeType: "pointer",
+    };
   }
 
   if (type.tag === "union") {
