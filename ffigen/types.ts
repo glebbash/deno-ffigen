@@ -80,7 +80,7 @@ export type CType =
   | { tag: ":function-pointer" }
   | { tag: ":pointer"; type: CType }
   | { tag: ":struct"; name: string }
-  | { tag: "struct" }
+  | { tag: "struct"; name: string }
   | { tag: ":union"; name: string; id: number }
   | CUnion
   | { tag: "size_t" }
