@@ -24,11 +24,11 @@ hopefully we can update ffigen to support your case.
 
 Supported features by OS:
 
-| Feature                   | Linux            | OS X | Windows |
-| ------------------------- | ---------------- | ---- | ------- |
-| Exposed symbol extraction | + (uses readelf) | -    | -       |
-| c2ffi symbol extraction   | +                | -    | -       |
-| Generated libs target     | +                | +    | +       |
+| Feature                   | Linux | macOS                  | Windows |
+| ------------------------- | ----- | ---------------------- | ------- |
+| Exposed symbol extraction | yes   | [yes](#macos-users)    | -       |
+| c2ffi symbol extraction   | yes   | -                      | -       |
+| Generated libs target     | yes   | yes                    | yes     |
 
 Note: Due to C not being crossplatform, generated bindings might not work on
 platforms that differ from the one extracting symbols.
@@ -115,12 +115,12 @@ For all the available options run
 deno run -A https://deno.land/x/ffigen/cli.ts --help
 ```
 
-## Mac OSX Users
+## macOS Users
 
-This software requires [`readelf`](https://man7.org/linux/man-pages/man1/readelf.1.html) to be installed. As this is a Linux tool, there is a workaround for MacOSX users.
+This software requires [`readelf`](https://man7.org/linux/man-pages/man1/readelf.1.html) to be installed. As this is a Linux tool, there is a workaround for macOS users.
 
 1. `brew install binutils`
 
-which will provider you with `greadelf` with is equivalent.
+Which will install `greadelf`, a `readelf` equivalent.
 
-_Note_ - You will need to use the `.so` linux shared library, rather than the equivalent `.dylib` osx dynamic library.
+_Note_ - You will need to use the `.so` linux shared library, rather than the `.dylib` macOS dynamic library for extracting symbols.
