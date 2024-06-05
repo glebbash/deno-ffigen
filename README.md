@@ -7,7 +7,7 @@ provide a C header file and shared library file.
 
 Development status: **ON PAUSE**
 
-This tool was developed to generate FFI bindings for LLVM-C. The goal was accomplished and tool was generalized to handle simillar use-cases. Further development will only be continued only by need. Feel free to open an issue or PR if you see that something is missing or should be improved.
+This tool was developed to generate FFI bindings for LLVM-C. The goal was accomplished and tool was generalized to handle simillar use-cases. Further development will be continued only by need. Feel free to open an issue or PR if you see that something is missing or should be improved.
 
 Bindings generation tested for:
 
