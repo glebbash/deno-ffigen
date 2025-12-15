@@ -25,6 +25,10 @@ Deno.test("it generates bindings for lua", async () => {
 // utils
 
 async function stubWrites(fn: () => unknown) {
+  if (Deno.args.includes("--reload")) {
+    return await fn();
+  }
+
   const writeTextFile = stub(
     Deno,
     "writeTextFile",

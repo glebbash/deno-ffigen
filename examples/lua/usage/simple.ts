@@ -6,7 +6,6 @@ import {
   readCString,
 } from "../lib/mod.ts";
 
-const NULL = 0n as never;
 const LUA_MULTRET = -1;
 
 const lib = loadLUA("./input/liblua54.so");
@@ -24,8 +23,8 @@ lua_pcall(L, 0, 0, 0);
 lib.lua_getglobal(L, cstr("message"));
 lib.lua_getglobal(L, cstr("number"));
 
-const message = readCString(lib.lua_tolstring(L, -2, NULL));
-const number = lib.lua_tonumberx(L, -1, NULL);
+const message = readCString(lib.lua_tolstring(L, -2, null));
+const number = lib.lua_tonumberx(L, -1, null);
 
 console.log({ number, message });
 
@@ -35,5 +34,5 @@ function luaL_loadstring(L: Pointer<LUA.lua_State>, script: string) {
 }
 
 function lua_pcall(L: Pointer<LUA.lua_State>, n: number, r: number, f: number) {
-  return lib.lua_pcallk(L, n, r, f, 0n, NULL);
+  return lib.lua_pcallk(L, n, r, f, 0n, null);
 }
