@@ -59,9 +59,9 @@ Create a `build.ts` file that uses `deno-ffigen` API.
 
 You can find all example build scripts in `examples` folder:
 
-- [llvm-14](https://deno.land/x/ffigen@v0.2.1/examples/llvm-c-14/build.ts)
-- [sqlite3](https://deno.land/x/ffigen@v0.2.1/examples/sqlite3/build.ts)
-- [lua](https://deno.land/x/ffigen@v0.2.1/examples/lua/build.ts)
+- [llvm-14](./examples/llvm-c-14/build.ts)
+- [sqlite3](./examples/sqlite3/build.ts)
+- [lua](./examples/lua/build.ts)
 
 Run it using:
 
@@ -96,7 +96,7 @@ exposed symbols of `input/[[C_LIB]].so`.
 ## Generate bindings
 
 ```sh
-deno run -A https://deno.land/x/ffigen/cli.ts \
+deno run -A jsr:@glebbash/deno-ffigen/cli \
   --definitions input/[[C_LIB]].json \
   --symbols input/[[C_LIB]]_symbols.txt \
   --headers [[HEADERS_BASE_URL]] \
@@ -115,7 +115,7 @@ deno-ffigen generates the following files:
 For all the available options run
 
 ```bash
-deno run -A https://deno.land/x/ffigen/cli.ts --help
+deno run -A jsr:@glebbash/deno-ffigen/cli --help
 ```
 
 ## macOS Users
