@@ -1,4 +1,6 @@
 // deno-lint-ignore-file
+// deno-fmt-ignore-file
+
 import { Pointer, FnPointer, StructPointer } from "./safe-ffi.ts";
 
 export namespace SQLite3 {

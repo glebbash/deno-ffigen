@@ -2,9 +2,9 @@ import {
   alloc,
   cstr,
   loadSQLite3,
-  Pointer,
+  type Pointer,
   readCString,
-  SQLite3,
+  type SQLite3,
 } from "../lib/mod.ts";
 
 const SQLITE_OK = 0;
@@ -46,6 +46,8 @@ sqlite3.close(db);
 
 // utils
 
-function deref<T extends bigint>(ptr: Pointer<Pointer<T>>): Pointer<T> {
-  return new Deno.UnsafePointerView(ptr).getBigUint64() as Pointer<T>;
+function deref<T>(
+  ptr: Pointer<Pointer<T>>,
+): Pointer<T> {
+  return new Deno.UnsafePointerView(ptr).getPointer() as Pointer<T>;
 }

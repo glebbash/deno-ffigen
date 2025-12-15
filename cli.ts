@@ -1,5 +1,5 @@
-import { Command } from "https://deno.land/x/cliffy@v0.24.3/command/mod.ts";
-import { m } from "https://raw.githubusercontent.com/glebbash/multiline-str/master/src/multiline-str.ts";
+import { Command } from "@cliffy/command";
+import { m } from "multiline-str";
 
 import { generateBindings } from "./mod.ts";
 

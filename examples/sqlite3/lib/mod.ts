@@ -1,4 +1,4 @@
-import { SQLite3 } from "./types.ts";
+import type { SQLite3 } from "./types.ts";
 import { SQLite3_SYMBOLS } from "./symbols.ts";
 
 export * from "./safe-ffi.ts";

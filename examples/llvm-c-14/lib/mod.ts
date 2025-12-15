@@ -1,4 +1,4 @@
-import { LLVM } from "./types.ts";
+import type { LLVM } from "./types.ts";
 import { LLVM_SYMBOLS } from "./symbols.ts";
 
 export * from "./safe-ffi.ts";

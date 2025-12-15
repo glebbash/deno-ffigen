@@ -1,5 +1,5 @@
-import { stub } from "https://deno.land/std@0.150.0/testing/mock.ts";
-import { assertEquals } from "https://deno.land/std@0.150.0/testing/asserts.ts";
+import { stub } from "@std/testing/mock";
+import { assertEquals } from "@std/assert";
 
 Deno.test("it generates bindings for llvm-14", async () => {
   await stubWrites(async () => {

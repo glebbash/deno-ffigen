@@ -1,4 +1,10 @@
-import { cstr, loadLUA, LUA, Pointer, readCString } from "../lib/mod.ts";
+import {
+  cstr,
+  loadLUA,
+  type LUA,
+  type Pointer,
+  readCString,
+} from "../lib/mod.ts";
 
 const NULL = 0n as never;
 const LUA_MULTRET = -1;

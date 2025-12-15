@@ -7,7 +7,10 @@ provide a C header file and shared library file.
 
 Development status: **ON PAUSE**
 
-This tool was developed to generate FFI bindings for LLVM-C. The goal was accomplished and tool was generalized to handle simillar use-cases. Further development will be continued only by need. Feel free to open an issue or PR if you see that something is missing or should be improved.
+This tool was developed to generate FFI bindings for LLVM-C. The goal was
+accomplished and tool was generalized to handle simillar use-cases. Further
+development will be continued only by need. Feel free to open an issue or PR if
+you see that something is missing or should be improved.
 
 Bindings generation tested for:
 
@@ -24,11 +27,11 @@ hopefully we can update ffigen to support your case.
 
 Supported features by OS:
 
-| Feature                   | Linux | macOS                  | Windows |
-| ------------------------- | ----- | ---------------------- | ------- |
-| Exposed symbol extraction | yes   | [yes](#macos-users)    | -       |
-| c2ffi symbol extraction   | yes   | -                      | -       |
-| Generated libs target     | yes   | yes                    | yes     |
+| Feature                   | Linux | macOS               | Windows |
+| ------------------------- | ----- | ------------------- | ------- |
+| Exposed symbol extraction | yes   | [yes](#macos-users) | -       |
+| c2ffi symbol extraction   | yes   | -                   | -       |
+| Generated libs target     | yes   | yes                 | yes     |
 
 Note: Due to C not being crossplatform, generated bindings might not work on
 platforms that differ from the one extracting symbols.
@@ -39,8 +42,8 @@ then bindings generated on Linux should work on all platforms.
 
 ## Prerequisites
 
-- [deno](https://deno.land/)
-- [docker](https://www.docker.com/) - for using c2ffi without building it from
+- [deno](https://deno.com)
+- [docker](https://www.docker.com) - for using c2ffi without building it from
   source
 
 ## Usage
@@ -117,10 +120,13 @@ deno run -A https://deno.land/x/ffigen/cli.ts --help
 
 ## macOS Users
 
-This software requires [`readelf`](https://man7.org/linux/man-pages/man1/readelf.1.html) to be installed. As this is a Linux tool, there is a workaround for macOS users.
+This software requires
+[`readelf`](https://man7.org/linux/man-pages/man1/readelf.1.html) to be
+installed. As this is a Linux tool, there is a workaround for macOS users.
 
 1. `brew install binutils`
 
 Which will install `greadelf`, a `readelf` equivalent.
 
-_Note_ - You will need to use the `.so` linux shared library, rather than the `.dylib` macOS dynamic library for extracting symbols.
+_Note_ - You will need to use the `.so` linux shared library, rather than the
+`.dylib` macOS dynamic library for extracting symbols.

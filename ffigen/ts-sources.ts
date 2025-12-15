@@ -1,5 +1,5 @@
-import { m } from "https://raw.githubusercontent.com/glebbash/multiline-str/master/src/multiline-str.ts";
-import {
+import { m } from "multiline-str";
+import type {
   EnumDef,
   FFIInfo,
   FunctionDef,
@@ -56,12 +56,14 @@ function buildSymbols(
         ${name}: {
           name: "${f.fullName}",
           parameters: [${parameters}],
-          result: "${f.result.nativeType}"
+          result: "${f.result.nativeType}",
         }
       `;
   }).join(",\n");
 
   return m`
+    // deno-fmt-ignore-file
+    
     export const ${ctx.name}_SYMBOLS = {
     ${symbolsGen}
     } as const;
@@ -81,6 +83,8 @@ function buildTypes(
 
   const namespaceSource = m`
     // deno-lint-ignore-file
+    // deno-fmt-ignore-file
+
     import { Pointer, FnPointer, StructPointer } from "./safe-ffi.ts";
 
     export namespace ${ctx.name} {
@@ -100,7 +104,7 @@ function buildTypes(
 
 function buildMod(ctx: LibInfo): string {
   return m`
-    import { ${ctx.name} } from "./types.ts";
+    import type { ${ctx.name} } from "./types.ts";
     import { ${ctx.name}_SYMBOLS } from "./symbols.ts";
 
     export * from "./safe-ffi.ts";
@@ -118,19 +122,11 @@ function buildMod(ctx: LibInfo): string {
 function buildSafeFFI() {
   return m`
     // deno-lint-ignore-file
-    export type Opaque<BaseType, BrandType = unknown> = BaseType & {
-      readonly [Symbols.base]: BaseType;
-      readonly [Symbols.brand]: BrandType;
-    };
-
-    export type Pointer<T = string> = Opaque<bigint, T>;
+    // deno-fmt-ignore-file
+    
+    export type Pointer<T = string> = Deno.PointerObject<T>;
     export type FnPointer<T = string> = Pointer<T>;
     export type StructPointer<T = string> = Pointer<T>;
-
-    namespace Symbols {
-      export declare const base: unique symbol;
-      export declare const brand: unique symbol;
-    }
 
     export function alloc<T>(): Pointer<T> {
       return Deno.UnsafePointer.of(new BigUint64Array(1)) as Pointer<T>;

@@ -1,5 +1,12 @@
 import { exec } from "../mod.ts";
-import { CEnum, CFunction, CSymbol, CType, CTypeDef, CUnion } from "./types.ts";
+import type {
+  CEnum,
+  CFunction,
+  CSymbol,
+  CType,
+  CTypeDef,
+  CUnion,
+} from "./types.ts";
 
 export type LibInfo = {
   name: string;

@@ -1,7 +1,7 @@
-import { extractFFIInfo, LibInfo } from "./ffi-extractor.ts";
+import { extractFFIInfo, type FFIInfo, type LibInfo } from "./ffi-extractor.ts";
 import { generateSources, printSources } from "./ts-sources.ts";
 import { getExposedFunctionNames } from "./exposed-symbols.ts";
-import { CSymbol } from "./types.ts";
+import type { CSymbol } from "./types.ts";
 
 export type BindingsOptions = {
   /** Name of the library, will be used as the name of generated namespace */
@@ -42,20 +42,15 @@ export type BindingsOptions = {
 export async function generateBindings(opts: BindingsOptions) {
   const ffiInfo = introspect({
     ...opts,
-    symbols: await readJson(opts.symbolsFile),
+    symbols: JSON.parse(
+      await Deno.readTextFile(opts.symbolsFile),
+    ),
     exposedFunctions: await getExposedFunctionNames(opts.exposedSymbolsFile),
   });
 
   const sources = generateSources(ffiInfo);
 
   await printSources(sources, opts.outputFolder);
-}
-
-/** Parses a json file. */
-export async function readJson(symbolsFile: string) {
-  return JSON.parse(
-    await Deno.readTextFile(symbolsFile),
-  );
 }
 
 export type IntrospectOptions = {
@@ -68,7 +63,7 @@ export type IntrospectOptions = {
 };
 
 /** Extracts all FFI info from the library using the extraction config. */
-export function introspect(opts: IntrospectOptions) {
+export function introspect(opts: IntrospectOptions): FFIInfo {
   const lib: LibInfo = {
     name: opts.libName,
     symbols: opts.symbols,
