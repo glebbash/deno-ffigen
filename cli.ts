@@ -2,13 +2,12 @@ import { Command } from "@cliffy/command";
 import { m } from "multiline-str";
 
 import { generateBindings } from "./mod.ts";
-
-const LIB_VERSION = "v0.2.1";
+import packageInfo from "./deno.json" with { type: "json" };
 
 const cmd = new Command()
   .name("ffigen")
   .description("FFI Bindings generator for Deno.")
-  .version(LIB_VERSION)
+  .version(packageInfo.version)
   .option(
     "-s, --symbols <symbols-file>",
     "Exposed symbols file (readelf output).",
