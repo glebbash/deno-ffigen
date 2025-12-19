@@ -791,7 +791,7 @@ export namespace LLVM {
   export type PassBuilderOptionsRef = Pointer<"PassBuilderOptionsRef">;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/lto.h#L31 */
-  export type $lto_bool_t = number;
+  export type $lto_bool_t = boolean;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/lto.h#L95 */
   export type $lto_module_t = Pointer<"$lto_module_t">;

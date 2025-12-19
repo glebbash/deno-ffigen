@@ -22,9 +22,9 @@ Deno.test("it generates bindings for lua", async () => {
   });
 });
 
-Deno.test("it generates bindings for raylib-55", async () => {
+Deno.test("it generates bindings for raylib-5.5", async () => {
   await stubWrites(async () => {
-    const path = chdir("./examples/raylib-55");
+    const path = chdir("./examples/raylib-5.5");
     await import(`${path}/build.ts`);
   });
 });

@@ -238,10 +238,10 @@ function uniqueByKey<T>(values: T[], key: keyof T): T[] {
 }
 
 function getTypeInfo(ctx: GetTypeInfoContext): TypeInfo {
-  return ctx.lib.getTypeInfo(ctx, getTypeInfoBasic);
+  return ctx.lib.getTypeInfo(ctx, getTypeInfoDefault);
 }
 
-function getTypeInfoBasic({ type, name, lib }: GetTypeInfoContext): TypeInfo {
+function getTypeInfoDefault({ type, name, lib }: GetTypeInfoContext): TypeInfo {
   if (type.tag === ":pointer") {
     if (name === null) {
       const rec = getTypeInfo({ type: type.type, name: null, lib });
@@ -293,6 +293,10 @@ function getTypeInfoBasic({ type, name, lib }: GetTypeInfoContext): TypeInfo {
     return { tsType: `number`, nativeType: "usize" };
   }
 
+  if (type.tag === ":_Bool" && type["bit-size"] === 8) {
+    return { tsType: `boolean`, nativeType: "bool" };
+  }
+
   if (
     (type.tag === ":char" && type["bit-size"] === 8) ||
     (type.tag === ":signed-char" && type["bit-size"] === 8)
@@ -300,10 +304,7 @@ function getTypeInfoBasic({ type, name, lib }: GetTypeInfoContext): TypeInfo {
     return { tsType: `number`, nativeType: "i8" };
   }
 
-  if (
-    (type.tag === ":_Bool" && type["bit-size"] === 8) ||
-    (type.tag === ":unsigned-char" && type["bit-size"] === 8)
-  ) {
+  if (type.tag === ":unsigned-char" && type["bit-size"] === 8) {
     return { tsType: `number`, nativeType: "u8" };
   }
 
