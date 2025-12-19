@@ -19,8 +19,8 @@ if (Deno.args.includes("-s")) {
 await ffigen.generateBindings({
   libName: "LLVM",
   libPrefix: "LLVM",
-  symbolsFile: "./input/llvm-c.json",
-  exposedSymbolsFile: "./input/llvm-c_symbols.txt",
+  symbolsFile: "input/llvm-c.json",
+  exposedSymbolsFile: "input/llvm-c_symbols.txt",
   headersLocationMap: {
     "/data/input/./":
       "https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/",
@@ -29,5 +29,5 @@ await ffigen.generateBindings({
     "/usr/include/llvm/":
       "https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm/",
   },
-  outputFolder: "./lib",
+  outputFolder: "lib",
 });
