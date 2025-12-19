@@ -4,472 +4,472 @@
 import { Pointer, FnPointer, StructPointer } from "./safe-ffi.ts";
 
 export namespace LLVM {
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L31 */
+  /** /usr/include/bits/types.h#L31 */
   export type $__u_char = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L32 */
+  /** /usr/include/bits/types.h#L32 */
   export type $__u_short = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L33 */
+  /** /usr/include/bits/types.h#L33 */
   export type $__u_int = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L34 */
+  /** /usr/include/bits/types.h#L34 */
   export type $__u_long = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L37 */
+  /** /usr/include/bits/types.h#L37 */
   export type $__int8_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L38 */
+  /** /usr/include/bits/types.h#L38 */
   export type $__uint8_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L39 */
+  /** /usr/include/bits/types.h#L39 */
   export type $__int16_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L40 */
+  /** /usr/include/bits/types.h#L40 */
   export type $__uint16_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L41 */
+  /** /usr/include/bits/types.h#L41 */
   export type $__int32_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L42 */
+  /** /usr/include/bits/types.h#L42 */
   export type $__uint32_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L44 */
+  /** /usr/include/bits/types.h#L44 */
   export type $__int64_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L45 */
+  /** /usr/include/bits/types.h#L45 */
   export type $__uint64_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L52 */
+  /** /usr/include/bits/types.h#L52 */
   export type $__int_least8_t = LLVM.$__int8_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L53 */
+  /** /usr/include/bits/types.h#L53 */
   export type $__uint_least8_t = LLVM.$__uint8_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L54 */
+  /** /usr/include/bits/types.h#L54 */
   export type $__int_least16_t = LLVM.$__int16_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L55 */
+  /** /usr/include/bits/types.h#L55 */
   export type $__uint_least16_t = LLVM.$__uint16_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L56 */
+  /** /usr/include/bits/types.h#L56 */
   export type $__int_least32_t = LLVM.$__int32_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L57 */
+  /** /usr/include/bits/types.h#L57 */
   export type $__uint_least32_t = LLVM.$__uint32_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L58 */
+  /** /usr/include/bits/types.h#L58 */
   export type $__int_least64_t = LLVM.$__int64_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L59 */
+  /** /usr/include/bits/types.h#L59 */
   export type $__uint_least64_t = LLVM.$__uint64_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L63 */
+  /** /usr/include/bits/types.h#L63 */
   export type $__quad_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L64 */
+  /** /usr/include/bits/types.h#L64 */
   export type $__u_quad_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L72 */
+  /** /usr/include/bits/types.h#L72 */
   export type $__intmax_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L73 */
+  /** /usr/include/bits/types.h#L73 */
   export type $__uintmax_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L145 */
+  /** /usr/include/bits/types.h#L145 */
   export type $__dev_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L146 */
+  /** /usr/include/bits/types.h#L146 */
   export type $__uid_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L147 */
+  /** /usr/include/bits/types.h#L147 */
   export type $__gid_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L148 */
+  /** /usr/include/bits/types.h#L148 */
   export type $__ino_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L149 */
+  /** /usr/include/bits/types.h#L149 */
   export type $__ino64_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L150 */
+  /** /usr/include/bits/types.h#L150 */
   export type $__mode_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L151 */
+  /** /usr/include/bits/types.h#L151 */
   export type $__nlink_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L152 */
+  /** /usr/include/bits/types.h#L152 */
   export type $__off_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L153 */
+  /** /usr/include/bits/types.h#L153 */
   export type $__off64_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L154 */
+  /** /usr/include/bits/types.h#L154 */
   export type $__pid_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L155 */
+  /** /usr/include/bits/types.h#L155 */
   export type $__fsid_t = StructPointer<"$__fsid_t">;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L156 */
+  /** /usr/include/bits/types.h#L156 */
   export type $__clock_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L157 */
+  /** /usr/include/bits/types.h#L157 */
   export type $__rlim_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L158 */
+  /** /usr/include/bits/types.h#L158 */
   export type $__rlim64_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L159 */
+  /** /usr/include/bits/types.h#L159 */
   export type $__id_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L160 */
+  /** /usr/include/bits/types.h#L160 */
   export type $__time_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L161 */
+  /** /usr/include/bits/types.h#L161 */
   export type $__useconds_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L162 */
+  /** /usr/include/bits/types.h#L162 */
   export type $__suseconds_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L163 */
+  /** /usr/include/bits/types.h#L163 */
   export type $__suseconds64_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L165 */
+  /** /usr/include/bits/types.h#L165 */
   export type $__daddr_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L166 */
+  /** /usr/include/bits/types.h#L166 */
   export type $__key_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L169 */
+  /** /usr/include/bits/types.h#L169 */
   export type $__clockid_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L172 */
+  /** /usr/include/bits/types.h#L172 */
   export type $__timer_t = Pointer<"$__timer_t">;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L175 */
+  /** /usr/include/bits/types.h#L175 */
   export type $__blksize_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L180 */
+  /** /usr/include/bits/types.h#L180 */
   export type $__blkcnt_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L181 */
+  /** /usr/include/bits/types.h#L181 */
   export type $__blkcnt64_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L184 */
+  /** /usr/include/bits/types.h#L184 */
   export type $__fsblkcnt_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L185 */
+  /** /usr/include/bits/types.h#L185 */
   export type $__fsblkcnt64_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L188 */
+  /** /usr/include/bits/types.h#L188 */
   export type $__fsfilcnt_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L189 */
+  /** /usr/include/bits/types.h#L189 */
   export type $__fsfilcnt64_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L192 */
+  /** /usr/include/bits/types.h#L192 */
   export type $__fsword_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L194 */
+  /** /usr/include/bits/types.h#L194 */
   export type $__ssize_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L197 */
+  /** /usr/include/bits/types.h#L197 */
   export type $__syscall_slong_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L199 */
+  /** /usr/include/bits/types.h#L199 */
   export type $__syscall_ulong_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L203 */
+  /** /usr/include/bits/types.h#L203 */
   export type $__loff_t = LLVM.$__off64_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L204 */
+  /** /usr/include/bits/types.h#L204 */
   export type $__caddr_t = Pointer<"$__caddr_t">;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L207 */
+  /** /usr/include/bits/types.h#L207 */
   export type $__intptr_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L210 */
+  /** /usr/include/bits/types.h#L210 */
   export type $__socklen_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types.h#L215 */
+  /** /usr/include/bits/types.h#L215 */
   export type $__sig_atomic_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/stdint-intn.h#L24 */
+  /** /usr/include/bits/stdint-intn.h#L24 */
   export type $int8_t = LLVM.$__int8_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/stdint-intn.h#L25 */
+  /** /usr/include/bits/stdint-intn.h#L25 */
   export type $int16_t = LLVM.$__int16_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/stdint-intn.h#L26 */
+  /** /usr/include/bits/stdint-intn.h#L26 */
   export type $int32_t = LLVM.$__int32_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/stdint-intn.h#L27 */
+  /** /usr/include/bits/stdint-intn.h#L27 */
   export type $int64_t = LLVM.$__int64_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/stdint-uintn.h#L24 */
+  /** /usr/include/bits/stdint-uintn.h#L24 */
   export type $uint8_t = LLVM.$__uint8_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/stdint-uintn.h#L25 */
+  /** /usr/include/bits/stdint-uintn.h#L25 */
   export type $uint16_t = LLVM.$__uint16_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/stdint-uintn.h#L26 */
+  /** /usr/include/bits/stdint-uintn.h#L26 */
   export type $uint32_t = LLVM.$__uint32_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/stdint-uintn.h#L27 */
+  /** /usr/include/bits/stdint-uintn.h#L27 */
   export type $uint64_t = LLVM.$__uint64_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L43 */
+  /** /usr/include/stdint.h#L43 */
   export type $int_least8_t = LLVM.$__int_least8_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L44 */
+  /** /usr/include/stdint.h#L44 */
   export type $int_least16_t = LLVM.$__int_least16_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L45 */
+  /** /usr/include/stdint.h#L45 */
   export type $int_least32_t = LLVM.$__int_least32_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L46 */
+  /** /usr/include/stdint.h#L46 */
   export type $int_least64_t = LLVM.$__int_least64_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L49 */
+  /** /usr/include/stdint.h#L49 */
   export type $uint_least8_t = LLVM.$__uint_least8_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L50 */
+  /** /usr/include/stdint.h#L50 */
   export type $uint_least16_t = LLVM.$__uint_least16_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L51 */
+  /** /usr/include/stdint.h#L51 */
   export type $uint_least32_t = LLVM.$__uint_least32_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L52 */
+  /** /usr/include/stdint.h#L52 */
   export type $uint_least64_t = LLVM.$__uint_least64_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L58 */
+  /** /usr/include/stdint.h#L58 */
   export type $int_fast8_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L60 */
+  /** /usr/include/stdint.h#L60 */
   export type $int_fast16_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L61 */
+  /** /usr/include/stdint.h#L61 */
   export type $int_fast32_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L62 */
+  /** /usr/include/stdint.h#L62 */
   export type $int_fast64_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L71 */
+  /** /usr/include/stdint.h#L71 */
   export type $uint_fast8_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L73 */
+  /** /usr/include/stdint.h#L73 */
   export type $uint_fast16_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L74 */
+  /** /usr/include/stdint.h#L74 */
   export type $uint_fast32_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L75 */
+  /** /usr/include/stdint.h#L75 */
   export type $uint_fast64_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L87 */
+  /** /usr/include/stdint.h#L87 */
   export type $intptr_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L90 */
+  /** /usr/include/stdint.h#L90 */
   export type $uintptr_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L101 */
+  /** /usr/include/stdint.h#L101 */
   export type $intmax_t = LLVM.$__intmax_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/stdint.h#L102 */
+  /** /usr/include/stdint.h#L102 */
   export type $uintmax_t = LLVM.$__uintmax_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/inttypes.h#L34 */
+  /** /usr/include/inttypes.h#L34 */
   export type $__gwchar_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/inttypes.h#L275 */
+  /** /usr/include/inttypes.h#L275 */
   export type $imaxdiv_t = StructPointer<"$imaxdiv_t">;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L33 */
+  /** /usr/include/sys/types.h#L33 */
   export type $u_char = LLVM.$__u_char;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L34 */
+  /** /usr/include/sys/types.h#L34 */
   export type $u_short = LLVM.$__u_short;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L35 */
+  /** /usr/include/sys/types.h#L35 */
   export type $u_int = LLVM.$__u_int;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L36 */
+  /** /usr/include/sys/types.h#L36 */
   export type $u_long = LLVM.$__u_long;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L37 */
+  /** /usr/include/sys/types.h#L37 */
   export type $quad_t = LLVM.$__quad_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L38 */
+  /** /usr/include/sys/types.h#L38 */
   export type $u_quad_t = LLVM.$__u_quad_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L39 */
+  /** /usr/include/sys/types.h#L39 */
   export type $fsid_t = LLVM.$__fsid_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L42 */
+  /** /usr/include/sys/types.h#L42 */
   export type $loff_t = LLVM.$__loff_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L47 */
+  /** /usr/include/sys/types.h#L47 */
   export type $ino_t = LLVM.$__ino_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L59 */
+  /** /usr/include/sys/types.h#L59 */
   export type $dev_t = LLVM.$__dev_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L64 */
+  /** /usr/include/sys/types.h#L64 */
   export type $gid_t = LLVM.$__gid_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L69 */
+  /** /usr/include/sys/types.h#L69 */
   export type $mode_t = LLVM.$__mode_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L74 */
+  /** /usr/include/sys/types.h#L74 */
   export type $nlink_t = LLVM.$__nlink_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L79 */
+  /** /usr/include/sys/types.h#L79 */
   export type $uid_t = LLVM.$__uid_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L85 */
+  /** /usr/include/sys/types.h#L85 */
   export type $off_t = LLVM.$__off_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L97 */
+  /** /usr/include/sys/types.h#L97 */
   export type $pid_t = LLVM.$__pid_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L103 */
+  /** /usr/include/sys/types.h#L103 */
   export type $id_t = LLVM.$__id_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L108 */
+  /** /usr/include/sys/types.h#L108 */
   export type $ssize_t = LLVM.$__ssize_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L114 */
+  /** /usr/include/sys/types.h#L114 */
   export type $daddr_t = LLVM.$__daddr_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L115 */
+  /** /usr/include/sys/types.h#L115 */
   export type $caddr_t = LLVM.$__caddr_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L121 */
+  /** /usr/include/sys/types.h#L121 */
   export type $key_t = LLVM.$__key_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types/clock_t.h#L7 */
+  /** /usr/include/bits/types/clock_t.h#L7 */
   export type $clock_t = LLVM.$__clock_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types/clockid_t.h#L7 */
+  /** /usr/include/bits/types/clockid_t.h#L7 */
   export type $clockid_t = LLVM.$__clockid_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types/time_t.h#L10 */
+  /** /usr/include/bits/types/time_t.h#L10 */
   export type $time_t = LLVM.$__time_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types/timer_t.h#L7 */
+  /** /usr/include/bits/types/timer_t.h#L7 */
   export type $timer_t = LLVM.$__timer_t;
 
   /** /usr/lib/clang/14.0.6/include/stddef.h#L46 */
   export type $size_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L148 */
+  /** /usr/include/sys/types.h#L148 */
   export type $ulong = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L149 */
+  /** /usr/include/sys/types.h#L149 */
   export type $ushort = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L150 */
+  /** /usr/include/sys/types.h#L150 */
   export type $uint = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L158 */
+  /** /usr/include/sys/types.h#L158 */
   export type $u_int8_t = LLVM.$__uint8_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L159 */
+  /** /usr/include/sys/types.h#L159 */
   export type $u_int16_t = LLVM.$__uint16_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L160 */
+  /** /usr/include/sys/types.h#L160 */
   export type $u_int32_t = LLVM.$__uint32_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L161 */
+  /** /usr/include/sys/types.h#L161 */
   export type $u_int64_t = LLVM.$__uint64_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L166 */
+  /** /usr/include/sys/types.h#L166 */
   export type $register_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types/__sigset_t.h#L8 */
+  /** /usr/include/bits/types/__sigset_t.h#L8 */
   export type $__sigset_t = StructPointer<"$__sigset_t">;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/types/sigset_t.h#L7 */
+  /** /usr/include/bits/types/sigset_t.h#L7 */
   export type $sigset_t = LLVM.$__sigset_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/select.h#L43 */
+  /** /usr/include/sys/select.h#L43 */
   export type $suseconds_t = LLVM.$__suseconds_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/select.h#L49 */
+  /** /usr/include/sys/select.h#L49 */
   export type $__fd_mask = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/select.h#L70 */
+  /** /usr/include/sys/select.h#L70 */
   export type $fd_set = StructPointer<"$fd_set">;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/select.h#L77 */
+  /** /usr/include/sys/select.h#L77 */
   export type $fd_mask = LLVM.$__fd_mask;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L185 */
+  /** /usr/include/sys/types.h#L185 */
   export type $blksize_t = LLVM.$__blksize_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L192 */
+  /** /usr/include/sys/types.h#L192 */
   export type $blkcnt_t = LLVM.$__blkcnt_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L196 */
+  /** /usr/include/sys/types.h#L196 */
   export type $fsblkcnt_t = LLVM.$__fsblkcnt_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/sys/types.h#L200 */
+  /** /usr/include/sys/types.h#L200 */
   export type $fsfilcnt_t = LLVM.$__fsfilcnt_t;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/atomic_wide_counter.h#L33 */
+  /** /usr/include/bits/atomic_wide_counter.h#L33 */
   export type $__atomic_wide_counter = unknown;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/thread-shared-types.h#L55 */
+  /** /usr/include/bits/thread-shared-types.h#L55 */
   export type $__pthread_list_t = StructPointer<"__pthread_internal_list">;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/thread-shared-types.h#L60 */
+  /** /usr/include/bits/thread-shared-types.h#L60 */
   export type $__pthread_slist_t = StructPointer<"__pthread_internal_slist">;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/thread-shared-types.h#L105 */
+  /** /usr/include/bits/thread-shared-types.h#L105 */
   export type $__tss_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/thread-shared-types.h#L106 */
+  /** /usr/include/bits/thread-shared-types.h#L106 */
   export type $__thrd_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/thread-shared-types.h#L111 */
+  /** /usr/include/bits/thread-shared-types.h#L111 */
   export type $__once_flag = StructPointer<"$__once_flag">;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L27 */
+  /** /usr/include/bits/pthreadtypes.h#L27 */
   export type $pthread_t = bigint;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L36 */
+  /** /usr/include/bits/pthreadtypes.h#L36 */
   export type $pthread_mutexattr_t = unknown;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L45 */
+  /** /usr/include/bits/pthreadtypes.h#L45 */
   export type $pthread_condattr_t = unknown;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L49 */
+  /** /usr/include/bits/pthreadtypes.h#L49 */
   export type $pthread_key_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L53 */
+  /** /usr/include/bits/pthreadtypes.h#L53 */
   export type $pthread_once_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L62 */
+  /** /usr/include/bits/pthreadtypes.h#L62 */
   export type $pthread_attr_t = unknown;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L72 */
+  /** /usr/include/bits/pthreadtypes.h#L72 */
   export type $pthread_mutex_t = unknown;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L80 */
+  /** /usr/include/bits/pthreadtypes.h#L80 */
   export type $pthread_cond_t = unknown;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L91 */
+  /** /usr/include/bits/pthreadtypes.h#L91 */
   export type $pthread_rwlock_t = unknown;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L97 */
+  /** /usr/include/bits/pthreadtypes.h#L97 */
   export type $pthread_rwlockattr_t = unknown;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L103 */
+  /** /usr/include/bits/pthreadtypes.h#L103 */
   export type $pthread_spinlock_t = number;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L112 */
+  /** /usr/include/bits/pthreadtypes.h#L112 */
   export type $pthread_barrier_t = unknown;
 
-  /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/bits/pthreadtypes.h#L118 */
+  /** /usr/include/bits/pthreadtypes.h#L118 */
   export type $pthread_barrierattr_t = unknown;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/Types.h#L28 */
@@ -791,7 +791,7 @@ export namespace LLVM {
   export type PassBuilderOptionsRef = Pointer<"PassBuilderOptionsRef">;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/lto.h#L31 */
-  export type $lto_bool_t = number;
+  export type $lto_bool_t = boolean;
 
   /** https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/llvm-c/lto.h#L95 */
   export type $lto_module_t = Pointer<"$lto_module_t">;

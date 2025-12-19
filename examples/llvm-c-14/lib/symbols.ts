@@ -6456,4 +6456,4 @@ export const LLVM_SYMBOLS = {
     parameters: ["pointer"],
     result: "void",
   }
-} as const;
+} as const satisfies Deno.ForeignLibraryInterface;

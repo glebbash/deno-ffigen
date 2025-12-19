@@ -17,6 +17,7 @@ Bindings generation tested for:
 - LLVM-C, versions (14, 15)
 - sqlite3
 - lua 5.4
+- raylib 5.5
 
 Testing deno-ffigen includes building bindings for all libraries in
 [examples](./examples/) folder, so they will always be working and up to date.
@@ -62,6 +63,7 @@ You can find all example build scripts in `examples` folder:
 - [llvm-14](./examples/llvm-c-14/build.ts)
 - [sqlite3](./examples/sqlite3/build.ts)
 - [lua](./examples/lua/build.ts)
+- [raylib](./examples/raylib-5.5/build.ts)
 
 Run it using:
 

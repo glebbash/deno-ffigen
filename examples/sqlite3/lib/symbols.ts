@@ -1306,4 +1306,4 @@ export const SQLite3_SYMBOLS = {
     parameters: ["pointer", "pointer", "function", "pointer", "function"],
     result: "i32",
   }
-} as const;
+} as const satisfies Deno.ForeignLibraryInterface;

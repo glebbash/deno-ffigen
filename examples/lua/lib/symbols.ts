@@ -866,4 +866,4 @@ export const LUA_SYMBOLS = {
     parameters: ["pointer", "pointer", "usize"],
     result: "pointer",
   }
-} as const;
+} as const satisfies Deno.ForeignLibraryInterface;

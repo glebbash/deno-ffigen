@@ -66,7 +66,7 @@ function buildSymbols(
     
     export const ${ctx.name}_SYMBOLS = {
     ${symbolsGen}
-    } as const;
+    } as const satisfies Deno.ForeignLibraryInterface;
 
     `;
 }
