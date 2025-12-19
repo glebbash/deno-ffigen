@@ -1,6 +1,6 @@
 // deno-fmt-ignore-file
 
-export const SQLite3_SYMBOLS: Deno.ForeignLibraryInterface = {
+export const SQLite3_SYMBOLS = {
   libversion: {
     name: "sqlite3_libversion",
     parameters: [],
@@ -1306,4 +1306,4 @@ export const SQLite3_SYMBOLS: Deno.ForeignLibraryInterface = {
     parameters: ["pointer", "pointer", "function", "pointer", "function"],
     result: "i32",
   }
-} as const;
+} as const satisfies Deno.ForeignLibraryInterface;

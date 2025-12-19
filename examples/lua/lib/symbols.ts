@@ -1,6 +1,6 @@
 // deno-fmt-ignore-file
 
-export const LUA_SYMBOLS: Deno.ForeignLibraryInterface = {
+export const LUA_SYMBOLS = {
   lua_newstate: {
     name: "lua_newstate",
     parameters: ["function", "pointer"],
@@ -866,4 +866,4 @@ export const LUA_SYMBOLS: Deno.ForeignLibraryInterface = {
     parameters: ["pointer", "pointer", "usize"],
     result: "pointer",
   }
-} as const;
+} as const satisfies Deno.ForeignLibraryInterface;
