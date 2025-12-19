@@ -293,15 +293,15 @@ function getTypeInfoDefault({ type, name, lib }: GetTypeInfoContext): TypeInfo {
     return { tsType: `number`, nativeType: "usize" };
   }
 
-  if (type.tag === ":_Bool" && type["bit-size"] === 8) {
-    return { tsType: `boolean`, nativeType: "bool" };
-  }
-
   if (
     (type.tag === ":char" && type["bit-size"] === 8) ||
     (type.tag === ":signed-char" && type["bit-size"] === 8)
   ) {
     return { tsType: `number`, nativeType: "i8" };
+  }
+
+  if (type.tag === ":_Bool" && type["bit-size"] === 8) {
+    return { tsType: `boolean`, nativeType: "bool" };
   }
 
   if (type.tag === ":unsigned-char" && type["bit-size"] === 8) {
