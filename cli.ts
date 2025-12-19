@@ -45,7 +45,7 @@ const cmd = new Command()
   .example(
     "headers",
     m`
-      <headers> is used to generate links in description of each function.
+      <headers> is used to generate links in description of each function. (primitive version, use build script for more flexibility)
       Example: "https://github.com/llvm/llvm-project/blob/release/14.x/llvm/include/"
     `,
   )
@@ -68,6 +68,6 @@ await generateBindings({
   exposedSymbolsFile: options.symbols,
   outputFolder: args[0] ?? options.libName,
   libName: options.libName,
-  headersBaseUrl: options.headers,
+  headersLocationMap: { "/data/": options.headers },
   libPrefix: options.libPrefix === false ? "" : options.libPrefix as string,
 });

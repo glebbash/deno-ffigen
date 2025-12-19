@@ -10,7 +10,9 @@ import {
 const SQLITE_OK = 0;
 const SQLITE_ROW = 100;
 
-const sqlite3 = loadSQLite3("./input/libsqlite3.so.0.8.6");
+const sqlite3 = loadSQLite3(
+  import.meta.dirname + "../input/libsqlite3.so.0.8.6",
+);
 
 const db = openDb("test.db");
 
@@ -100,5 +102,5 @@ function columnText(stmt: Pointer<SQLite3.stmt>, column: number) {
 // low-level helpers
 
 function deref<T>(ptr: Pointer<Pointer<T>>): Pointer<T> {
-  return new Deno.UnsafePointerView(ptr).getPointer() as Pointer<T>;
+  return new Deno.UnsafePointerView(ptr!).getPointer();
 }

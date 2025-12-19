@@ -8,7 +8,7 @@ import {
 
 const LUA_MULTRET = -1;
 
-const lib = loadLUA("./input/liblua54.so");
+const lib = loadLUA(import.meta.dirname + "../input/liblua54.so");
 
 const L = lib.luaL_newstate();
 luaL_loadstring(

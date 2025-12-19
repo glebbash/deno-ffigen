@@ -64,7 +64,7 @@ function buildSymbols(
   return m`
     // deno-fmt-ignore-file
     
-    export const ${ctx.name}_SYMBOLS = {
+    export const ${ctx.name}_SYMBOLS: Deno.ForeignLibraryInterface = {
     ${symbolsGen}
     } as const;
 

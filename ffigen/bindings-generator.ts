@@ -20,7 +20,7 @@ export type BindingsOptions = {
    *
    * Used as a base url for links generated in description of each function.
    */
-  headersBaseUrl: string;
+  headersLocationMap?: Record<string, string>;
 
   /** All symbols file (c2ffi json output). */
   symbolsFile: string;
@@ -56,7 +56,7 @@ export async function generateBindings(opts: BindingsOptions) {
 export type IntrospectOptions = {
   libName: string;
   libPrefix?: string;
-  headersBaseUrl: string;
+  headersLocationMap?: Record<string, string>;
   exposedFunctions: string[];
   symbols: CSymbol[];
   getTypeInfo?: LibInfo["getTypeInfo"];
@@ -70,7 +70,7 @@ export function introspect(opts: IntrospectOptions): FFIInfo {
     exposedFunctions: opts.exposedFunctions,
     typeDefs: new Map(),
     mapName: stripPrefix(opts.libPrefix ?? opts.libName, "$"),
-    formatLocation: linkLocationToSource(opts.headersBaseUrl),
+    formatLocation: linkLocationToSource(opts.headersLocationMap ?? {}),
     getTypeInfo: opts.getTypeInfo ?? ((ctx, next) => next(ctx)),
   };
 
@@ -88,20 +88,17 @@ function stripPrefix(prefix: string, otherPrefix: string): LibInfo["mapName"] {
 }
 
 function linkLocationToSource(
-  baseSourcePath: string,
+  locationMap: Record<string, string>,
 ): LibInfo["formatLocation"] {
   return (location) => {
     location = location.split(" <Spelling=")[0];
     location = fixLine(location);
 
-    if (location.startsWith("/usr/include/")) {
-      return baseSourcePath + location.slice("/usr/include/".length);
-    }
-
-    const LOCAL_FILE_SEP = "/./";
-    const sepIndex = location.indexOf(LOCAL_FILE_SEP);
-    if (sepIndex !== -1) {
-      return baseSourcePath + location.slice(sepIndex + LOCAL_FILE_SEP.length);
+    for (const [toMatch, toReplaceWith] of Object.entries(locationMap)) {
+      if (location.startsWith(toMatch)) {
+        location = toReplaceWith + location.slice(toMatch.length);
+        break;
+      }
     }
 
     return location;

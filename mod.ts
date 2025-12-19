@@ -1,6 +1,5 @@
 // TODO: add release pipeline
 // TODO: add examples of advanced usage
-// TODO: improve symbol location handling
 // TODO: check what can be done on struct support
 
 export * from "./ffigen/bindings-generator.ts";

@@ -1,6 +1,6 @@
 // deno-fmt-ignore-file
 
-export const LLVM_SYMBOLS = {
+export const LLVM_SYMBOLS: Deno.ForeignLibraryInterface = {
   VerifyModule: {
     name: "LLVMVerifyModule",
     parameters: ["pointer", "i32", "pointer"],
