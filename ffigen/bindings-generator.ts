@@ -30,6 +30,9 @@ export type BindingsOptions = {
 
   /** Folder where generated files will be saved. */
   outputFolder: string;
+
+  /** Custom C to Deno FFI type mapper */
+  getTypeInfo?: LibInfo["getTypeInfo"];
 };
 
 /**
