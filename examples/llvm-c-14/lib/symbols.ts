@@ -6455,5 +6455,5 @@ export const LLVM_SYMBOLS = {
     name: "LLVMAddSLPVectorizePass",
     parameters: ["pointer"],
     result: "void",
-  }
+  },
 } as const satisfies Deno.ForeignLibraryInterface;

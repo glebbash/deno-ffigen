@@ -130,8 +130,6 @@ export namespace SQLite3 {
   /** ./input/sqlite3.h#L12196 */
   export type $fts5_api = StructPointer<"$fts5_api">;
 
-
-
   /** ./input/sqlite3.h#L163 */
   export declare function libversion(): Pointer<number>;
 

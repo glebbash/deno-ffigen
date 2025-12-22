@@ -1,6 +1,6 @@
-import * as ffigen from "../../mod.ts";
+import * as ffigen from "@glebbash/deno-ffigen";
 
-using _ = ffigen.tmpCwd(import.meta.dirname!);
+using _ = ffigen.tmpChdir(import.meta.dirname!);
 
 if (Deno.args.includes("-d")) {
   await ffigen.extractSymbolDefinitions({

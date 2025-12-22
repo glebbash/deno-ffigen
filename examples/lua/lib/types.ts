@@ -382,8 +382,6 @@ export namespace LUA {
   /** ./input/include/lauxlib.h#L223 */
   export type luaL_Stream = StructPointer<"luaL_Stream">;
 
-
-
   /** ./input/include/lua.h#L153 */
   export declare function lua_newstate(f: LUA.lua_Alloc, ud: Pointer<void>): Pointer<LUA.lua_State>;
 

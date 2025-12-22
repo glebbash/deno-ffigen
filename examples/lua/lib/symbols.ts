@@ -865,5 +865,5 @@ export const LUA_SYMBOLS = {
     name: "luaL_buffinitsize",
     parameters: ["pointer", "pointer", "usize"],
     result: "pointer",
-  }
+  },
 } as const satisfies Deno.ForeignLibraryInterface;

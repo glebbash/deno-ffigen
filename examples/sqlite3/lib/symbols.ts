@@ -1305,5 +1305,5 @@ export const SQLite3_SYMBOLS = {
     name: "sqlite3_rtree_query_callback",
     parameters: ["pointer", "pointer", "function", "pointer", "function"],
     result: "i32",
-  }
+  },
 } as const satisfies Deno.ForeignLibraryInterface;

@@ -2,7 +2,7 @@ import { Command } from "@cliffy/command";
 import { m } from "multiline-str";
 
 import { generateBindings } from "./mod.ts";
-import packageInfo from "./deno.json" with { type: "json" };
+import packageInfo from "../deno.json" with { type: "json" };
 
 const cmd = new Command()
   .name("ffigen")
@@ -11,30 +11,22 @@ const cmd = new Command()
   .option(
     "-s, --symbols <symbols-file>",
     "Exposed symbols file (readelf output).",
-    {
-      required: true,
-    },
+    { required: true },
   )
   .option(
     "-d, --definitions <definitions-file>",
     "Definitions file. (c2ffi json output).",
-    {
-      required: true,
-    },
+    { required: true },
   )
   .option(
     "-h, --headers <headers>",
     "Base url for the headers of target library.",
-    {
-      required: true,
-    },
+    { required: true },
   )
   .option(
     "-n, --lib-name <lib-name>",
     "Name of the C library and generated namespace.",
-    {
-      required: true,
-    },
+    { required: true },
   )
   .option(
     "-p, --lib-prefix [lib-prefix]",

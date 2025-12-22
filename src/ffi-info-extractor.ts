@@ -1,4 +1,3 @@
-import { exec } from "../mod.ts";
 import type {
   CEnum,
   CFunction,
@@ -8,31 +7,33 @@ import type {
   CUnion,
 } from "./types.ts";
 
-export type LibInfo = {
-  name: string;
-  mapName: (name: string) => string;
-  formatLocation: (location: string) => string;
-  getTypeInfo: (
-    ctx: GetTypeInfoContext,
-    next: (ctx: GetTypeInfoContext) => TypeInfo,
-  ) => TypeInfo;
+export type ExtractorOptions = {
+  libName: string;
   symbols: CSymbol[];
   exposedFunctions: string[];
-  typeDefs: Map<string, TypeDef>;
+  typeDefs: Record<string, TypeDef>;
+  getTypeInfo: TypeInfoExtractor;
+  formatSymbol: (name: string) => string;
+  formatLocation: (location: string) => string;
 };
 
 export type FFIInfo = {
-  lib: LibInfo;
-  enums: Map<string, EnumDef>;
-  unions: Map<string, UnionDef>;
-  typeDefs: Map<string, TypeDef>;
-  functions: Map<string, FunctionDef>;
+  libName: string;
+  enums: Record<string, EnumDef>;
+  unions: Record<string, UnionDef>;
+  typeDefs: Record<string, TypeDef>;
+  functions: Record<string, FunctionDef>;
 };
 
-export type GetTypeInfoContext = {
+export type TypeInfoExtractor = (
+  ctx: TypeInfoExtractorCtx,
+  next: (ctx: TypeInfoExtractorCtx) => TypeInfo,
+) => TypeInfo;
+
+export type TypeInfoExtractorCtx = {
   type: CType;
   name: string | null;
-  lib: LibInfo;
+  opts: ExtractorOptions;
 };
 
 export type TypeDef = {
@@ -65,44 +66,39 @@ export type FunctionDef = {
 };
 
 /**
- * Extracts symbol definitions from the header file at path `opts.input`
- * and writes them to `opts.output` file in c2ffi's json format.
+ * Extracts exposed functions names from `readelfOutput`.
  */
-export async function extractSymbolDefinitions(
-  opts: { input: string; output: string },
-) {
-  await exec(
-    `docker run -v $(pwd):/data glebbash/deno-ffigen-c2ffi ` +
-      `/data/${opts.input} > ${opts.output}`,
-  );
+export function extractExposedFunctions(readelfOutput: string): string[] {
+  const FN_SYMBOL_PREFIX_LEN =
+    "   641: 000000000146c580   666 FUNC    GLOBAL DEFAULT   13 ".length;
+
+  const allFunctions = readelfOutput
+    .split("\n")
+    .slice(4, -1)
+    .filter((s) => s.includes(" FUNC "))
+    .filter((s) => !s.includes(".localalias"))
+    .map((line) => line.slice(FN_SYMBOL_PREFIX_LEN))
+    .map((name) => name.split("@")[0]);
+
+  return Array.from(new Set(allFunctions)).sort();
 }
 
 /** Extracts all FFI info from the library described in `lib`. */
-export function extractFFIInfo(lib: LibInfo): FFIInfo {
-  const symbols = linkTypeDefs(lib.symbols);
+export function extractFFIInfo(opts: ExtractorOptions): FFIInfo {
+  const symbols = linkTypeDefs(opts.symbols);
 
-  const enums = extractEnums(lib, symbols);
-  console.log("Total enums:", enums.size);
-  lib.typeDefs = new Map([...lib.typeDefs, ...enums]);
+  const enums = extractEnums(opts, symbols);
+  Object.assign(opts.typeDefs, enums);
 
-  const unions = extractUnions(lib, symbols);
-  console.log("Total unions:", unions.size);
-  lib.typeDefs = new Map([...lib.typeDefs, ...unions]);
+  const unions = extractUnions(opts, symbols);
+  Object.assign(opts.typeDefs, unions);
 
-  const typeDefs = extractTypeDefs(lib, symbols);
-  console.log("Total types:", typeDefs.size);
-  lib.typeDefs = new Map([...lib.typeDefs, ...typeDefs]);
+  const typeDefs = extractTypeDefs(opts, symbols);
+  Object.assign(opts.typeDefs, typeDefs);
 
-  const functions = extractFunctions(lib, symbols, lib.exposedFunctions);
-  console.log("Total functions:", functions.size);
+  const functions = extractFunctions(opts, symbols);
 
-  return {
-    lib,
-    enums,
-    typeDefs,
-    unions,
-    functions,
-  };
+  return { libName: opts.libName, enums, typeDefs, unions, functions };
 }
 
 function linkTypeDefs(symbols: CSymbol[]): CSymbol[] {
@@ -133,16 +129,16 @@ function linkTypeDefs(symbols: CSymbol[]): CSymbol[] {
 }
 
 export function extractEnums(
-  lib: LibInfo,
+  opts: ExtractorOptions,
   symbols: CSymbol[],
-): Map<string, EnumDef> {
+): FFIInfo["enums"] {
   const enums = symbols.filter((s): s is CEnum => s.tag === "enum");
 
-  return new Map(
-    enums.map((e): [string, EnumDef] => {
-      return [lib.mapName(e.name), {
+  return Object.fromEntries(
+    enums.map((e) => {
+      return [opts.formatSymbol(e.name), {
         originalName: e.name,
-        location: lib.formatLocation(e.location),
+        location: opts.formatLocation(e.location),
         type: { tsType: "enum", nativeType: "i32" },
         fields: e.fields.map((v) => ({ name: v.name, value: v.value })),
       }];
@@ -151,16 +147,16 @@ export function extractEnums(
 }
 
 export function extractUnions(
-  lib: LibInfo,
+  opts: ExtractorOptions,
   symbols: CSymbol[],
-): Map<string, UnionDef> {
+): FFIInfo["unions"] {
   const enums = symbols.filter((s): s is CUnion => s.tag === "union");
 
-  return new Map(
-    enums.map((u): [string, UnionDef] => {
-      return [lib.mapName(u.name), {
+  return Object.fromEntries(
+    enums.map((u) => {
+      return [opts.formatSymbol(u.name), {
         originalName: u.name,
-        location: lib.formatLocation(u.location),
+        location: opts.formatLocation(u.location),
         // TODO: check for better union types
         type: { tsType: "unknown", nativeType: "u" + u["bit-size"] },
         bitSize: u["bit-size"],
@@ -173,51 +169,53 @@ export function extractUnions(
 }
 
 export function extractTypeDefs(
-  lib: LibInfo,
+  opts: ExtractorOptions,
   symbols: CSymbol[],
-): Map<string, TypeDef> {
+): FFIInfo["typeDefs"] {
   const typeDefs = symbols.filter((s): s is CTypeDef => s.tag === "typedef");
 
-  const resultTypeDefs = new Map<string, TypeDef>();
+  const resultTypeDefs: Record<string, TypeDef> = {};
 
-  for (const t of typeDefs) {
-    const mappedName = lib.mapName(t.name);
+  for (const type_ of typeDefs) {
+    const mappedName = opts.formatSymbol(type_.name);
     const typeDef = {
-      originalName: t.name,
-      location: lib.formatLocation(t.location),
-      type: getTypeInfo({ type: t.type, name: mappedName, lib }),
+      originalName: type_.name,
+      location: opts.formatLocation(type_.location),
+      type: getTypeInfo({ type: type_.type, name: mappedName, opts: opts }),
     };
-    lib.typeDefs.set(mappedName, typeDef);
-    resultTypeDefs.set(mappedName, typeDef);
+
+    // TOOD: check if this is redundant
+    opts.typeDefs[mappedName] = typeDef;
+
+    resultTypeDefs[mappedName] = typeDef;
   }
 
   return resultTypeDefs;
 }
 
 export function extractFunctions(
-  lib: LibInfo,
+  opts: ExtractorOptions,
   symbols: CSymbol[],
-  exposedFunctions: string[],
-): Map<string, FunctionDef> {
+): FFIInfo["functions"] {
   const allFunctions = symbols.filter((s): s is CFunction =>
     s.tag === "function"
   );
   const uniqueFunctions = uniqueByKey(allFunctions, "name");
   const nonInlinedFunctions = uniqueFunctions.filter((f) => !f.inline);
   const functions = nonInlinedFunctions.filter((f) =>
-    exposedFunctions.includes(f.name as never)
+    opts.exposedFunctions.includes(f.name as never)
   );
 
-  return new Map(functions.map((f) => [
-    lib.mapName(f.name),
+  return Object.fromEntries(functions.map((f) => [
+    opts.formatSymbol(f.name),
     {
       fullName: f.name,
-      location: lib.formatLocation(f.location),
+      location: opts.formatLocation(f.location),
       parameters: f.parameters.map((p, index) => ({
         name: p.name || "_" + index,
-        type: getTypeInfo({ type: p.type, name: null, lib }),
+        type: getTypeInfo({ type: p.type, name: null, opts }),
       })),
-      result: getTypeInfo({ type: f["return-type"], name: null, lib }),
+      result: getTypeInfo({ type: f["return-type"], name: null, opts }),
     },
   ]));
 }
@@ -237,14 +235,16 @@ function uniqueByKey<T>(values: T[], key: keyof T): T[] {
   return result;
 }
 
-function getTypeInfo(ctx: GetTypeInfoContext): TypeInfo {
-  return ctx.lib.getTypeInfo(ctx, getTypeInfoDefault);
+function getTypeInfo(ctx: TypeInfoExtractorCtx): TypeInfo {
+  return ctx.opts.getTypeInfo(ctx, getTypeInfoDefault);
 }
 
-function getTypeInfoDefault({ type, name, lib }: GetTypeInfoContext): TypeInfo {
+function getTypeInfoDefault(
+  { type, name, opts }: TypeInfoExtractorCtx,
+): TypeInfo {
   if (type.tag === ":pointer") {
     if (name === null) {
-      const rec = getTypeInfo({ type: type.type, name: null, lib });
+      const rec = getTypeInfo({ type: type.type, name: null, opts });
 
       return { tsType: `Pointer<${rec.tsType}>`, nativeType: "pointer" };
     }
@@ -280,8 +280,7 @@ function getTypeInfoDefault({ type, name, lib }: GetTypeInfoContext): TypeInfo {
   }
 
   if (type.tag === ":union") {
-    const union = lib.typeDefs.get(lib.mapName(type.name));
-
+    const union = opts.typeDefs[opts.formatSymbol(type.name)];
     return union!.type;
   }
 
@@ -358,24 +357,20 @@ function getTypeInfoDefault({ type, name, lib }: GetTypeInfoContext): TypeInfo {
 
   // TODO: check if this works
   if (type.tag === "__builtin_va_list") {
-    return {
-      tsType: "bigint",
-      nativeType: "pointer",
-    };
+    return { tsType: "bigint", nativeType: "pointer" };
   }
 
-  const typeName = lib.mapName(
+  const typeName = opts.formatSymbol(
     type.tag === ":enum" ? type.name : type.tag,
   );
 
-  const typeDef = lib.typeDefs.get(typeName);
-
+  const typeDef = opts.typeDefs[typeName];
   if (typeDef === undefined) {
     throw new Error(`Unknown type ${JSON.stringify({ type, name })}`);
   }
 
   return {
-    tsType: `${lib.name}.${typeName}`,
+    tsType: `${opts.libName}.${typeName}`,
     nativeType: typeDef.type.nativeType,
   };
 }

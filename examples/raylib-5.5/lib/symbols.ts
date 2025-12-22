@@ -2905,5 +2905,5 @@ export const Raylib_SYMBOLS = {
     name: "DetachAudioMixedProcessor",
     parameters: ["function"],
     result: "void",
-  }
+  },
 } as const satisfies Deno.ForeignLibraryInterface;

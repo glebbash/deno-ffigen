@@ -10,13 +10,13 @@ export async function exec(command: string) {
 }
 
 /**
- * Temporarily changes the current working directory and restores it when disposed.
+ * Temporarily changes the current working directory to `dir` and restores the original when disposed.
  *
  * @example
- * using _ = tmpCwd(import.meta.dirname!);
+ * using _ = tmpChdir(import.meta.dirname!);
  */
-export function tmpCwd(folder: string): Disposable {
+export function tmpChdir(dir: string): Disposable {
   const cwd = Deno.cwd();
-  Deno.chdir(folder);
+  Deno.chdir(dir);
   return { [Symbol.dispose]: () => Deno.chdir(cwd) };
 }
