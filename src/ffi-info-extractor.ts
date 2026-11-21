@@ -212,12 +212,70 @@ export function extractFunctions(
       fullName: f.name,
       location: opts.formatLocation(f.location),
       parameters: f.parameters.map((p, index) => ({
-        name: p.name || "_" + index,
+        name: formatParamName(p.name, index),
         type: getTypeInfo({ type: p.type, name: null, opts }),
       })),
       result: getTypeInfo({ type: f["return-type"], name: null, opts }),
     },
   ]));
+}
+
+// Words that cannot be used as parameter names in strict mode TypeScript.
+const RESERVED_PARAM_NAMES = new Set([
+  "arguments",
+  "await",
+  "break",
+  "case",
+  "catch",
+  "class",
+  "const",
+  "continue",
+  "debugger",
+  "default",
+  "delete",
+  "do",
+  "else",
+  "enum",
+  "eval",
+  "export",
+  "extends",
+  "false",
+  "finally",
+  "for",
+  "function",
+  "if",
+  "implements",
+  "import",
+  "in",
+  "instanceof",
+  "interface",
+  "let",
+  "new",
+  "null",
+  "package",
+  "private",
+  "protected",
+  "public",
+  "return",
+  "static",
+  "super",
+  "switch",
+  "this",
+  "throw",
+  "true",
+  "try",
+  "typeof",
+  "var",
+  "void",
+  "while",
+  "with",
+  "yield",
+]);
+
+function formatParamName(name: string, index: number): string {
+  if (!name) return "_" + index;
+  if (RESERVED_PARAM_NAMES.has(name)) return name + "_";
+  return name;
 }
 
 function uniqueByKey<T>(values: T[], key: keyof T): T[] {
